@@ -8,11 +8,48 @@ export default function AdminPage() {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [days, setDays] = useState<Day[]>([]);
-  
+
   const [activeTab, setActiveTab] = useState<'events' | 'venues'>('events');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+
+  // Authentication states
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
+  const [pin, setPin] = useState<string>('');
+  const [pinError, setPinError] = useState<boolean>(false);
+
+  // Check authentication on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isAuth = sessionStorage.getItem('admin_authenticated');
+      if (isAuth === 'true') {
+        setAuthenticated(true);
+      }
+      setCheckingAuth(false);
+    }
+  }, []);
+
+  const handleSubmitPin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const correctPin = process.env.NEXT_PUBLIC_ADMIN_PIN || '1210';
+    if (pin === correctPin) {
+      sessionStorage.setItem('admin_authenticated', 'true');
+      setAuthenticated(true);
+      setPinError(false);
+      setPin('');
+    } else {
+      setPinError(true);
+      setPin('');
+      setTimeout(() => setPinError(false), 500);
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('admin_authenticated');
+    setAuthenticated(false);
+  };
 
   // Search filter states
   const [eventSearch, setEventSearch] = useState<string>('');
@@ -57,14 +94,14 @@ export default function AdminPage() {
           fetch('/api/venues'),
           fetch('/api/events')
         ]);
-        
+
         if (!venuesRes.ok || !eventsRes.ok) {
           throw new Error('Failed to load data from server.');
         }
 
         const venuesData = await venuesRes.json();
         const eventsData = await eventsRes.json();
-        
+
         setVenues(venuesData);
         setEvents(eventsData);
 
@@ -128,7 +165,7 @@ export default function AdminPage() {
   const filteredVenues = useMemo(() => {
     if (!venueSearch) return venues;
     const q = venueSearch.toLowerCase();
-    return venues.filter(v => 
+    return venues.filter(v =>
       v.id.toLowerCase().includes(q) ||
       v.name.toLowerCase().includes(q) ||
       v.area.toLowerCase().includes(q) ||
@@ -168,7 +205,7 @@ export default function AdminPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      
+
       const resData = await res.json();
       if (!res.ok) {
         throw new Error(resData.error || 'Server error saving venue.');
@@ -371,7 +408,7 @@ export default function AdminPage() {
     setEventForm(prev => {
       const dayNum = parseInt(str.trim(), 10);
       const matchedDayObj = days.find(d => d.day === dayNum);
-      
+
       // Auto-fill values on best effort
       return {
         ...prev,
@@ -383,6 +420,122 @@ export default function AdminPage() {
       };
     });
   };
+
+  if (checkingAuth) {
+    return (
+      <div className="empty-state" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
+        <p style={{ color: 'var(--text-dim)' }}>Checking authentication...</p>
+      </div>
+    );
+  }
+
+  if (!authenticated) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'radial-gradient(circle at center, rgba(201, 162, 77, 0.08) 0%, var(--bg) 70%)',
+        padding: '20px'
+      }}>
+        <div style={{
+          width: '100%',
+          maxWidth: '380px',
+          background: 'var(--surface)',
+          border: '1px solid var(--line)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '40px 30px',
+          textAlign: 'center',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+          animation: pinError ? 'shake 0.5s' : 'none'
+        }}>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: 'var(--gold-soft)',
+            border: '1px solid var(--gold-line)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 20px'
+          }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </div>
+
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '24px', margin: '0 0 10px', color: 'var(--text)' }}>
+            Admin Verification
+          </h2>
+          <p style={{ color: 'var(--text-dim)', fontSize: '13.5px', margin: '0 0 30px', lineHeight: 1.5 }}>
+            Please enter the administrator PIN to access the database panel.
+          </p>
+
+          <form onSubmit={handleSubmitPin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <input
+              type="password"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              maxLength={6}
+              value={pin}
+              onChange={e => setPin(e.target.value.replace(/\D/g, ''))}
+              placeholder="••••"
+              autoFocus
+              style={{
+                width: '100%',
+                padding: '16px',
+                background: 'var(--surface-2)',
+                border: pinError ? '1px solid var(--maroon)' : '1px solid var(--line)',
+                borderRadius: 'var(--radius-md)',
+                color: 'var(--text)',
+                fontSize: '24px',
+                letterSpacing: '12px',
+                textAlign: 'center',
+                outline: 'none',
+                transition: 'border-color 0.2s',
+                fontFamily: 'monospace'
+              }}
+            />
+
+            {pinError && (
+              <p style={{ color: '#ff5722', fontSize: '13px', margin: 0 }}>
+                Incorrect PIN. Please try again.
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                width: '100%',
+                padding: '14px',
+                fontSize: '15px',
+                fontWeight: 600,
+                marginTop: '10px'
+              }}
+            >
+              Verify PIN
+            </button>
+          </form>
+
+          <Link href="/" style={{ display: 'inline-block', marginTop: '24px', color: 'var(--text-dim)', fontSize: '13px', textDecoration: 'none' }}>
+            ← Back to Schedule
+          </Link>
+
+          <style>{`
+            @keyframes shake {
+              0%, 100% { transform: translateX(0); }
+              20%, 60% { transform: translateX(-8px); }
+              40%, 80% { transform: translateX(8px); }
+            }
+          `}</style>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -400,9 +553,14 @@ export default function AdminPage() {
           <h1 style={{ fontFamily: 'var(--font-title)', margin: 0, fontSize: '24px' }}>Database Administrator Panel</h1>
           <p style={{ margin: '5px 0 0', color: 'var(--text-dim)', fontSize: '13px' }}>Update schedule entries and venue listings</p>
         </div>
-        <Link href="/" className="btn btn-secondary" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-          ← Back to Schedule
-        </Link>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <button onClick={handleLogout} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>
+            Logout
+          </button>
+          <Link href="/" className="btn btn-secondary" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            ← Back to Schedule
+          </Link>
+        </div>
       </div>
 
       {/* Alert Messages */}
@@ -437,7 +595,7 @@ export default function AdminPage() {
 
       {/* Admin Body splits into Form and List */}
       <div className="admin-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', alignItems: 'start' }}>
-        
+
         {/* ================= MANAGE EVENTS TABS ================= */}
         {activeTab === 'events' && (
           <>
@@ -446,7 +604,7 @@ export default function AdminPage() {
               <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '18px', marginTop: 0, marginBottom: '20px', borderBottom: '1px solid var(--line)', paddingBottom: '10px' }}>
                 {editingEventId ? `Edit Event: ${editingEventId}` : 'Add New Event'}
               </h2>
-              
+
               <form onSubmit={handleEventSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <div style={{ flex: 1 }}>
@@ -691,7 +849,7 @@ export default function AdminPage() {
               <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '18px', marginTop: 0, marginBottom: '20px', borderBottom: '1px solid var(--line)', paddingBottom: '10px' }}>
                 {editingVenueId ? `Edit Venue: ${editingVenueId}` : 'Add New Venue'}
               </h2>
-              
+
               <form onSubmit={handleVenueSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Venue ID * (lowercase, hyphens)</label>
