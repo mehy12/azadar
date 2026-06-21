@@ -1,14 +1,16 @@
 import React from 'react';
 import { Event, Venue } from '@/types';
+import { translate, Locale } from '../utils/translations';
 
 interface EventCardProps {
   event: Event;
   venue: Venue;
   status: 'past' | 'upcoming' | 'live' | 'plain' | 'flexible';
   onClick: () => void;
+  locale?: Locale;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ event, venue, status, onClick }) => {
+export const EventCard: React.FC<EventCardProps> = ({ event, venue, status, onClick, locale = 'en' }) => {
   const isAshuraCard = (event.date_label && event.date_label.toLowerCase().includes('ashoor')) || venue.id === 'shia-qabrastan';
   
   const cardClasses = [
@@ -33,23 +35,37 @@ export const EventCard: React.FC<EventCardProps> = ({ event, venue, status, onCl
     tags.push(event.location_detail.split(',')[0]);
   }
 
+  const renderedMinjanib = event.minjanib ? (
+    locale === 'ur' 
+      ? `منجانب: ${translate(event.minjanib, locale)}` 
+      : `Minjanib: ${event.minjanib}`
+  ) : null;
+
   return (
     <div className={cardClasses} onClick={onClick}>
       <div className="spine"></div>
       <div className="time-block">
-        <div className="t">{timeVal}</div>
-        <div className="ampm">{ampmVal}</div>
+        <div className="t">{translate(timeVal, locale)}</div>
+        <div className="ampm">{translate(ampmVal, locale)}</div>
       </div>
       <div className="info">
-        <div className="venue-name">{venue.name}</div>
-        {event.minjanib && <div className="minjanib">Minjanib: {event.minjanib}</div>}
+        <div className="venue-name">{translate(venue.name, locale)}</div>
+        {renderedMinjanib && <div className="minjanib">{renderedMinjanib}</div>}
         {(tags.length > 0 || status === 'live' || status === 'past') && (
           <div className="tags">
             {tags.map((tag, idx) => (
-              <span key={idx} className="tag">{tag}</span>
+              <span key={idx} className="tag">{translate(tag, locale)}</span>
             ))}
-            {status === 'live' && <span className="tag live-tag">● Live now</span>}
-            {status === 'past' && <span className="tag past-card-tag">✓ Completed</span>}
+            {status === 'live' && (
+              <span className="tag live-tag">
+                {locale === 'ur' ? '● ابھی لائیو' : '● Live now'}
+              </span>
+            )}
+            {status === 'past' && (
+              <span className="tag past-card-tag">
+                {locale === 'ur' ? '✓ مکمل' : '✓ Completed'}
+              </span>
+            )}
           </div>
         )}
       </div>

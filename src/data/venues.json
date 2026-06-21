@@ -3,56 +3,56 @@
     "id": "masjid-askari",
     "name": "Masjid e Askari",
     "area": "Richmond Town",
-    "maps_query": "Masjid e Askari Richmond Town Bangalore",
+    "maps_query": "Masjid-E-Askari+(Shia)",
     "type": "masjid",
+    "zone": "Richmond Town",
     "lat": null,
     "lng": null,
-    "photo_url": null,
-    "zone": "Richmond Town"
+    "photo_url": null
   },
   {
     "id": "imambara-askari",
     "name": "Imambara e Askari (Bada Ghar)",
     "area": "Richmond Town",
-    "maps_query": "Imambara e Askari Bada Ghar Richmond Town Bangalore",
+    "maps_query": "Imambara-e-Askari+-+Bada+Ghar",
     "type": "imambara",
+    "zone": "Richmond Town",
     "lat": null,
     "lng": null,
-    "photo_url": null,
-    "zone": "Richmond Town"
+    "photo_url": null
   },
   {
     "id": "imamia-manzil",
     "name": "Imamia Manzil",
     "area": "Richmond Town",
-    "maps_query": "Imamia Manzil Richmond Town Bangalore",
+    "maps_query": "Imamia+manzil",
     "type": "azakhana",
+    "zone": "Richmond Town",
     "lat": null,
     "lng": null,
-    "photo_url": null,
-    "zone": "Richmond Town"
+    "photo_url": null
   },
   {
     "id": "baab-ul-hawaej",
     "name": "Ba'ab ul Hawaej (A.S)",
     "area": "Richmond Town",
-    "maps_query": "Baab ul Hawaej Richmond Town Bangalore",
+    "maps_query": "Masjid-E-Askari+(Shia)",
     "type": "azakhana",
+    "zone": "Richmond Town",
     "lat": null,
     "lng": null,
-    "photo_url": null,
-    "zone": "Richmond Town"
+    "photo_url": null
   },
   {
     "id": "baab-ul-murad",
     "name": "Ba'ab ul Mura'ad (A.S)",
     "area": "Richmond Town",
-    "maps_query": "Baab ul Murad Richmond Town Bangalore",
+    "maps_query": "BABUL+MURAD+(A.S)",
     "type": "azakhana",
+    "zone": "Richmond Town",
     "lat": null,
     "lng": null,
-    "photo_url": null,
-    "zone": "Richmond Town"
+    "photo_url": null
   },
   {
     "id": "baab-ash-shifa",
