@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Majlis-e-Aza · Anjuman-e-Imamia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0b0d;
+      --surface: #17151a;
+      --surface-2: #211e24;
+      --line: rgba(243, 238, 228, 0.09);
+      --line-strong: rgba(243, 238, 228, 0.16);
+      --text: #f3eee4;
+      --text-dim: #a89f93;
+      --text-faint: #6c655d;
+      --gold: #c9a24d;
+      --gold-soft: rgba(201, 162, 77, 0.14);
+      --gold-line: rgba(201, 162, 77, 0.45);
+      --maroon: #9c2a37;
+      --maroon-soft: rgba(156, 42, 55, 0.20);
+      --maroon-line: rgba(156, 42, 55, 0.55);
+      --radius-lg: 18px;
+      --radius-md: 13px;
+      --radius-sm: 9px;
+      --font-display: 'Fraunces', serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      background:
+        radial-gradient(800px 320px at 50% -80px, rgba(201, 162, 77, 0.07), transparent 60%),
+        var(--bg);
+      padding-bottom: 92px;
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    /* ---------- header ---------- */
+    header.top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(12, 11, 13, 0.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 20px 14px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+
+    h1.title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 25px;
+      margin: 0;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 12.5px;
+      margin-top: 3px;
+    }
+
+    .today-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+
+    .today-date {
+      font-size: 12.5px;
+      color: var(--text-dim);
+    }
+
+    .today-date b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .live-pill {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold-soft);
+      border: 1px solid var(--gold-line);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 10px 5px 8px;
+      border-radius: 99px;
+      cursor: pointer;
+    }
+
+    .live-pill.show {
+      display: inline-flex;
+    }
+
+    .dot-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(201, 162, 77, 0.55);
+      }
+
+      50% {
+        box-shadow: 0 0 0 5px rgba(201, 162, 77, 0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dot-pulse {
+        animation: none;
+      }
+    }
+
+    /* ---------- day rail ---------- */
+    .day-rail {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 20px 14px;
+      border-bottom: 1px solid var(--line);
+      scrollbar-width: none;
+    }
+
+    .day-rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .day-chip {
+      flex: 0 0 auto;
+      min-width: 46px;
+      padding: 7px 6px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+
+    .day-chip .n {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .day-chip .wd {
+      font-size: 9.5px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-top: 3px;
+    }
+
+    .day-chip.active {
+      background: var(--gold-soft);
+      border-color: var(--gold-line);
+    }
+
+    .day-chip.active .n {
+      color: var(--gold);
+    }
+
+    .day-chip.ashura {
+      border-color: var(--maroon-line);
+    }
+
+    .day-chip.ashura .n {
+      color: #d98e96;
+    }
+
+    .day-chip.ashura.active {
+      background: var(--maroon-soft);
+    }
+
+    .day-chip.today-marker {
+      position: relative;
+    }
+
+    .day-chip.today-marker::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ---------- sections ---------- */
+    main {
+      padding: 18px 20px 8px;
+    }
+
+    .section {
+      margin-bottom: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-head .label {
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 700;
+    }
+
+    .section-head.live .label {
+      color: var(--gold);
+    }
+
+    .section-head .rule {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .day-banner {
+      font-family: var(--font-display);
+      font-size: 19px;
+      margin: 2px 0 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .day-banner .tag {
+      font-family: var(--font-body);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--maroon-line);
+      background: var(--maroon-soft);
+      border: 1px solid var(--maroon-line);
+      padding: 3px 8px;
+      border-radius: 99px;
+    }
+
+    /* ---------- majlis card ---------- */
+    .card {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 13px 14px;
+      margin-bottom: 9px;
+      cursor: pointer;
+      position: relative;
+      transition: border-color .15s, transform .1s;
+    }
+
+    .card:active {
+      transform: scale(0.992);
+    }
+
+    .card.is-past {
+      opacity: 0.55;
+      background: rgba(23, 21, 26, 0.4);
+      border-color: rgba(243, 238, 228, 0.04);
+    }
+
+    .card.is-past .spine {
+      background: var(--text-faint) !important;
+      opacity: 0.5;
+    }
+
+    .card.is-past .time-block .t,
+    .card.is-past .venue-name {
+      color: var(--text-dim);
+    }
+
+    .card.is-past .minjanib {
+      color: var(--text-faint);
+    }
+
+    .card .past-card-tag {
+      color: var(--text-dim);
+      border-color: var(--line-strong);
+      background: rgba(243, 238, 228, 0.05);
+      font-weight: 500;
+    }
+
+    .card .spine {
+      width: 3px;
+      align-self: stretch;
+      border-radius: 2px;
+      background: var(--line-strong);
+      flex: 0 0 auto;
+    }
+
+    .card.is-live .spine {
+      background: var(--gold);
+    }
+
+    .card.ashura-card .spine {
+      background: var(--maroon);
+    }
+
+    .card .time-block {
+      flex: 0 0 64px;
+      padding-top: 1px;
+    }
+
+    .card .time-block .t {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.2;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card .time-block .ampm {
+      font-size: 10px;
+      color: var(--text-faint);
+    }
+
+    .card .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card .venue-name {
+      font-weight: 600;
+      font-size: 14.5px;
+      line-height: 1.3;
+    }
+
+    .card .minjanib {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    .card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    .card .tag {
+      font-size: 10px;
+      color: var(--text-dim);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      padding: 2px 7px;
+      border-radius: 99px;
+    }
+
+    .card .live-tag {
+      color: var(--gold);
+      border-color: var(--gold-line);
+      background: var(--gold-soft);
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .card .chev {
+      flex: 0 0 auto;
+      color: var(--text-faint);
+      align-self: center;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 34px 18px;
+      color: var(--text-faint);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+    }
+
+    .empty-state .ic {
+      margin-bottom: 8px;
+      opacity: .6;
+    }
+
+    /* ---------- venues tab ---------- */
+    .zone-rail {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+
+    .zone-rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .zone-chip {
+      flex: 0 0 auto;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text-dim);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .zone-chip.active {
+      background: var(--gold-soft);
+      border-color: var(--gold-line);
+      color: var(--gold);
+    }
+
+    .venue-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 9px;
+      cursor: pointer;
+    }
+
+    .venue-icon {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+
+    .venue-row .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .venue-row .vn {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .venue-row .va {
+      font-size: 11.5px;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    .venue-row .vc {
+      font-size: 10.5px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* ---------- bottom nav ---------- */
+    nav.bottom {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: rgba(17, 15, 18, 0.92);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--line);
+      display: flex;
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+      z-index: 30;
+    }
+
+    nav.bottom button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-faint);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-body);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .03em;
+      padding: 6px 0;
+      cursor: pointer;
+    }
+
+    nav.bottom button.active {
+      color: var(--gold);
+    }
+
+    /* ---------- sheet ---------- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 5, 0.65);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .22s ease;
+      z-index: 40;
+    }
+
+    .overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sheet {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 100%);
+      width: 100%;
+      max-width: 480px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border-radius: 22px 22px 0 0;
+      border-top: 1px solid var(--line-strong);
+      transition: transform .26s cubic-bezier(.2, .8, .3, 1);
+      z-index: 41;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .sheet.open {
+      transform: translate(-50%, 0);
+    }
+
+    .sheet-banner {
+      height: 168px;
+      position: relative;
+      background: linear-gradient(155deg, var(--maroon-soft), var(--bg) 75%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 22px 22px 0 0;
+    }
+
+    .sheet-banner .big-icon {
+      color: var(--gold);
+      opacity: .9;
+    }
+
+    .sheet-banner .photo-tag {
+      position: absolute;
+      left: 16px;
+      bottom: 12px;
+      font-size: 10px;
+      color: var(--text-faint);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 3px 8px;
+      border-radius: 99px;
+      letter-spacing: .03em;
+    }
+
+    .sheet-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--line-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .sheet-body {
+      padding: 18px 20px 26px;
+    }
+
+    .sheet-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--line-strong);
+      border-radius: 99px;
+      margin: 9px auto 0;
+    }
+
+    .sheet-eyebrow {
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .sheet h2 {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 600;
+      margin: 5px 0 3px;
+      line-height: 1.25;
+    }
+
+    .sheet .loc {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .meta-box {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+    }
+
+    .meta-box .k {
+      font-size: 10px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 3px;
+    }
+
+    .meta-box .v {
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .meta-full {
+      grid-column: 1 / -1;
+    }
+
+    .notes-box {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.55;
+      margin-bottom: 18px;
+      padding-left: 12px;
+      border-left: 2px solid var(--gold-line);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 13px 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #1a1408;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--line-strong);
+      color: var(--text);
+    }
+
+    .sheet hr.div {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 20px 0 14px;
+    }
+
+    .mini-label {
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* ---------- past majlises collapsible section ---------- */
+    .past-section {
+      margin-top: 24px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .past-header {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .past-header:hover {
+      color: var(--text);
+    }
+
+    .past-header .label {
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .past-header:hover .label {
+      color: var(--text-dim);
+    }
+
+    .past-badge {
+      font-size: 10px;
+      color: var(--text-dim);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: auto;
+      margin-right: 12px;
+    }
+
+    .past-chevron {
+      color: var(--text-faint);
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .past-section.expanded .past-chevron {
+      transform: rotate(180deg);
+    }
+
+    .past-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 0;
+    }
+
+    .past-section.expanded .past-content {
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app" id="app">
+
+    <header class="top">
+      <p class="eyebrow">Anjuman-e-Imamia · Richmond Town</p>
+      <h1 class="title">Majlis-e-Aza</h1>
+      <p class="subtitle">Moharram-ul-Haraam 1448 AH · Bengaluru</p>
+      <div class="today-row">
+        <div class="today-date" id="todayDate">—</div>
+        <div class="live-pill" id="livePill"><span class="dot-pulse"></span><span id="liveCount">0</span> LIVE NOW</div>
+      </div>
+    </header>
+
+    <div class="day-rail" id="dayRail"></div>
+
+    <main id="homeView"></main>
+    <main id="venuesView" style="display:none;"></main>
+
+    <nav class="bottom">
+      <button id="tabHomeBtn" class="active" onclick="switchTab('home')">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11.5 12 4l9 7.5" />
+          <path d="M5.5 10v9a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1v-9" />
+        </svg>
+        Home
+      </button>
+      <button id="tabVenuesBtn" onclick="switchTab('venues')">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0Z" />
+          <circle cx="12" cy="10" r="2.6" />
+        </svg>
+        Venues
+      </button>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="closeSheet()"></div>
+    <div class="sheet" id="sheet">
+      <div class="sheet-handle"></div>
+      <div id="sheetContent"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const DATA = { "venues": [{ "id": "masjid-askari", "name": "Masjid e Askari", "area": "Richmond Town", "maps_query": "Masjid e Askari Richmond Town Bangalore", "type": "masjid", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "imambara-askari", "name": "Imambara e Askari (Bada Ghar)", "area": "Richmond Town", "maps_query": "Imambara e Askari Bada Ghar Richmond Town Bangalore", "type": "imambara", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "imamia-manzil", "name": "Imamia Manzil", "area": "Richmond Town", "maps_query": "Imamia Manzil Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "baab-ul-hawaej", "name": "Ba'ab ul Hawaej (A.S)", "area": "Richmond Town", "maps_query": "Baab ul Hawaej Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "baab-ul-murad", "name": "Ba'ab ul Mura'ad (A.S)", "area": "Richmond Town", "maps_query": "Baab ul Murad Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "baab-ash-shifa", "name": "Ba'ab ash Shifa'a", "area": "Shia Aramgarh, Hosur Road", "maps_query": "Shia Aramgarh Hosur Road Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Hosur Road" }, { "id": "azakhana-sartaj", "name": "Azakhana of Nawab Sartaj Hassan Mirza Saheb", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "azakhana-raza-e-ghareeb", "name": "Azakhana e Raza e Ghareeb (A.S)", "area": "above Azakhana of Nawab Sartaj Hassan Mirza Saheb, Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "azakhana-raza-ali-khan", "name": "Azakhana of Nawab Raza Ali Khan Saheb", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "azakhana-hashim-raza", "name": "Azakhana of Mirza Hashim Raza Saheb", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "azakhana-arman-e-zainab", "name": "Azakhana e Arman-e-Zainab (S.A)", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "azakhana-zehra", "name": "Azakhana e Zehra (S.A)", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "azakhana-shezada-e-qasim", "name": "Azakhana e Shezada e Qasim (A.S)", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "ashurkhana-shirazi", "name": "Ashurkhana of Aga Mohammed Hussain Shirazi Saheb", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "ashurkhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "ashurkhana-ebrahim", "name": "Ashurkhana of Aga Mohammed Ebrahim Saheb", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "ashurkhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "ashurkhana-madani", "name": "Ashurkhana of Mir Gulam Ali Madani Saheb", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "ashurkhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "hussainabad", "name": "Hussainabad (Aga Abdul Hussain Wakf)", "area": "Richmond Town", "maps_query": "Hussainabad Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "hussainia-saqqa-e-sakina", "name": "Hussainia, Saqqa e Sakina", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "hussainy-chowk-pandal", "name": "Hussainy Chowk Pandal", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "pandal", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "hosur-road-pandal", "name": "Hosur Road Pandal", "area": "near Imambara e Askari, Bada Ghar, Hosur Road", "maps_query": "Hosur Road Bangalore", "type": "pandal", "lat": null, "lng": null, "photo_url": null, "zone": "Hosur Road" }, { "id": "darbar-e-hyderi", "name": "Darbar e Hyderi", "area": "Richmond Town", "maps_query": "Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "shia-qabrastan", "name": "Shia Qabrastan", "area": "Hosur Road", "maps_query": "Shia Qabrastan Hosur Road Bangalore", "type": "qabrastan", "lat": null, "lng": null, "photo_url": null, "zone": "Hosur Road" }, { "id": "aga-abdullah-street", "name": "Aga Abdullah St. / Shia Qabrastan route", "area": "behind Masjid e Askari, to Shia Qabrastan", "maps_query": "Aga Abdullah Street Richmond Town Bangalore", "type": "service", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "hassan-enclave", "name": "Hassan Enclave", "area": "# 6/1, Curley Street, Richmond Town", "maps_query": "6/1 Curley Street Richmond Town Bangalore", "type": "azakhana", "lat": null, "lng": null, "photo_url": null, "zone": "Richmond Town" }, { "id": "koramangala-37-1", "name": "No. 37/1, 80 ft. Road", "area": "Opp. IBP Petrol Pump, 6th Block, Koramangala", "maps_query": "80 feet road 6th block Koramangala Bangalore opposite IBP petrol pump", "type": "residence", "lat": null, "lng": null, "photo_url": null, "zone": "Koramangala" }, { "id": "ashok-nagar-residence", "name": "Residence of Syed Ali Abbas Saheb", "area": "No. 21, Castle Street, Ashok Nagar, Bangalore", "maps_query": "21 Castle Street Ashok Nagar Bangalore", "type": "residence", "lat": null, "lng": null, "photo_url": null, "zone": "Ashok Nagar" }, { "id": "doddaballapur-route", "name": "Procession Route: Bangalore → Doddaballapur", "area": "via Yelahanka, Hebbal, Shoolay Circle", "maps_query": "Doddaballapur Road Bangalore", "type": "procession_route", "lat": null, "lng": null, "photo_url": null, "zone": "Doddaballapur Route" }], "events": [{ "id": "ev001", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "special", "date_iso": "2026-06-16", "day_numbers": [0], "date_label": "Moharram Chand Raat", "time": "7:30 PM", "time_24h": "19:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev002", "venue_id": "imamia-manzil", "location_detail": null, "date_type": "special", "date_iso": "2026-06-16", "day_numbers": [0], "date_label": "Moharram Chand Raat", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Alhaj Syed Nawazish Hussain & Sons", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev003", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "special", "date_iso": "2026-06-16", "day_numbers": [0], "date_label": "Moharram Chand Raat", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev008", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Immediately after Namaz e Fajr; Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev009", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "6:30 AM", "time_24h": "06:30", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev010", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev011", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev012", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Janab Meer Sujath Hussain Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev013", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "10:30 AM", "time_24h": "10:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev014", "venue_id": "azakhana-arman-e-zainab", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Arman e Zainab", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev015", "venue_id": "azakhana-zehra", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "Janab Fareedoon Aga Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev016", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev017", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev018", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev019", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev020", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-17", "day_numbers": [1], "date_label": "1st Moharram", "time": "11:30 PM", "time_24h": "23:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev021", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev022", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "6:30 AM", "time_24h": "06:30", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev023", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev024", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev025", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Janab Mir Mujtaba Hussain Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev026", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "10:30 AM", "time_24h": "10:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev027", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Janab Syed Jalal Hyder Saheb & Sons (UP)", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev028", "venue_id": "azakhana-zehra", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "Janab Fareedoon Aga Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev029", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev030", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev031", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev032", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev033", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-18", "day_numbers": [2], "date_label": "2nd Moharram", "time": "11:30 PM", "time_24h": "23:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev034", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev035", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "6:30 AM", "time_24h": "06:30", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev036", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev037", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev038", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Janab Mir Nasir Hussain Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev039", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "10:30 AM", "time_24h": "10:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev040", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Sons of Janab Late Aga Mohammed Karim Sherazi Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev041", "venue_id": "azakhana-zehra", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "Janab Fareedoon Aga Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev042", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev043", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev044", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev045", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev046", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-19", "day_numbers": [3], "date_label": "3rd Moharram", "time": "11:30 PM", "time_24h": "23:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev047", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev048", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "6:30 AM", "time_24h": "06:30", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev049", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev050", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev051", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Janab Syed Mohammed Raheel Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev052", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "9:30 AM", "time_24h": "09:30", "minjanib": "Family of Late Hasnain Jafry (Asad Jafry)", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev053", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "10:30 AM", "time_24h": "10:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev054", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Azakhana Fatima Kubra (S.A)", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev055", "venue_id": "azakhana-zehra", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "Janab Fareedoon Aga Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev056", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev057", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev058", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev059", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev060", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-20", "day_numbers": [4], "date_label": "4th Moharram", "time": "11:30 PM", "time_24h": "23:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev061", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev062", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "6:30 AM", "time_24h": "06:30", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev063", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev064", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev065", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Janab Syed Arshad Hussain Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev066", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "10:00 AM", "time_24h": "10:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev067", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Janab Mahboob Ali Dhanaliwala", "bayan_by": "", "notes": "After Namaz e Zohrain; Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev068", "venue_id": "azakhana-arman-e-zainab", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "", "bayan_by": "", "notes": "Majlis e Aza", "youtube_url": "", "is_procession": false }, { "id": "ev069", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev070", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev071", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev072", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev073", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-21", "day_numbers": [5], "date_label": "5th Moharram", "time": "11:30 PM", "time_24h": "23:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev074", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev075", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "6:30 AM", "time_24h": "06:30", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev076", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev077", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev078", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Janab Syed Thasil Abbas Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev079", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "10:30 AM", "time_24h": "10:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev080", "venue_id": "azakhana-zehra", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Janab Fareedoon Aga Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev081", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev082", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev083", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev084", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev085", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-22", "day_numbers": [6], "date_label": "6th Moharram", "time": "11:30 PM", "time_24h": "23:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev086", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev087", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "6:00 AM", "time_24h": "06:00", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev088", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev089", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev090", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Janab Mir Waris Ali Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev091", "venue_id": "ashurkhana-madani", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "9:30 AM", "time_24h": "09:30", "minjanib": "S/o Janab Late Mir Noorul Hussain Madani Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev092", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "10:30 AM", "time_24h": "10:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev093", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "12:45 PM", "time_24h": "12:45", "minjanib": "", "bayan_by": "", "notes": "Namaz e Zohrain", "youtube_url": "", "is_procession": false }, { "id": "ev094", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "1:15 PM", "time_24h": "13:15", "minjanib": "", "bayan_by": "", "notes": "Matami Juloos starts after Namaz e Zohrain, via Aga Abdulla St, Serpentine St, Wellington St, Leonard Lane, Arablane 'B' St, Hosur Road; terminates at starting point", "youtube_url": "", "is_procession": true }, { "id": "ev096", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "4:00 PM", "time_24h": "16:00", "minjanib": "Sons of Late Alhaj Moulana Buniyad Ali Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev097", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev098", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev099", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Janab Alhaj Mir Manzoor Hussain Saheb & Charolia Brothers", "bayan_by": "", "notes": "Haazri Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev100", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev101", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev102", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "11:30 PM", "time_24h": "23:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev095", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-23", "day_numbers": [7], "date_label": "7th Moharram", "time": "Tabarruk (after Juloos)", "time_24h": null, "minjanib": "Anjuman e Imamia (Janab Late Aga Mohammed Rahim Saheb @ Babu Aga)", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev103", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev104", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "6:30 AM", "time_24h": "06:30", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev105", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "Janab Aga Yousuf Ali Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev106", "venue_id": "koramangala-37-1", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "7:30 AM", "time_24h": "07:30", "minjanib": "Syed Nasir Raza Wasti & Sons", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev107", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "10:30 AM", "time_24h": "10:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev108", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Janab Agha Anwar Abbas Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev109", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "3:00 PM", "time_24h": "15:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev110", "venue_id": "hassan-enclave", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "4:00 PM", "time_24h": "16:00", "minjanib": "Sons of Janab Late Alhaj Sageer Hassan Ramzan Ali Saheb", "bayan_by": "", "notes": "Majlis & Haazri of Hazrath Abul Fazlil Abbas (A.S)", "youtube_url": "", "is_procession": false }, { "id": "ev111", "venue_id": "hussainabad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev112", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "Sawari of Hazrath Abul Fazlil Abbas (A.S)", "youtube_url": "", "is_procession": false }, { "id": "ev113", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Janab Late Abdul Hameed (Chotu Saab) Fayaz Hussain & Sons", "bayan_by": "", "notes": "After Majlis at Imambara e Askari; Ha'azri Tabarruk at Masjid e Askari", "youtube_url": "", "is_procession": false }, { "id": "ev114", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-24", "day_numbers": [8], "date_label": "8th Moharram", "time": "11:00 PM", "time_24h": "23:00", "minjanib": "", "bayan_by": "", "notes": "Matami Juloos terminates at Janab Late Aga Mohammed Ebrahim Saheb's Ashurkhana", "youtube_url": "", "is_procession": true }, { "id": "ev115", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev116", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "6:00 AM", "time_24h": "06:00", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev117", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "Janab Mir Imran Ali Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev118", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "Khadima'ane Ba'ab ul Mura'ad (A.S)", "bayan_by": "", "notes": "Majlis & Ha'azri", "youtube_url": "", "is_procession": false }, { "id": "ev119", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "10:00 AM", "time_24h": "10:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev120", "venue_id": "masjid-askari", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Mohibban e Hazrath Abu Talib (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev121", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev122", "venue_id": "hussainabad", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev123", "venue_id": "masjid-askari", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram - Shab e A'ashoor", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Family of Janab Late Mir Safdar Hussain Saheb hosted by Janab Mirza Habib Hussain Saheb (Gents); Late Mrs. Zahida Begum hosted by Janab Mir Ameen Hussain (Ladies)", "bayan_by": "", "notes": "Tabarruk; After Namaz e Maghribain", "youtube_url": "", "is_procession": false }, { "id": "ev124", "venue_id": "imambara-askari", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram - Shab e A'ashoor", "time": "7:30 PM", "time_24h": "19:30", "minjanib": "Aga Ali Asker Wakf", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev125", "venue_id": "hosur-road-pandal", "location_detail": null, "date_type": "shab_e_ashoor", "date_iso": "2026-06-25", "day_numbers": [9], "date_label": "9th Moharram - Shab e A'ashoor", "time": "10:00 PM (Aag Ka Ma'atam)", "time_24h": "22:00", "minjanib": "Anjuman e Imamia", "bayan_by": "", "notes": "Followed by Matami Juloos from Imambara e Askari, Leonard Lane; Majlis at Hussainy Chowk Pandal; Zanjeer Zani & Aag ka Maatam; terminates at Janab Late Aga Mohammed Ebrahim Saheb's Ashurkhana", "youtube_url": "", "is_procession": false }, { "id": "ev126", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev127", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "6:00 AM", "time_24h": "06:00", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev128", "venue_id": "azakhana-raza-e-ghareeb", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev129", "venue_id": "azakhana-raza-ali-khan", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev130", "venue_id": "baab-ash-shifa", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "9:00 AM", "time_24h": "09:00", "minjanib": "Masjid e Askari Committee", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev131", "venue_id": "masjid-askari", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "10:00 AM", "time_24h": "10:00", "minjanib": "", "bayan_by": "", "notes": "A'amaal e Aashoora", "youtube_url": "", "is_procession": false }, { "id": "ev132", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "11:00 AM", "time_24h": "11:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev133", "venue_id": "masjid-askari", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "12:45 PM", "time_24h": "12:45", "minjanib": "", "bayan_by": "", "notes": "Namaz e Zohrain", "youtube_url": "", "is_procession": false }, { "id": "ev134", "venue_id": "hosur-road-pandal", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "1:15 PM", "time_24h": "13:15", "minjanib": "", "bayan_by": "", "notes": "Majlis after Namaz e Zohrain; Matami Juloos to Shia Qabrastan, returns via Hosur Road, Arablane 'B' St, Leonard Lane, Wellington St, Aga Abdullah St; terminates at Janab Late Aga Mohammed Ebrahim Saheb's Ashurkhana", "youtube_url": "", "is_procession": false }, { "id": "ev136", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev137", "venue_id": "hussainy-chowk-pandal", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan", "time": "8:00 PM", "time_24h": "20:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev138", "venue_id": "darbar-e-hyderi", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan", "time": "8:30 PM", "time_24h": "20:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev139", "venue_id": "shia-qabrastan", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Anjuman e Imamia", "bayan_by": "", "notes": "Tabarruk after Majlis by Janab Jamsheed Hyder Saheb; Snacks before majlis by Syed Mohammed Abbas Saheb & Syed Nazeer Abbas Saheb", "youtube_url": "", "is_procession": false }, { "id": "ev135", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Roz e A'ashoor", "time": "FAAQA SHIKANI", "time_24h": null, "minjanib": "Family of Janab Late Mirza Sultan Ali @ Aga Jani Saheb (Gents); Mirza Ali Raza Wakf (Ladies)", "bayan_by": "", "notes": "Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev140", "venue_id": "shia-qabrastan", "location_detail": null, "date_type": "ashoor", "date_iso": "2026-06-26", "day_numbers": [10], "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan", "time": "Tea (during Majlis)", "time_24h": null, "minjanib": "Hazrath Ali Asghar (A.S) Naunihal Association", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev141", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-27", "day_numbers": [11], "date_label": "11th Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev142", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-27", "day_numbers": [11], "date_label": "11th Moharram", "time": "10:00 AM", "time_24h": "10:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev143", "venue_id": "azakhana-shezada-e-qasim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-27", "day_numbers": [11], "date_label": "11th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev144", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-27", "day_numbers": [11], "date_label": "11th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Late Janab Mir Amjad Hussain Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev145", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-27", "day_numbers": [11], "date_label": "11th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev146", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-27", "day_numbers": [11], "date_label": "11th Moharram", "time": "10:00 PM", "time_24h": "22:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev147", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-28", "day_numbers": [12], "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'ane Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev148", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-28", "day_numbers": [12], "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)", "time": "7:00 AM", "time_24h": "07:00", "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev149", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-28", "day_numbers": [12], "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev150", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-28", "day_numbers": [12], "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Grandsons of Late Alhaj Moulana Buniyad Ali Saheb Committee", "bayan_by": "", "notes": "After Namaz e Zohrain; Tabarruk after Majlis at Imamia Manzil", "youtube_url": "", "is_procession": false }, { "id": "ev151", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-28", "day_numbers": [12], "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Late Sultan Ali Haji Nassur Saheb, Janab Alhaj Mohsin S. Nassur Saheb & Sons", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev152", "venue_id": "azakhana-hashim-raza", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-28", "day_numbers": [12], "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev153", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-29", "day_numbers": [13], "date_label": "13th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Sons of Janab Late AA R Shah Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev154", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-29", "day_numbers": [13], "date_label": "13th Moharram", "time": "7:00 PM", "time_24h": "19:00", "minjanib": "Janab Late Alhaj Akbar Ali Badami Saheb", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev155", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-29", "day_numbers": [13], "date_label": "13th Moharram", "time": "9:30 PM", "time_24h": "21:30", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev156", "venue_id": "hussainia-saqqa-e-sakina", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-30", "day_numbers": [14], "date_label": "14th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Alhaj Mir Khadim Hussain Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev157", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-30", "day_numbers": [14], "date_label": "14th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Janab Late Qambar Ali Malvia Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev158", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-06-30", "day_numbers": [14], "date_label": "14th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev159", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-01", "day_numbers": [15], "date_label": "15th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Alhaj Mir Muntekhab Ali Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev160", "venue_id": "imamia-manzil", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-01", "day_numbers": [15], "date_label": "15th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Sons of Janab Late Aga Kazim Ali Mashadi Saheb", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev161", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-01", "day_numbers": [15], "date_label": "15th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev162", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-02", "day_numbers": [16], "date_label": "16th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Alhaj Mir Arif Ali Saheb (Retd. DYSP)", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev163", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-02", "day_numbers": [16], "date_label": "16th Moharram", "time": "7:00 PM", "time_24h": "19:00", "minjanib": "Sons of Janab Late Alhaj Sageer Ramzan Ali Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev164", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-02", "day_numbers": [16], "date_label": "16th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev165", "venue_id": "doddaballapur-route", "location_detail": "In front of Girias Showroom, Shoolay Circle (route to Doddaballapur)", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "16th Moharram, 7:30 PM-Midnight", "time_24h": null, "minjanib": "Janab Syed Ali Abbas Saheb (Ex. Joint Sec. AEI)", "bayan_by": "", "notes": "Sabeel Nazr e Imam Hussain (A.S) for Azadaran walking to Doddaballapur", "youtube_url": "", "is_procession": false }, { "id": "ev166", "venue_id": "doddaballapur-route", "location_detail": "Enroute to Doddaballapur (beyond Yelahanka, 5 km)", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "16th Midnight", "time_24h": null, "minjanib": "Hazrath Ali Akbar (A.S) Committee; Nowjawan e Richmond Town", "bayan_by": "", "notes": "Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev167", "venue_id": "doddaballapur-route", "location_detail": "18th KM milestone, Bangalore-Doddaballapur Road", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "—", "time_24h": null, "minjanib": "Tabrezi Family", "bayan_by": "", "notes": "Sabeel Nazr e Imam Hussain (A.S)", "youtube_url": "", "is_procession": false }, { "id": "ev168", "venue_id": "doddaballapur-route", "location_detail": "25th KM, Bangalore-Doddaballapur Road", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "—", "time_24h": null, "minjanib": "Muntazar e Mehdi (A.S) Committee", "bayan_by": "", "notes": "Sabeel Nazr e Imam Hussain (A.S)", "youtube_url": "", "is_procession": false }, { "id": "ev169", "venue_id": "doddaballapur-route", "location_detail": "28th KM, Bangalore-Doddaballapur Road", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "—", "time_24h": null, "minjanib": "Hazrath Ali Asghar (A.S) Naunihal Association", "bayan_by": "", "notes": "Sabeel Nazr e Imam Hussain (A.S)", "youtube_url": "", "is_procession": false }, { "id": "ev170", "venue_id": "doddaballapur-route", "location_detail": "32nd KM, Bangalore-Doddaballapur Road (Toll Plaza)", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "—", "time_24h": null, "minjanib": "Karbala Committee a.s.", "bayan_by": "", "notes": "Sabeel Nazr e Imam Hussain (A.S)", "youtube_url": "", "is_procession": false }, { "id": "ev171", "venue_id": "doddaballapur-route", "location_detail": "Near Bashethalli (near New Flyover)", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "16th Moharram, 12:00 AM", "time_24h": null, "minjanib": "Nazre Hazrath Abbas a.s. Committee (Organisers Mazhar & Team)", "bayan_by": "", "notes": "Food stall / Sabeel", "youtube_url": "", "is_procession": false }, { "id": "ev172", "venue_id": "doddaballapur-route", "location_detail": "Near Hebbal Junction", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "16th Moharram night", "time_24h": null, "minjanib": "Aun o Mohammed Committee", "bayan_by": "", "notes": "Sabeel", "youtube_url": "", "is_procession": false }, { "id": "ev173", "venue_id": "doddaballapur-route", "location_detail": "Opp. Shell Petrol Pump, Yelahanka", "date_type": "regular", "date_iso": "2026-07-03", "day_numbers": [17], "date_label": "17th Moharram - Azadari at Doddaballapur", "time": "16th Moharram night", "time_24h": null, "minjanib": "Youth of Bengaluru", "bayan_by": "", "notes": "Sabeel Nazr e Hazrath Abbas (A.S)", "youtube_url": "", "is_procession": false }, { "id": "ev174", "venue_id": "ashurkhana-ebrahim", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-04", "day_numbers": [18], "date_label": "18th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Late Janab Mirza Altaf Hussain", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev175", "venue_id": "imambara-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-04", "day_numbers": [18], "date_label": "18th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Janab Alhaj Mirza Saqawath Ali Baig Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev176", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-04", "day_numbers": [18], "date_label": "18th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev177", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-05", "day_numbers": [19], "date_label": "19th Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "Hazrath Syed e Sajjad (A.S) Group", "bayan_by": "", "notes": "For Boys & Youths", "youtube_url": "", "is_procession": false }, { "id": "ev178", "venue_id": "hussainia-saqqa-e-sakina", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-05", "day_numbers": [19], "date_label": "19th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Late Baquer Ali Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev179", "venue_id": "hussainia-saqqa-e-sakina", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-05", "day_numbers": [19], "date_label": "19th Moharram", "time": "7:00 PM", "time_24h": "19:00", "minjanib": "Janab Late Syed Abbas Saheb & Brothers", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev180", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-05", "day_numbers": [19], "date_label": "19th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev181", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-06", "day_numbers": [20], "date_label": "20th Moharram", "time": "5:15 AM", "time_24h": "05:15", "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee", "bayan_by": "", "notes": "Dasva'an of Hazrath Ali Asghar (A.S); Tabarruk after majlis", "youtube_url": "", "is_procession": false }, { "id": "ev182", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-06", "day_numbers": [20], "date_label": "20th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Janab Zaheen Abbas Saheb", "bayan_by": "", "notes": "Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev183", "venue_id": "hussainia-saqqa-e-sakina", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-06", "day_numbers": [20], "date_label": "20th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Son of Janab Late Dr. Mir Raza Ali Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev184", "venue_id": "imamia-manzil", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-06", "day_numbers": [20], "date_label": "20th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Family of Janab Late Arif Ali Saheb", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev185", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-06", "day_numbers": [20], "date_label": "20th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev186", "venue_id": "imamia-manzil", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-07", "day_numbers": [21], "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "Sons of Janab Late Alhaj Mir Raza Ali Saheb (BWSSB)", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev187", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-07", "day_numbers": [21], "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Alhaj Syed Ahmed Hussain Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev188", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-07", "day_numbers": [21], "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev189", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-07", "day_numbers": [21], "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev190", "venue_id": "imamia-manzil", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-08", "day_numbers": [22], "date_label": "22nd Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "Janab Alhaj Mir Mohammed Ali Saheb & Sons", "bayan_by": "Moulana Hujjatul Islam Syed Dilawar Hussain Abedi", "notes": "For Gents & Ladies; Bayan", "youtube_url": "", "is_procession": false }, { "id": "ev191", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-08", "day_numbers": [22], "date_label": "22nd Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Mukhtar Hussain Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev192", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-08", "day_numbers": [22], "date_label": "22nd Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev193", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-08", "day_numbers": [22], "date_label": "22nd Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev194", "venue_id": "imamia-manzil", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-09", "day_numbers": [23], "date_label": "23rd Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "Janab Alhaj Mir Khurram Ali Saheb & Sons", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev195", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-09", "day_numbers": [23], "date_label": "23rd Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Sons of Janab Mirza Jaffer Ali Saheb & Late Nagina Begum W/o. Khuddus Ali Baig", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev196", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-09", "day_numbers": [23], "date_label": "23rd Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev197", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-09", "day_numbers": [23], "date_label": "23rd Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Syed Raza Ali Abedi", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev198", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-10", "day_numbers": [24], "date_label": "24th Moharram", "time": "8:00 AM", "time_24h": "08:00", "minjanib": "Janab Afham Raza Saheb & Brothers", "bayan_by": "", "notes": "Majlis & Tabarruk; Gents & Ladies", "youtube_url": "", "is_procession": false }, { "id": "ev199", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-10", "day_numbers": [24], "date_label": "24th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Sons of Janab Late Ali Aga Saheb S/o. Late Mir Aga Saheb", "bayan_by": "", "notes": "After Namaz e Zohrain; Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev200", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-10", "day_numbers": [24], "date_label": "24th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev201", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-10", "day_numbers": [24], "date_label": "24th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev202", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-10", "day_numbers": [24], "date_label": "24th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Syed Raza Ali Abedi", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev203", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "5:30 AM", "time_24h": "05:30", "minjanib": "Sons of Janab Late Haji Mir Hassan Raza Tabrezi Saheb", "bayan_by": "", "notes": "Immediately after Namaz e Fajr; Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev204", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "8:30 AM", "time_24h": "08:30", "minjanib": "Sadiq Ali", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev205", "venue_id": "azakhana-arman-e-zainab", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "11:00 AM", "time_24h": "11:00", "minjanib": "Asfak Hussain Saheb", "bayan_by": "", "notes": "Majlis e Aza", "youtube_url": "", "is_procession": false }, { "id": "ev206", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "1:30 PM", "time_24h": "13:30", "minjanib": "Sons of Janab Late Mir Nisar Ali Saheb", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev207", "venue_id": "hassan-enclave", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "Sons of Janab Late Alhaj Sageer Hassan Ramzan Ali Saheb", "bayan_by": "", "notes": "Majlis e Aza followed by Taboot of Imam Zainulabedeen (A.S); Juloos via Serpentine Street terminating at Nawab Sartaj Hassan Mirza Saheb's Azakhana", "youtube_url": "", "is_procession": false }, { "id": "ev208", "venue_id": "azakhana-sartaj", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev209", "venue_id": "ashurkhana-shirazi", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev210", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-11", "day_numbers": [25], "date_label": "25th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Syed Raza Ali Abedi", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev211", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-12", "day_numbers": [26], "date_label": "26th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Sons of Janab Late Mirza Inayath Hussain Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev212", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-12", "day_numbers": [26], "date_label": "26th Moharram", "time": "7:00 PM", "time_24h": "19:00", "minjanib": "Sons of Janab Late Alhaj Anwar Ali H. Nassur Saheb", "bayan_by": "", "notes": "Tabarruk after Majlis", "youtube_url": "", "is_procession": false }, { "id": "ev213", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-12", "day_numbers": [26], "date_label": "26th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Syed Raza Ali Abedi", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev214", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-13", "day_numbers": [27], "date_label": "27th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Alhaj Late Mir Ahmed Ali Saheb (ACP Retd.), Son & Grand Son", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev215", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-13", "day_numbers": [27], "date_label": "27th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "", "bayan_by": "", "notes": "Majlis; Tabarruk at Mirza Hashim Raza Saheb's Azakhana by Sons of Janab Late Baquer Hussain Saheb", "youtube_url": "", "is_procession": false }, { "id": "ev216", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-13", "day_numbers": [27], "date_label": "27th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev217", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-14", "day_numbers": [28], "date_label": "28th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Janab Late Alhaj Mirza Mehmood Ali Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev218", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-14", "day_numbers": [28], "date_label": "28th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Hazrath Ali (A.S) Police Committee Bengaluru", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev219", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-14", "day_numbers": [28], "date_label": "28th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev220", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-15", "day_numbers": [29], "date_label": "29th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "Sons of Janab Late Alhaj Azeez Mirza Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev221", "venue_id": "hussainia-saqqa-e-sakina", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-15", "day_numbers": [29], "date_label": "29th Moharram", "time": "7:00 PM", "time_24h": "19:00", "minjanib": "Sons of Janab Late Mir Imdad Ali Saheb", "bayan_by": "", "notes": "Majlis & Tabarruk", "youtube_url": "", "is_procession": false }, { "id": "ev222", "venue_id": "baab-ul-murad", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-15", "day_numbers": [29], "date_label": "29th Moharram", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev223", "venue_id": "azakhana-arman-e-zainab", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-16", "day_numbers": [30], "date_label": "30th Moharram", "time": "5:00 PM", "time_24h": "17:00", "minjanib": "", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev224", "venue_id": "masjid-askari", "location_detail": null, "date_type": "regular", "date_iso": "2026-07-16", "day_numbers": [30], "date_label": "30th Moharram", "time": "7:15 PM", "time_24h": "19:15", "minjanib": "Janab Fahim Ganjee Saheb", "bayan_by": "", "notes": "", "youtube_url": "", "is_procession": false }, { "id": "ev225", "venue_id": "baab-ul-hawaej", "location_detail": null, "date_type": "special", "date_iso": "2026-07-16", "day_numbers": [30], "date_label": "Ghurra e Safar (Shab e 1st Safar)", "time": "9:00 PM", "time_24h": "21:00", "minjanib": "Nohakhwans of Bangalore", "bayan_by": "", "notes": "SHAB BEDAARI; Tabarruk before Shab bedaari", "youtube_url": "", "is_procession": false }, { "id": "ev007", "venue_id": "ashok-nagar-residence", "location_detail": null, "date_type": "recurring_range", "date_iso": null, "day_numbers": [5, 12, 19, 26], "date_label": "Every Sunday, 1st Moharram to 8th Rabi ul Awwal", "time": "3:30 PM", "time_24h": "15:30", "minjanib": "Janab Syed Ali Abbas Saheb", "bayan_by": "", "notes": "Majlis e Aza for Boys & Youths", "youtube_url": "", "is_procession": false }, { "id": "ev004", "venue_id": "imambara-askari", "location_detail": null, "date_type": "recurring_range", "date_iso": null, "day_numbers": [1, 2, 3, 4, 5, 6, 8], "date_label": "1st to 6th & 8th Moharram", "time": "—", "time_24h": null, "minjanib": "Sons of Late Fathima Begum & Janab Syed Ibne Hassan (Nikhaar Jewellers)", "bayan_by": "", "notes": "Tabarruk after Majlis (Ladies & Gents)", "youtube_url": "", "is_procession": false }, { "id": "ev005", "venue_id": "imambara-askari", "location_detail": null, "date_type": "recurring_range", "date_iso": null, "day_numbers": [1, 2, 3, 5, 7, 8], "date_label": "1st to 3rd, 5th, 7th & 8th Moharram", "time": "Before Majlis", "time_24h": null, "minjanib": "Tabrezi Family", "bayan_by": "", "notes": "Tea service", "youtube_url": "", "is_procession": false }, { "id": "ev006", "venue_id": "aga-abdullah-street", "location_detail": null, "date_type": "recurring_range", "date_iso": null, "day_numbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "date_label": "1st to 10th Moharram", "time": "—", "time_24h": null, "minjanib": "Hussainy Volunteers / Hazrath Ali Akbar (A.S) Committee", "bayan_by": "", "notes": "Sabeel e Nazr e Sho'hda e Karbala (A.S) - water stall", "youtube_url": "", "is_procession": false }], "days": [{ "day": 0, "date_iso": "2026-06-16", "weekday": "Tue", "label": "Chand Raat", "tag": null }, { "day": 1, "date_iso": "2026-06-17", "weekday": "Wed", "label": "1", "tag": "Sar-e-Moharram" }, { "day": 2, "date_iso": "2026-06-18", "weekday": "Thu", "label": "2", "tag": null }, { "day": 3, "date_iso": "2026-06-19", "weekday": "Fri", "label": "3", "tag": null }, { "day": 4, "date_iso": "2026-06-20", "weekday": "Sat", "label": "4", "tag": null }, { "day": 5, "date_iso": "2026-06-21", "weekday": "Sun", "label": "5", "tag": null }, { "day": 6, "date_iso": "2026-06-22", "weekday": "Mon", "label": "6", "tag": null }, { "day": 7, "date_iso": "2026-06-23", "weekday": "Tue", "label": "7", "tag": null }, { "day": 8, "date_iso": "2026-06-24", "weekday": "Wed", "label": "8", "tag": null }, { "day": 9, "date_iso": "2026-06-25", "weekday": "Thu", "label": "9", "tag": "Shab-e-Ashoor" }, { "day": 10, "date_iso": "2026-06-26", "weekday": "Fri", "label": "10", "tag": "Ashura" }, { "day": 11, "date_iso": "2026-06-27", "weekday": "Sat", "label": "11", "tag": null }, { "day": 12, "date_iso": "2026-06-28", "weekday": "Sun", "label": "12", "tag": null }, { "day": 13, "date_iso": "2026-06-29", "weekday": "Mon", "label": "13", "tag": null }, { "day": 14, "date_iso": "2026-06-30", "weekday": "Tue", "label": "14", "tag": null }, { "day": 15, "date_iso": "2026-07-01", "weekday": "Wed", "label": "15", "tag": null }, { "day": 16, "date_iso": "2026-07-02", "weekday": "Thu", "label": "16", "tag": null }, { "day": 17, "date_iso": "2026-07-03", "weekday": "Fri", "label": "17", "tag": null }, { "day": 18, "date_iso": "2026-07-04", "weekday": "Sat", "label": "18", "tag": null }, { "day": 19, "date_iso": "2026-07-05", "weekday": "Sun", "label": "19", "tag": null }, { "day": 20, "date_iso": "2026-07-06", "weekday": "Mon", "label": "20", "tag": null }, { "day": 21, "date_iso": "2026-07-07", "weekday": "Tue", "label": "21", "tag": null }, { "day": 22, "date_iso": "2026-07-08", "weekday": "Wed", "label": "22", "tag": null }, { "day": 23, "date_iso": "2026-07-09", "weekday": "Thu", "label": "23", "tag": null }, { "day": 24, "date_iso": "2026-07-10", "weekday": "Fri", "label": "24", "tag": null }, { "day": 25, "date_iso": "2026-07-11", "weekday": "Sat", "label": "25", "tag": null }, { "day": 26, "date_iso": "2026-07-12", "weekday": "Sun", "label": "26", "tag": null }, { "day": 27, "date_iso": "2026-07-13", "weekday": "Mon", "label": "27", "tag": null }, { "day": 28, "date_iso": "2026-07-14", "weekday": "Tue", "label": "28", "tag": null }, { "day": 29, "date_iso": "2026-07-15", "weekday": "Wed", "label": "29", "tag": null }, { "day": 30, "date_iso": "2026-07-16", "weekday": "Thu", "label": "30", "tag": null }], "moharram1": "2026-06-17" };
+
+    const ICONS = {
+      masjid: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V13a8 8 0 0 1 16 0v8"/><path d="M4 21h16"/><path d="M12 13V8"/><circle cx="12" cy="5.5" r="1.5"/></svg>',
+      imambara: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V11a7 7 0 0 1 14 0v10"/><path d="M5 21h14"/><path d="M9 21v-6h6v6"/></svg>',
+      azakhana: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.8 2 2.6 3.6 2.6 5.2A2.6 2.6 0 0 1 12 10.8a2.6 2.6 0 0 1-2.6-2.6C9.4 6.6 10.2 5 12 3Z"/><path d="M7 21c0-3.9 2.2-6 5-6s5 2.1 5 6"/><path d="M4 21h16"/></svg>',
+      ashurkhana: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.8 2 2.6 3.6 2.6 5.2A2.6 2.6 0 0 1 12 10.8a2.6 2.6 0 0 1-2.6-2.6C9.4 6.6 10.2 5 12 3Z"/><path d="M7 21c0-3.9 2.2-6 5-6s5 2.1 5 6"/><path d="M4 21h16"/></svg>',
+      pandal: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 3 20h18L12 4Z"/><path d="M12 4v16"/></svg>',
+      qabrastan: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21V10a5 5 0 0 1 10 0v11"/><path d="M4 21h16"/><path d="M12 7v4M10 9h4"/></svg>',
+      service: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11Z"/></svg>',
+      residence: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v10a1 1 0 0 0 1 1h3v-6h4v6h3a1 1 0 0 0 1-1V10"/></svg>',
+      procession_route: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M7.6 7.6c4 0 1 7 4 7s2.8-2.6 6.4-2.6" stroke-dasharray="2.5 3"/></svg>',
+    };
+    const ICON_SMALL = id => (ICONS[id] || ICONS.azakhana).replace('width="30" height="30"', 'width="18" height="18"');
+
+    const venuesById = Object.fromEntries(DATA.venues.map(v => [v.id, v]));
+    const daysByNum = Object.fromEntries(DATA.days.map(d => [d.day, d]));
+
+    function todayISO() {
+      const d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    function isDateInPast(dateIso) {
+      if (!dateIso) return false;
+      return dateIso < todayISO();
+    }
+    function isDateToday(dateIso) {
+      if (!dateIso) return false;
+      return dateIso === todayISO();
+    }
+    function isDateInFuture(dateIso) {
+      if (!dateIso) return false;
+      return dateIso > todayISO();
+    }
+    function findTodayDay() {
+      const iso = todayISO();
+      const match = DATA.days.find(d => d.date_iso === iso);
+      return match ? match.day : 1;
+    }
+    const TODAY_DAY_NUM = findTodayDay();
+    let state = { tab: 'home', selectedDay: TODAY_DAY_NUM, zone: 'All', pastExpanded: false };
+
+    function mapsLink(venue) {
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(venue.maps_query + ', Bengaluru');
+    }
+
+    function eventDateTime(ev, viewDayNum) {
+      // Returns a Date object for this event as it occurs on viewDayNum, or null if no clean time
+      if (!ev.time_24h) return null;
+      const day = daysByNum[viewDayNum];
+      if (!day) return null;
+      const [h, m] = ev.time_24h.split(':').map(Number);
+      const d = new Date(day.date_iso + 'T00:00:00');
+      d.setHours(h, m, 0, 0);
+      return d;
+    }
+    function getStatus(ev, viewDayNum) {
+      const day = daysByNum[viewDayNum];
+      if (!day || !day.date_iso) return 'plain';
+
+      const dateIso = day.date_iso;
+      if (isDateInPast(dateIso)) {
+        return 'past';
+      }
+      if (isDateInFuture(dateIso)) {
+        return 'upcoming';
+      }
+
+      // It is today!
+      const dt = eventDateTime(ev, viewDayNum);
+      if (!dt) return 'flexible';
+      const now = new Date();
+      const end = new Date(dt.getTime() + 90 * 60000);
+      if (now < dt) return 'upcoming';
+      if (now >= dt && now <= end) return 'live';
+      return 'past';
+    }
+    function eventsForDay(dayNum) {
+      return DATA.events.filter(e => e.day_numbers && e.day_numbers.includes(dayNum));
+    }
+    function sortForDisplay(events, dayNum) {
+      return [...events].sort((a, b) => {
+        if (a.time_24h && b.time_24h) return a.time_24h.localeCompare(b.time_24h);
+        if (a.time_24h) return -1;
+        if (b.time_24h) return 1;
+        return 0;
+      });
+    }
+
+    /* ---------------- render: day rail ---------------- */
+    function renderDayRail() {
+      const el = document.getElementById('dayRail');
+      el.innerHTML = DATA.days.map(d => {
+        const cls = ['day-chip'];
+        if (d.day === state.selectedDay) cls.push('active');
+        if (d.tag === 'Ashura') cls.push('ashura');
+        if (d.day === TODAY_DAY_NUM) cls.push('today-marker');
+        const label = d.day === 0 ? 'CR' : d.label;
+        return `<div class="${cls.join(' ')}" data-day="${d.day}" onclick="selectDay(${d.day})">
+      <div class="n">${label}</div>
+      <div class="wd">${d.tag ? d.tag.split('-')[0] : d.weekday}</div>
+    </div>`;
+      }).join('');
+      const activeChip = el.querySelector('.day-chip.active');
+      if (activeChip) activeChip.scrollIntoView({ inline: 'center', block: 'nearest' });
+    }
+    function selectDay(n) {
+      state.selectedDay = n;
+      state.pastExpanded = false;
+      renderDayRail();
+      renderHome();
+    }
+
+    /* ---------------- render: home ---------------- */
+    function cardHTML(ev, opts) {
+      opts = opts || {};
+      const venue = venuesById[ev.venue_id];
+      const status = opts.status || 'plain';
+      const cls = ['card'];
+      if (status === 'live') cls.push('is-live');
+      if (status === 'past') cls.push('is-past');
+      if (ev.date_label && ev.date_label.toLowerCase().includes('ashoor') || venue.id === 'shia-qabrastan') cls.push('ashura-card');
+
+      const tags = [];
+      if (ev.notes) tags.push(ev.notes.split(';')[0].slice(0, 42));
+      if (ev.location_detail) tags.push(ev.location_detail.split(',')[0]);
+
+      let tagsHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+      if (status === 'live') {
+        tagsHTML += '<span class="tag live-tag">● Live now</span>';
+      } else if (status === 'past') {
+        tagsHTML += '<span class="tag past-card-tag">✓ Completed</span>';
+      }
+
+      return `<div class="card ${cls.slice(1).join(' ')}" onclick="openEventSheet('${ev.id}', ${state.selectedDay})">
+    <div class="spine"></div>
+    <div class="time-block">
+      <div class="t">${ev.time.split(' ')[0] || '—'}</div>
+      <div class="ampm">${ev.time.split(' ')[1] || ''}</div>
+    </div>
+    <div class="info">
+      <div class="venue-name">${venue.name}</div>
+      ${ev.minjanib ? `<div class="minjanib">Minjanib: ${ev.minjanib}</div>` : ''}
+      ${tags.length || status === 'live' || status === 'past' ? `<div class="tags">${tagsHTML}</div>` : ''}
+    </div>
+    <div class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></div>
+  </div>`;
+    }
+
+    function renderHome() {
+      const day = daysByNum[state.selectedDay];
+      const events = sortForDisplay(eventsForDay(state.selectedDay), state.selectedDay);
+      const withStatus = events.map(e => ({ e, status: getStatus(e, state.selectedDay) }));
+
+      const live = withStatus.filter(x => x.status === 'live');
+      const activeUpcoming = withStatus.filter(x => x.status !== 'live' && x.status !== 'past');
+      const past = withStatus.filter(x => x.status === 'past');
+
+      document.getElementById('livePill').classList.toggle('show', live.length > 0 && state.selectedDay === TODAY_DAY_NUM);
+      document.getElementById('liveCount').textContent = live.length;
+
+      let html = '';
+      const dateLabel = new Date(day.date_iso + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+      html += `<div class="day-banner">${day.day === 0 ? 'Chand Raat' : day.day + ' Moharram'} <span style="font-family:var(--font-body);font-size:13px;color:var(--text-dim);font-weight:400;">· ${dateLabel}</span>${day.tag ? `<span class="tag">${day.tag}</span>` : ''}</div>`;
+
+      if (live.length) {
+        html += `<div class="section">
+      <div class="section-head live"><span class="label">Live Now</span><span class="rule"></span></div>
+      ${live.map(x => cardHTML(x.e, { status: x.status })).join('')}
+    </div>`;
+      }
+
+      let activeTitle = state.selectedDay === TODAY_DAY_NUM ? "Today's Majlis" : 'Upcoming Majlis';
+      if (isDateInPast(day.date_iso)) {
+        activeTitle = 'Schedule';
+      }
+
+      let activeContentHTML = '';
+      if (activeUpcoming.length) {
+        activeContentHTML = activeUpcoming.map(x => cardHTML(x.e, { status: x.status })).join('');
+      } else {
+        let msg = 'No majlis recorded for this day yet.';
+        if (past.length > 0) {
+          if (isDateToday(day.date_iso)) {
+            msg = "All majlises for today have concluded.";
+          } else if (isDateInPast(day.date_iso)) {
+            msg = "All majlises for this day have concluded.";
+          }
+        }
+        activeContentHTML = `<div class="empty-state">${msg}</div>`;
+      }
+
+      html += `<div class="section">
+    <div class="section-head"><span class="label">${activeTitle}</span><span class="rule"></span></div>
+    ${activeContentHTML}
+  </div>`;
+
+      if (past.length > 0) {
+        const isExpanded = state.pastExpanded;
+        const expandedCls = isExpanded ? 'expanded' : '';
+        const contentStyle = isExpanded ? 'style="max-height: none;"' : '';
+
+        html += `
+      <div class="past-section ${expandedCls}">
+        <button class="past-header" onclick="togglePastMajlises(this)">
+          <span class="label">Past Majlises</span>
+          <span class="past-badge">${past.length} completed</span>
+          <span class="past-chevron">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="past-content" ${contentStyle}>
+          ${past.map(x => cardHTML(x.e, { status: x.status })).join('')}
+        </div>
+      </div>
+    `;
+      }
+
+      document.getElementById('homeView').innerHTML = html;
+    }
+
+    function togglePastMajlises(btn) {
+      const section = btn.closest('.past-section');
+      const content = section.querySelector('.past-content');
+      const isExpanded = section.classList.contains('expanded');
+
+      if (isExpanded) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.offsetHeight; // force reflow
+        content.style.maxHeight = '0px';
+        section.classList.remove('expanded');
+        state.pastExpanded = false;
+      } else {
+        content.style.maxHeight = '0px';
+        content.offsetHeight; // force reflow
+        content.style.maxHeight = content.scrollHeight + 'px';
+        section.classList.add('expanded');
+        state.pastExpanded = true;
+
+        content.addEventListener('transitionend', function handler(e) {
+          if (e.propertyName === 'max-height' && state.pastExpanded) {
+            content.style.maxHeight = 'none';
+          }
+          content.removeEventListener('transitionend', handler);
+        });
+      }
+    }
+
+    /* ---------------- render: venues ---------------- */
+    function renderVenues() {
+      const zones = ['All', ...new Set(DATA.venues.map(v => v.zone))];
+      const filtered = state.zone === 'All' ? DATA.venues : DATA.venues.filter(v => v.zone === state.zone);
+      const counts = {};
+      DATA.events.forEach(e => { counts[e.venue_id] = (counts[e.venue_id] || 0) + 1; });
+
+      let html = `<div class="zone-rail">${zones.map(z =>
+        `<div class="zone-chip ${state.zone === z ? 'active' : ''}" onclick="selectZone('${z}')">${z}</div>`
+      ).join('')}</div>`;
+
+      html += filtered
+        .sort((a, b) => (counts[b.id] || 0) - (counts[a.id] || 0))
+        .map(v => `<div class="venue-row" onclick="openVenueSheet('${v.id}')">
+      <div class="venue-icon">${ICON_SMALL(v.type)}</div>
+      <div class="info">
+        <div class="vn">${v.name}</div>
+        <div class="va">${v.area}</div>
+        <div class="vc">${counts[v.id] || 0} majlis this Moharram</div>
+      </div>
+      <div class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></div>
+    </div>`).join('');
+
+      document.getElementById('venuesView').innerHTML = html;
+    }
+    function selectZone(z) { state.zone = z; renderVenues(); }
+
+    /* ---------------- tabs ---------------- */
+    function switchTab(tab) {
+      state.tab = tab;
+      document.getElementById('homeView').style.display = tab === 'home' ? 'block' : 'none';
+      document.getElementById('venuesView').style.display = tab === 'venues' ? 'block' : 'none';
+      document.getElementById('tabHomeBtn').classList.toggle('active', tab === 'home');
+      document.getElementById('tabVenuesBtn').classList.toggle('active', tab === 'venues');
+      if (tab === 'venues') renderVenues();
+    }
+
+    /* ---------------- sheets ---------------- */
+    function openSheetRaw(html) {
+      document.getElementById('sheetContent').innerHTML = html;
+      document.getElementById('overlay').classList.add('open');
+      document.getElementById('sheet').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSheet() {
+      document.getElementById('overlay').classList.remove('open');
+      document.getElementById('sheet').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function ctaRow(venue, ev) {
+      const dir = `<a class="btn btn-primary" href="${mapsLink(venue)}" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-7-7 18-2.5-7.5L3 11Z"/></svg>
+    Get Directions</a>`;
+      const yt = (ev && ev.youtube_url) ? `<a class="btn btn-secondary" href="${ev.youtube_url}" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 8 5 4-5 4V8Z"/><rect x="3" y="5" width="18" height="14" rx="3"/></svg>
+    Watch Live</a>` : '';
+      return `<div class="cta-row">${dir}${yt}</div>`;
+    }
+
+    function openEventSheet(eventId, dayNum) {
+      const ev = DATA.events.find(e => e.id === eventId);
+      const venue = venuesById[ev.venue_id];
+      const status = getStatus(ev, dayNum);
+      const day = daysByNum[dayNum];
+      const dateLabel = new Date(day.date_iso + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+
+      const html = `
+    <div class="sheet-banner">
+      <div class="big-icon">${ICONS[venue.type] || ICONS.azakhana}</div>
+      <div class="sheet-close" onclick="closeSheet()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 12 12M18 6 6 18"/></svg></div>
+      <div class="photo-tag">Photo coming soon</div>
+    </div>
+    <div class="sheet-body">
+      <p class="sheet-eyebrow">${status === 'live' ? '● Live Now' : (day.day === 0 ? 'Chand Raat' : day.day + ' Moharram')}</p>
+      <h2>${venue.name}</h2>
+      <p class="loc">${venue.area}${ev.location_detail ? ' · ' + ev.location_detail : ''}</p>
+      <div class="meta-grid">
+        <div class="meta-box"><div class="k">Date</div><div class="v">${dateLabel}</div></div>
+        <div class="meta-box"><div class="k">Time</div><div class="v">${ev.time}</div></div>
+        ${ev.minjanib ? `<div class="meta-box meta-full"><div class="k">Minjanib</div><div class="v">${ev.minjanib}</div></div>` : ''}
+        ${ev.bayan_by ? `<div class="meta-box meta-full"><div class="k">Bayan by</div><div class="v">${ev.bayan_by}</div></div>` : ''}
+      </div>
+      ${ev.notes ? `<div class="notes-box">${ev.notes}</div>` : ''}
+      ${ctaRow(venue, ev)}
+      <hr class="div">
+      <p class="mini-label">Other majlis at this venue</p>
+      ${venueMiniList(venue.id, ev.id)}
+    </div>
+  `;
+      openSheetRaw(html);
+    }
+
+    function venueMiniList(venueId, excludeId) {
+      const evs = DATA.events.filter(e => e.venue_id === venueId && e.id !== excludeId).slice(0, 6);
+      if (!evs.length) return `<div class="empty-state" style="padding:18px;">No other majlis listed yet.</div>`;
+      return evs.map(e => {
+        const d = e.day_numbers[0];
+        const dayInfo = daysByNum[d] || { label: d, day: d };
+        const status = getStatus(e, d);
+        const cls = ['card'];
+        if (status === 'live') cls.push('is-live');
+        if (status === 'past') cls.push('is-past');
+
+        const tags = [];
+        if (status === 'live') tags.push('<span class="tag live-tag">● Live now</span>');
+        if (status === 'past') tags.push('<span class="tag past-card-tag">✓ Completed</span>');
+
+        return `<div class="card ${cls.slice(1).join(' ')}" style="margin-bottom:7px;" onclick="openEventSheet('${e.id}', ${d})">
+      <div class="spine"></div>
+      <div class="time-block"><div class="t">${e.time.split(' ')[0]}</div><div class="ampm">${e.time.split(' ')[1] || ''}</div></div>
+      <div class="info">
+        <div class="venue-name" style="font-size:13px;">${dayInfo.day === 0 ? 'Chand Raat' : dayInfo.label + ' Moharram'}</div>
+        ${e.minjanib ? `<div class="minjanib">${e.minjanib}</div>` : ''}
+        ${tags.length ? `<div class="tags" style="margin-top:5px;">${tags.join('')}</div>` : ''}
+      </div>
+    </div>`;
+      }).join('');
+    }
+
+    function openVenueSheet(venueId) {
+      const venue = venuesById[venueId];
+      const evs = sortForDisplay(DATA.events.filter(e => e.venue_id === venueId), null);
+      const html = `
+    <div class="sheet-banner">
+      <div class="big-icon">${ICONS[venue.type] || ICONS.azakhana}</div>
+      <div class="sheet-close" onclick="closeSheet()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 12 12M18 6 6 18"/></svg></div>
+      <div class="photo-tag">Photo coming soon</div>
+    </div>
+    <div class="sheet-body">
+      <p class="sheet-eyebrow">${venue.zone}</p>
+      <h2>${venue.name}</h2>
+      <p class="loc">${venue.area}</p>
+      ${ctaRow(venue, null)}
+      <hr class="div">
+      <p class="mini-label">Full schedule this Moharram (${evs.length})</p>
+      ${evs.map(e => {
+        const d = e.day_numbers[0];
+        const dayInfo = daysByNum[d] || { label: d, day: d };
+        const status = getStatus(e, d);
+        const cls = ['card'];
+        if (status === 'live') cls.push('is-live');
+        if (status === 'past') cls.push('is-past');
+
+        const tags = [];
+        if (status === 'live') tags.push('<span class="tag live-tag">● Live now</span>');
+        if (status === 'past') tags.push('<span class="tag past-card-tag">✓ Completed</span>');
+
+        return `<div class="card ${cls.slice(1).join(' ')}" style="margin-bottom:7px;" onclick="openEventSheet('${e.id}', ${d})">
+          <div class="spine"></div>
+          <div class="time-block"><div class="t">${e.time.split(' ')[0]}</div><div class="ampm">${e.time.split(' ')[1] || ''}</div></div>
+          <div class="info">
+            <div class="venue-name" style="font-size:13px;">${dayInfo.day === 0 ? 'Chand Raat' : dayInfo.label + ' Moharram'}${e.location_detail ? ' · ' + e.location_detail.split(',')[0] : ''}</div>
+            ${e.minjanib ? `<div class="minjanib">${e.minjanib}</div>` : ''}
+            ${tags.length ? `<div class="tags" style="margin-top:5px;">${tags.join('')}</div>` : ''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+      openSheetRaw(html);
+    }
+
+    /* ---------------- init ---------------- */
+    function updateTodayBanner() {
+      const day = daysByNum[TODAY_DAY_NUM];
+      const d = new Date();
+      const greg = d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+      document.getElementById('todayDate').innerHTML = `<b>${day.day === 0 ? 'Chand Raat' : day.day + ' Moharram'}</b> · ${greg}`;
+    }
+
+    function init() {
+      updateTodayBanner();
+      renderDayRail();
+      renderHome();
+      setInterval(() => { if (state.tab === 'home') renderHome(); }, 30000);
+    }
+    init();
+  </script>
+</body>
+
+</html>

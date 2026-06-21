@@ -1,0 +1,4075 @@
+[
+  {
+    "id": "ev001",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "special",
+    "date_iso": "2026-06-16",
+    "day_numbers": [
+      0
+    ],
+    "date_label": "Moharram Chand Raat",
+    "time": "7:30 PM",
+    "time_24h": "19:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev002",
+    "venue_id": "imamia-manzil",
+    "location_detail": null,
+    "date_type": "special",
+    "date_iso": "2026-06-16",
+    "day_numbers": [
+      0
+    ],
+    "date_label": "Moharram Chand Raat",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Alhaj Syed Nawazish Hussain & Sons",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev003",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "special",
+    "date_iso": "2026-06-16",
+    "day_numbers": [
+      0
+    ],
+    "date_label": "Moharram Chand Raat",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev008",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Immediately after Namaz e Fajr; Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev009",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "6:30 AM",
+    "time_24h": "06:30",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev010",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev011",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev012",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Janab Meer Sujath Hussain Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev013",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "10:30 AM",
+    "time_24h": "10:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev014",
+    "venue_id": "azakhana-arman-e-zainab",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Arman e Zainab",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev015",
+    "venue_id": "azakhana-zehra",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "Janab Fareedoon Aga Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev016",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev017",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev018",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev019",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev020",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-17",
+    "day_numbers": [
+      1
+    ],
+    "date_label": "1st Moharram",
+    "time": "11:30 PM",
+    "time_24h": "23:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev021",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev022",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "6:30 AM",
+    "time_24h": "06:30",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev023",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev024",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev025",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Janab Mir Mujtaba Hussain Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev026",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "10:30 AM",
+    "time_24h": "10:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev027",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Janab Syed Jalal Hyder Saheb & Sons (UP)",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev028",
+    "venue_id": "azakhana-zehra",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "Janab Fareedoon Aga Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev029",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev030",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev031",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev032",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev033",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-18",
+    "day_numbers": [
+      2
+    ],
+    "date_label": "2nd Moharram",
+    "time": "11:30 PM",
+    "time_24h": "23:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev034",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev035",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "6:30 AM",
+    "time_24h": "06:30",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev036",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev037",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev038",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Janab Mir Nasir Hussain Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev039",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "10:30 AM",
+    "time_24h": "10:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev040",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Sons of Janab Late Aga Mohammed Karim Sherazi Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev041",
+    "venue_id": "azakhana-zehra",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "Janab Fareedoon Aga Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev042",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev043",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev044",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev045",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev046",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-19",
+    "day_numbers": [
+      3
+    ],
+    "date_label": "3rd Moharram",
+    "time": "11:30 PM",
+    "time_24h": "23:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev047",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev048",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "6:30 AM",
+    "time_24h": "06:30",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev049",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev050",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev051",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Janab Syed Mohammed Raheel Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev052",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "9:30 AM",
+    "time_24h": "09:30",
+    "minjanib": "Family of Late Hasnain Jafry (Asad Jafry)",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev053",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "10:30 AM",
+    "time_24h": "10:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev054",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Azakhana Fatima Kubra (S.A)",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev055",
+    "venue_id": "azakhana-zehra",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "Janab Fareedoon Aga Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev056",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev057",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev058",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev059",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev060",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-20",
+    "day_numbers": [
+      4
+    ],
+    "date_label": "4th Moharram",
+    "time": "11:30 PM",
+    "time_24h": "23:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev061",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev062",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "6:30 AM",
+    "time_24h": "06:30",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev063",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev064",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev065",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Janab Syed Arshad Hussain Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev066",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "10:00 AM",
+    "time_24h": "10:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev067",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Janab Mahboob Ali Dhanaliwala",
+    "bayan_by": "",
+    "notes": "After Namaz e Zohrain; Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev068",
+    "venue_id": "azakhana-arman-e-zainab",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Majlis e Aza",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev069",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev070",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev071",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev072",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev073",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-21",
+    "day_numbers": [
+      5
+    ],
+    "date_label": "5th Moharram",
+    "time": "11:30 PM",
+    "time_24h": "23:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev074",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev075",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "6:30 AM",
+    "time_24h": "06:30",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev076",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev077",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev078",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Janab Syed Thasil Abbas Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev079",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "10:30 AM",
+    "time_24h": "10:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev080",
+    "venue_id": "azakhana-zehra",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Janab Fareedoon Aga Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev081",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev082",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev083",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev084",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev085",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-22",
+    "day_numbers": [
+      6
+    ],
+    "date_label": "6th Moharram",
+    "time": "11:30 PM",
+    "time_24h": "23:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev086",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev087",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "6:00 AM",
+    "time_24h": "06:00",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev088",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev089",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev090",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Janab Mir Waris Ali Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev091",
+    "venue_id": "ashurkhana-madani",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "9:30 AM",
+    "time_24h": "09:30",
+    "minjanib": "S/o Janab Late Mir Noorul Hussain Madani Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev092",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "10:30 AM",
+    "time_24h": "10:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev093",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "12:45 PM",
+    "time_24h": "12:45",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Namaz e Zohrain",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev094",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "1:15 PM",
+    "time_24h": "13:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Matami Juloos starts after Namaz e Zohrain, via Aga Abdulla St, Serpentine St, Wellington St, Leonard Lane, Arablane 'B' St, Hosur Road; terminates at starting point",
+    "youtube_url": "",
+    "is_procession": true
+  },
+  {
+    "id": "ev096",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "4:00 PM",
+    "time_24h": "16:00",
+    "minjanib": "Sons of Late Alhaj Moulana Buniyad Ali Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev097",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev098",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev099",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Janab Alhaj Mir Manzoor Hussain Saheb & Charolia Brothers",
+    "bayan_by": "",
+    "notes": "Haazri Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev100",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev101",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev102",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "11:30 PM",
+    "time_24h": "23:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev095",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-23",
+    "day_numbers": [
+      7
+    ],
+    "date_label": "7th Moharram",
+    "time": "Tabarruk (after Juloos)",
+    "time_24h": null,
+    "minjanib": "Anjuman e Imamia (Janab Late Aga Mohammed Rahim Saheb @ Babu Aga)",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev103",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev104",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "6:30 AM",
+    "time_24h": "06:30",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev105",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "Janab Aga Yousuf Ali Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev106",
+    "venue_id": "koramangala-37-1",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "7:30 AM",
+    "time_24h": "07:30",
+    "minjanib": "Syed Nasir Raza Wasti & Sons",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev107",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "10:30 AM",
+    "time_24h": "10:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev108",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Janab Agha Anwar Abbas Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev109",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "3:00 PM",
+    "time_24h": "15:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev110",
+    "venue_id": "hassan-enclave",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "4:00 PM",
+    "time_24h": "16:00",
+    "minjanib": "Sons of Janab Late Alhaj Sageer Hassan Ramzan Ali Saheb",
+    "bayan_by": "",
+    "notes": "Majlis & Haazri of Hazrath Abul Fazlil Abbas (A.S)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev111",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev112",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "Sawari of Hazrath Abul Fazlil Abbas (A.S)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev113",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Janab Late Abdul Hameed (Chotu Saab) Fayaz Hussain & Sons",
+    "bayan_by": "",
+    "notes": "After Majlis at Imambara e Askari; Ha'azri Tabarruk at Masjid e Askari",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev114",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-24",
+    "day_numbers": [
+      8
+    ],
+    "date_label": "8th Moharram",
+    "time": "11:00 PM",
+    "time_24h": "23:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Matami Juloos terminates at Janab Late Aga Mohammed Ebrahim Saheb's Ashurkhana",
+    "youtube_url": "",
+    "is_procession": true
+  },
+  {
+    "id": "ev115",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev116",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "6:00 AM",
+    "time_24h": "06:00",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev117",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "Janab Mir Imran Ali Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev118",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "Khadima'ane Ba'ab ul Mura'ad (A.S)",
+    "bayan_by": "",
+    "notes": "Majlis & Ha'azri",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev119",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "10:00 AM",
+    "time_24h": "10:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev120",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Mohibban e Hazrath Abu Talib (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev121",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev122",
+    "venue_id": "hussainabad",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev123",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram - Shab e A'ashoor",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Family of Janab Late Mir Safdar Hussain Saheb hosted by Janab Mirza Habib Hussain Saheb (Gents); Late Mrs. Zahida Begum hosted by Janab Mir Ameen Hussain (Ladies)",
+    "bayan_by": "",
+    "notes": "Tabarruk; After Namaz e Maghribain",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev124",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram - Shab e A'ashoor",
+    "time": "7:30 PM",
+    "time_24h": "19:30",
+    "minjanib": "Aga Ali Asker Wakf",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev125",
+    "venue_id": "hosur-road-pandal",
+    "location_detail": null,
+    "date_type": "shab_e_ashoor",
+    "date_iso": "2026-06-25",
+    "day_numbers": [
+      9
+    ],
+    "date_label": "9th Moharram - Shab e A'ashoor",
+    "time": "10:00 PM (Aag Ka Ma'atam)",
+    "time_24h": "22:00",
+    "minjanib": "Anjuman e Imamia",
+    "bayan_by": "",
+    "notes": "Followed by Matami Juloos from Imambara e Askari, Leonard Lane; Majlis at Hussainy Chowk Pandal; Zanjeer Zani & Aag ka Maatam; terminates at Janab Late Aga Mohammed Ebrahim Saheb's Ashurkhana",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev126",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev127",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "6:00 AM",
+    "time_24h": "06:00",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev128",
+    "venue_id": "azakhana-raza-e-ghareeb",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev129",
+    "venue_id": "azakhana-raza-ali-khan",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev130",
+    "venue_id": "baab-ash-shifa",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "9:00 AM",
+    "time_24h": "09:00",
+    "minjanib": "Masjid e Askari Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev131",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "10:00 AM",
+    "time_24h": "10:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "A'amaal e Aashoora",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev132",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "11:00 AM",
+    "time_24h": "11:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev133",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "12:45 PM",
+    "time_24h": "12:45",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Namaz e Zohrain",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev134",
+    "venue_id": "hosur-road-pandal",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "1:15 PM",
+    "time_24h": "13:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Majlis after Namaz e Zohrain; Matami Juloos to Shia Qabrastan, returns via Hosur Road, Arablane 'B' St, Leonard Lane, Wellington St, Aga Abdullah St; terminates at Janab Late Aga Mohammed Ebrahim Saheb's Ashurkhana",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev136",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev137",
+    "venue_id": "hussainy-chowk-pandal",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan",
+    "time": "8:00 PM",
+    "time_24h": "20:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev138",
+    "venue_id": "darbar-e-hyderi",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan",
+    "time": "8:30 PM",
+    "time_24h": "20:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev139",
+    "venue_id": "shia-qabrastan",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Anjuman e Imamia",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis by Janab Jamsheed Hyder Saheb; Snacks before majlis by Syed Mohammed Abbas Saheb & Syed Nazeer Abbas Saheb",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev135",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Roz e A'ashoor",
+    "time": "FAAQA SHIKANI",
+    "time_24h": null,
+    "minjanib": "Family of Janab Late Mirza Sultan Ali @ Aga Jani Saheb (Gents); Mirza Ali Raza Wakf (Ladies)",
+    "bayan_by": "",
+    "notes": "Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev140",
+    "venue_id": "shia-qabrastan",
+    "location_detail": null,
+    "date_type": "ashoor",
+    "date_iso": "2026-06-26",
+    "day_numbers": [
+      10
+    ],
+    "date_label": "10th Moharram - Majlis e Sha'ame Gharibaan",
+    "time": "Tea (during Majlis)",
+    "time_24h": null,
+    "minjanib": "Hazrath Ali Asghar (A.S) Naunihal Association",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev141",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-27",
+    "day_numbers": [
+      11
+    ],
+    "date_label": "11th Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev142",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-27",
+    "day_numbers": [
+      11
+    ],
+    "date_label": "11th Moharram",
+    "time": "10:00 AM",
+    "time_24h": "10:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev143",
+    "venue_id": "azakhana-shezada-e-qasim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-27",
+    "day_numbers": [
+      11
+    ],
+    "date_label": "11th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev144",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-27",
+    "day_numbers": [
+      11
+    ],
+    "date_label": "11th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Late Janab Mir Amjad Hussain Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev145",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-27",
+    "day_numbers": [
+      11
+    ],
+    "date_label": "11th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev146",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-27",
+    "day_numbers": [
+      11
+    ],
+    "date_label": "11th Moharram",
+    "time": "10:00 PM",
+    "time_24h": "22:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev147",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-28",
+    "day_numbers": [
+      12
+    ],
+    "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'ane Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev148",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-28",
+    "day_numbers": [
+      12
+    ],
+    "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)",
+    "time": "7:00 AM",
+    "time_24h": "07:00",
+    "minjanib": "Sons of Late Moulana S.M. Yousha Faizi Zangipuri Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev149",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-28",
+    "day_numbers": [
+      12
+    ],
+    "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev150",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-28",
+    "day_numbers": [
+      12
+    ],
+    "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Grandsons of Late Alhaj Moulana Buniyad Ali Saheb Committee",
+    "bayan_by": "",
+    "notes": "After Namaz e Zohrain; Tabarruk after Majlis at Imamia Manzil",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev151",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-28",
+    "day_numbers": [
+      12
+    ],
+    "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Late Sultan Ali Haji Nassur Saheb, Janab Alhaj Mohsin S. Nassur Saheb & Sons",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev152",
+    "venue_id": "azakhana-hashim-raza",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-28",
+    "day_numbers": [
+      12
+    ],
+    "date_label": "12th Moharram (Majlis e Ziarath e Imam Hussain a.s. & Shohda e Karbala)",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev153",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-29",
+    "day_numbers": [
+      13
+    ],
+    "date_label": "13th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Sons of Janab Late AA R Shah Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev154",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-29",
+    "day_numbers": [
+      13
+    ],
+    "date_label": "13th Moharram",
+    "time": "7:00 PM",
+    "time_24h": "19:00",
+    "minjanib": "Janab Late Alhaj Akbar Ali Badami Saheb",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev155",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-29",
+    "day_numbers": [
+      13
+    ],
+    "date_label": "13th Moharram",
+    "time": "9:30 PM",
+    "time_24h": "21:30",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev156",
+    "venue_id": "hussainia-saqqa-e-sakina",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-30",
+    "day_numbers": [
+      14
+    ],
+    "date_label": "14th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Alhaj Mir Khadim Hussain Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev157",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-30",
+    "day_numbers": [
+      14
+    ],
+    "date_label": "14th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Janab Late Qambar Ali Malvia Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev158",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-06-30",
+    "day_numbers": [
+      14
+    ],
+    "date_label": "14th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev159",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-01",
+    "day_numbers": [
+      15
+    ],
+    "date_label": "15th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Alhaj Mir Muntekhab Ali Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev160",
+    "venue_id": "imamia-manzil",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-01",
+    "day_numbers": [
+      15
+    ],
+    "date_label": "15th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Sons of Janab Late Aga Kazim Ali Mashadi Saheb",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev161",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-01",
+    "day_numbers": [
+      15
+    ],
+    "date_label": "15th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev162",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-02",
+    "day_numbers": [
+      16
+    ],
+    "date_label": "16th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Alhaj Mir Arif Ali Saheb (Retd. DYSP)",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev163",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-02",
+    "day_numbers": [
+      16
+    ],
+    "date_label": "16th Moharram",
+    "time": "7:00 PM",
+    "time_24h": "19:00",
+    "minjanib": "Sons of Janab Late Alhaj Sageer Ramzan Ali Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev164",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-02",
+    "day_numbers": [
+      16
+    ],
+    "date_label": "16th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev165",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "In front of Girias Showroom, Shoolay Circle (route to Doddaballapur)",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "16th Moharram, 7:30 PM-Midnight",
+    "time_24h": null,
+    "minjanib": "Janab Syed Ali Abbas Saheb (Ex. Joint Sec. AEI)",
+    "bayan_by": "",
+    "notes": "Sabeel Nazr e Imam Hussain (A.S) for Azadaran walking to Doddaballapur",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev166",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "Enroute to Doddaballapur (beyond Yelahanka, 5 km)",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "16th Midnight",
+    "time_24h": null,
+    "minjanib": "Hazrath Ali Akbar (A.S) Committee; Nowjawan e Richmond Town",
+    "bayan_by": "",
+    "notes": "Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev167",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "18th KM milestone, Bangalore-Doddaballapur Road",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "—",
+    "time_24h": null,
+    "minjanib": "Tabrezi Family",
+    "bayan_by": "",
+    "notes": "Sabeel Nazr e Imam Hussain (A.S)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev168",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "25th KM, Bangalore-Doddaballapur Road",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "—",
+    "time_24h": null,
+    "minjanib": "Muntazar e Mehdi (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Sabeel Nazr e Imam Hussain (A.S)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev169",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "28th KM, Bangalore-Doddaballapur Road",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "—",
+    "time_24h": null,
+    "minjanib": "Hazrath Ali Asghar (A.S) Naunihal Association",
+    "bayan_by": "",
+    "notes": "Sabeel Nazr e Imam Hussain (A.S)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev170",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "32nd KM, Bangalore-Doddaballapur Road (Toll Plaza)",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "—",
+    "time_24h": null,
+    "minjanib": "Karbala Committee a.s.",
+    "bayan_by": "",
+    "notes": "Sabeel Nazr e Imam Hussain (A.S)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev171",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "Near Bashethalli (near New Flyover)",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "16th Moharram, 12:00 AM",
+    "time_24h": null,
+    "minjanib": "Nazre Hazrath Abbas a.s. Committee (Organisers Mazhar & Team)",
+    "bayan_by": "",
+    "notes": "Food stall / Sabeel",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev172",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "Near Hebbal Junction",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "16th Moharram night",
+    "time_24h": null,
+    "minjanib": "Aun o Mohammed Committee",
+    "bayan_by": "",
+    "notes": "Sabeel",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev173",
+    "venue_id": "doddaballapur-route",
+    "location_detail": "Opp. Shell Petrol Pump, Yelahanka",
+    "date_type": "regular",
+    "date_iso": "2026-07-03",
+    "day_numbers": [
+      17
+    ],
+    "date_label": "17th Moharram - Azadari at Doddaballapur",
+    "time": "16th Moharram night",
+    "time_24h": null,
+    "minjanib": "Youth of Bengaluru",
+    "bayan_by": "",
+    "notes": "Sabeel Nazr e Hazrath Abbas (A.S)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev174",
+    "venue_id": "ashurkhana-ebrahim",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-04",
+    "day_numbers": [
+      18
+    ],
+    "date_label": "18th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Late Janab Mirza Altaf Hussain",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev175",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-04",
+    "day_numbers": [
+      18
+    ],
+    "date_label": "18th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Janab Alhaj Mirza Saqawath Ali Baig Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev176",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-04",
+    "day_numbers": [
+      18
+    ],
+    "date_label": "18th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev177",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-05",
+    "day_numbers": [
+      19
+    ],
+    "date_label": "19th Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "Hazrath Syed e Sajjad (A.S) Group",
+    "bayan_by": "",
+    "notes": "For Boys & Youths",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev178",
+    "venue_id": "hussainia-saqqa-e-sakina",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-05",
+    "day_numbers": [
+      19
+    ],
+    "date_label": "19th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Late Baquer Ali Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev179",
+    "venue_id": "hussainia-saqqa-e-sakina",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-05",
+    "day_numbers": [
+      19
+    ],
+    "date_label": "19th Moharram",
+    "time": "7:00 PM",
+    "time_24h": "19:00",
+    "minjanib": "Janab Late Syed Abbas Saheb & Brothers",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev180",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-05",
+    "day_numbers": [
+      19
+    ],
+    "date_label": "19th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev181",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-06",
+    "day_numbers": [
+      20
+    ],
+    "date_label": "20th Moharram",
+    "time": "5:15 AM",
+    "time_24h": "05:15",
+    "minjanib": "Ghulama'an e Hazrath Ali Asghar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Dasva'an of Hazrath Ali Asghar (A.S); Tabarruk after majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev182",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-06",
+    "day_numbers": [
+      20
+    ],
+    "date_label": "20th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Janab Zaheen Abbas Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev183",
+    "venue_id": "hussainia-saqqa-e-sakina",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-06",
+    "day_numbers": [
+      20
+    ],
+    "date_label": "20th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Son of Janab Late Dr. Mir Raza Ali Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev184",
+    "venue_id": "imamia-manzil",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-06",
+    "day_numbers": [
+      20
+    ],
+    "date_label": "20th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Family of Janab Late Arif Ali Saheb",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev185",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-06",
+    "day_numbers": [
+      20
+    ],
+    "date_label": "20th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev186",
+    "venue_id": "imamia-manzil",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-07",
+    "day_numbers": [
+      21
+    ],
+    "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "Sons of Janab Late Alhaj Mir Raza Ali Saheb (BWSSB)",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev187",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-07",
+    "day_numbers": [
+      21
+    ],
+    "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Alhaj Syed Ahmed Hussain Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev188",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-07",
+    "day_numbers": [
+      21
+    ],
+    "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev189",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-07",
+    "day_numbers": [
+      21
+    ],
+    "date_label": "21st Moharram (Majalis e Shahdath e Beemar e Karbala - Imam Zainulabedeen A.S)",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev190",
+    "venue_id": "imamia-manzil",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-08",
+    "day_numbers": [
+      22
+    ],
+    "date_label": "22nd Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "Janab Alhaj Mir Mohammed Ali Saheb & Sons",
+    "bayan_by": "Moulana Hujjatul Islam Syed Dilawar Hussain Abedi",
+    "notes": "For Gents & Ladies; Bayan",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev191",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-08",
+    "day_numbers": [
+      22
+    ],
+    "date_label": "22nd Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Mukhtar Hussain Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev192",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-08",
+    "day_numbers": [
+      22
+    ],
+    "date_label": "22nd Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev193",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-08",
+    "day_numbers": [
+      22
+    ],
+    "date_label": "22nd Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev194",
+    "venue_id": "imamia-manzil",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-09",
+    "day_numbers": [
+      23
+    ],
+    "date_label": "23rd Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "Janab Alhaj Mir Khurram Ali Saheb & Sons",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev195",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-09",
+    "day_numbers": [
+      23
+    ],
+    "date_label": "23rd Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Sons of Janab Mirza Jaffer Ali Saheb & Late Nagina Begum W/o. Khuddus Ali Baig",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev196",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-09",
+    "day_numbers": [
+      23
+    ],
+    "date_label": "23rd Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev197",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-09",
+    "day_numbers": [
+      23
+    ],
+    "date_label": "23rd Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Syed Raza Ali Abedi",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev198",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-10",
+    "day_numbers": [
+      24
+    ],
+    "date_label": "24th Moharram",
+    "time": "8:00 AM",
+    "time_24h": "08:00",
+    "minjanib": "Janab Afham Raza Saheb & Brothers",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk; Gents & Ladies",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev199",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-10",
+    "day_numbers": [
+      24
+    ],
+    "date_label": "24th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Sons of Janab Late Ali Aga Saheb S/o. Late Mir Aga Saheb",
+    "bayan_by": "",
+    "notes": "After Namaz e Zohrain; Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev200",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-10",
+    "day_numbers": [
+      24
+    ],
+    "date_label": "24th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev201",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-10",
+    "day_numbers": [
+      24
+    ],
+    "date_label": "24th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev202",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-10",
+    "day_numbers": [
+      24
+    ],
+    "date_label": "24th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Syed Raza Ali Abedi",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev203",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "5:30 AM",
+    "time_24h": "05:30",
+    "minjanib": "Sons of Janab Late Haji Mir Hassan Raza Tabrezi Saheb",
+    "bayan_by": "",
+    "notes": "Immediately after Namaz e Fajr; Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev204",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "8:30 AM",
+    "time_24h": "08:30",
+    "minjanib": "Sadiq Ali",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev205",
+    "venue_id": "azakhana-arman-e-zainab",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "11:00 AM",
+    "time_24h": "11:00",
+    "minjanib": "Asfak Hussain Saheb",
+    "bayan_by": "",
+    "notes": "Majlis e Aza",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev206",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "1:30 PM",
+    "time_24h": "13:30",
+    "minjanib": "Sons of Janab Late Mir Nisar Ali Saheb",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev207",
+    "venue_id": "hassan-enclave",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "Sons of Janab Late Alhaj Sageer Hassan Ramzan Ali Saheb",
+    "bayan_by": "",
+    "notes": "Majlis e Aza followed by Taboot of Imam Zainulabedeen (A.S); Juloos via Serpentine Street terminating at Nawab Sartaj Hassan Mirza Saheb's Azakhana",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev208",
+    "venue_id": "azakhana-sartaj",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev209",
+    "venue_id": "ashurkhana-shirazi",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev210",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-11",
+    "day_numbers": [
+      25
+    ],
+    "date_label": "25th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Syed Raza Ali Abedi",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev211",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-12",
+    "day_numbers": [
+      26
+    ],
+    "date_label": "26th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Sons of Janab Late Mirza Inayath Hussain Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev212",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-12",
+    "day_numbers": [
+      26
+    ],
+    "date_label": "26th Moharram",
+    "time": "7:00 PM",
+    "time_24h": "19:00",
+    "minjanib": "Sons of Janab Late Alhaj Anwar Ali H. Nassur Saheb",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev213",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-12",
+    "day_numbers": [
+      26
+    ],
+    "date_label": "26th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Syed Raza Ali Abedi",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev214",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-13",
+    "day_numbers": [
+      27
+    ],
+    "date_label": "27th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Alhaj Late Mir Ahmed Ali Saheb (ACP Retd.), Son & Grand Son",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev215",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-13",
+    "day_numbers": [
+      27
+    ],
+    "date_label": "27th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "Majlis; Tabarruk at Mirza Hashim Raza Saheb's Azakhana by Sons of Janab Late Baquer Hussain Saheb",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev216",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-13",
+    "day_numbers": [
+      27
+    ],
+    "date_label": "27th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev217",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-14",
+    "day_numbers": [
+      28
+    ],
+    "date_label": "28th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Janab Late Alhaj Mirza Mehmood Ali Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev218",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-14",
+    "day_numbers": [
+      28
+    ],
+    "date_label": "28th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Hazrath Ali (A.S) Police Committee Bengaluru",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev219",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-14",
+    "day_numbers": [
+      28
+    ],
+    "date_label": "28th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev220",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-15",
+    "day_numbers": [
+      29
+    ],
+    "date_label": "29th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "Sons of Janab Late Alhaj Azeez Mirza Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev221",
+    "venue_id": "hussainia-saqqa-e-sakina",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-15",
+    "day_numbers": [
+      29
+    ],
+    "date_label": "29th Moharram",
+    "time": "7:00 PM",
+    "time_24h": "19:00",
+    "minjanib": "Sons of Janab Late Mir Imdad Ali Saheb",
+    "bayan_by": "",
+    "notes": "Majlis & Tabarruk",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev222",
+    "venue_id": "baab-ul-murad",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-15",
+    "day_numbers": [
+      29
+    ],
+    "date_label": "29th Moharram",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev223",
+    "venue_id": "azakhana-arman-e-zainab",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-16",
+    "day_numbers": [
+      30
+    ],
+    "date_label": "30th Moharram",
+    "time": "5:00 PM",
+    "time_24h": "17:00",
+    "minjanib": "",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev224",
+    "venue_id": "masjid-askari",
+    "location_detail": null,
+    "date_type": "regular",
+    "date_iso": "2026-07-16",
+    "day_numbers": [
+      30
+    ],
+    "date_label": "30th Moharram",
+    "time": "7:15 PM",
+    "time_24h": "19:15",
+    "minjanib": "Janab Fahim Ganjee Saheb",
+    "bayan_by": "",
+    "notes": "",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev225",
+    "venue_id": "baab-ul-hawaej",
+    "location_detail": null,
+    "date_type": "special",
+    "date_iso": "2026-07-16",
+    "day_numbers": [
+      30
+    ],
+    "date_label": "Ghurra e Safar (Shab e 1st Safar)",
+    "time": "9:00 PM",
+    "time_24h": "21:00",
+    "minjanib": "Nohakhwans of Bangalore",
+    "bayan_by": "",
+    "notes": "SHAB BEDAARI; Tabarruk before Shab bedaari",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev007",
+    "venue_id": "ashok-nagar-residence",
+    "location_detail": null,
+    "date_type": "recurring_range",
+    "date_iso": null,
+    "day_numbers": [
+      5,
+      12,
+      19,
+      26
+    ],
+    "date_label": "Every Sunday, 1st Moharram to 8th Rabi ul Awwal",
+    "time": "3:30 PM",
+    "time_24h": "15:30",
+    "minjanib": "Janab Syed Ali Abbas Saheb",
+    "bayan_by": "",
+    "notes": "Majlis e Aza for Boys & Youths",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev004",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "recurring_range",
+    "date_iso": null,
+    "day_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8
+    ],
+    "date_label": "1st to 6th & 8th Moharram",
+    "time": "—",
+    "time_24h": null,
+    "minjanib": "Sons of Late Fathima Begum & Janab Syed Ibne Hassan (Nikhaar Jewellers)",
+    "bayan_by": "",
+    "notes": "Tabarruk after Majlis (Ladies & Gents)",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev005",
+    "venue_id": "imambara-askari",
+    "location_detail": null,
+    "date_type": "recurring_range",
+    "date_iso": null,
+    "day_numbers": [
+      1,
+      2,
+      3,
+      5,
+      7,
+      8
+    ],
+    "date_label": "1st to 3rd, 5th, 7th & 8th Moharram",
+    "time": "Before Majlis",
+    "time_24h": null,
+    "minjanib": "Tabrezi Family",
+    "bayan_by": "",
+    "notes": "Tea service",
+    "youtube_url": "",
+    "is_procession": false
+  },
+  {
+    "id": "ev006",
+    "venue_id": "aga-abdullah-street",
+    "location_detail": null,
+    "date_type": "recurring_range",
+    "date_iso": null,
+    "day_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "date_label": "1st to 10th Moharram",
+    "time": "—",
+    "time_24h": null,
+    "minjanib": "Hussainy Volunteers / Hazrath Ali Akbar (A.S) Committee",
+    "bayan_by": "",
+    "notes": "Sabeel e Nazr e Sho'hda e Karbala (A.S) - water stall",
+    "youtube_url": "",
+    "is_procession": false
+  }
+]
