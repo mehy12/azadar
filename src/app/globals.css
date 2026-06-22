@@ -954,3 +954,58 @@
     .rtl .meta-box .v {
       text-align: right;
     }
+
+    /* ---------- venue search ---------- */
+    .venue-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      color: var(--text-dim);
+      position: relative;
+    }
+
+    .venue-search svg {
+      color: var(--text-faint);
+      flex-shrink: 0;
+    }
+
+    .venue-search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 14px;
+      width: 100%;
+      font-family: var(--font-body);
+    }
+
+    .venue-search input::placeholder {
+      color: var(--text-faint);
+    }
+
+    .venue-search-clear {
+      background: none;
+      border: none;
+      color: var(--text-faint);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      margin: -4px;
+      border-radius: 50%;
+      transition: color 0.15s;
+    }
+
+    .venue-search-clear:hover {
+      color: var(--text-dim);
+    }
+
+    .rtl .venue-search {
+      flex-direction: row-reverse;
+    }

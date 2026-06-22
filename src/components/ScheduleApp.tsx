@@ -32,6 +32,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   const [pastExpanded, setPastExpanded] = useState<boolean>(false);
   const [sheetPastExpanded, setSheetPastExpanded] = useState<boolean>(false);
   const [locale, setLocale] = useState<Locale>('en');
+  const [venueSearch, setVenueSearch] = useState<string>('');
 
   const dayRailRef = useRef<HTMLDivElement>(null);
 
@@ -154,9 +155,16 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   }, [events]);
 
   const filteredVenuesList = useMemo(() => {
-    const filtered = zone === 'All' ? visibleVenues : visibleVenues.filter(v => v.zone === zone);
+    let filtered = zone === 'All' ? visibleVenues : visibleVenues.filter(v => v.zone === zone);
+    if (venueSearch.trim()) {
+      const q = venueSearch.trim().toLowerCase();
+      filtered = filtered.filter(v =>
+        v.name.toLowerCase().includes(q) ||
+        v.area.toLowerCase().includes(q)
+      );
+    }
     return [...filtered].sort((a, b) => (venueEventCounts[b.id] || 0) - (venueEventCounts[a.id] || 0));
-  }, [zone, visibleVenues, venueEventCounts]);
+  }, [zone, visibleVenues, venueEventCounts, venueSearch]);
 
   // Retrieve current active sheet content objects
   const activeEvent = selectedEventId ? events.find(e => e.id === selectedEventId) : null;
@@ -624,6 +632,27 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 {translate(z, locale)}
               </div>
             ))}
+          </div>
+
+          {/* Venue Search Bar */}
+          <div className="venue-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input
+              type="text"
+              placeholder={locale === 'ur' ? 'مقام تلاش کریں...' : 'Search venues...'}
+              value={venueSearch}
+              onChange={e => setVenueSearch(e.target.value)}
+            />
+            {venueSearch && (
+              <button className="venue-search-clear" onClick={() => setVenueSearch('')}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m6 6 12 12M18 6 6 18" />
+                </svg>
+              </button>
+            )}
           </div>
 
           {/* Venues rows */}
