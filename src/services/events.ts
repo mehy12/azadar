@@ -125,10 +125,18 @@ async function readLocalEvents(): Promise<Event[]> {
 
 async function writeLocalEvents(events: Event[]): Promise<void> {
   if (typeof window !== 'undefined') return;
-  const fs = require('fs/promises');
-  const path = require('path');
-  const dataPath = path.join(process.cwd(), 'src', 'data', 'events.json');
-  await fs.writeFile(dataPath, JSON.stringify(events, null, 2), 'utf-8');
+  try {
+    const fs = require('fs/promises');
+    const path = require('path');
+    const dataPath = path.join(process.cwd(), 'src', 'data', 'events.json');
+    await fs.writeFile(dataPath, JSON.stringify(events, null, 2), 'utf-8');
+  } catch (err: any) {
+    console.error('Failed to write to local events.json:', err);
+    if (err.code === 'EROFS' || err.message?.includes('read-only')) {
+      throw new Error('Local database fallback is read-only in this hosting environment (e.g. Vercel). Please configure your Supabase environment variables (NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY) to enable database modifications.');
+    }
+    throw err;
+  }
 }
 
 export async function createEvent(event: Event): Promise<Event[]> {

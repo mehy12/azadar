@@ -95,10 +95,18 @@ async function readLocalVenues(): Promise<Venue[]> {
 
 async function writeLocalVenues(venues: Venue[]): Promise<void> {
   if (typeof window !== 'undefined') return;
-  const fs = require('fs/promises');
-  const path = require('path');
-  const dataPath = path.join(process.cwd(), 'src', 'data', 'venues.json');
-  await fs.writeFile(dataPath, JSON.stringify(venues, null, 2), 'utf-8');
+  try {
+    const fs = require('fs/promises');
+    const path = require('path');
+    const dataPath = path.join(process.cwd(), 'src', 'data', 'venues.json');
+    await fs.writeFile(dataPath, JSON.stringify(venues, null, 2), 'utf-8');
+  } catch (err: any) {
+    console.error('Failed to write to local venues.json:', err);
+    if (err.code === 'EROFS' || err.message?.includes('read-only')) {
+      throw new Error('Local database fallback is read-only in this hosting environment (e.g. Vercel). Please configure your Supabase environment variables (NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY) to enable database modifications.');
+    }
+    throw err;
+  }
 }
 
 export async function createVenue(venue: Venue): Promise<Venue[]> {
