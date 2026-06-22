@@ -89,8 +89,8 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
 
   // Filter events for selected day
   const dayEvents = useMemo(() => {
-    return events.filter(e => e.day_numbers.includes(selectedDay));
-  }, [events, selectedDay]);
+    return events.filter(e => e.day_numbers.includes(selectedDay) && !!venuesById[e.venue_id]);
+  }, [events, selectedDay, venuesById]);
 
   // Partition events into live, active, and past
   const partitionEvents = useMemo(() => {
@@ -133,9 +133,9 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     const todayDayObj = daysByNum[todayDayNum];
     if (!todayDayObj) return 0;
     
-    const todayEvents = events.filter(e => e.day_numbers.includes(todayDayNum));
+    const todayEvents = events.filter(e => e.day_numbers.includes(todayDayNum) && !!venuesById[e.venue_id]);
     return todayEvents.filter(e => getStatus(e, todayDayObj) === 'live').length;
-  }, [events, todayDayNum, daysByNum]);
+  }, [events, todayDayNum, daysByNum, venuesById]);
 
   // Unique zones
   const zones = useMemo(() => {

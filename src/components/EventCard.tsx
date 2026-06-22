@@ -11,6 +11,8 @@ interface EventCardProps {
 }
 
 export const EventCard: React.FC<EventCardProps> = ({ event, venue, status, onClick, locale = 'en' }) => {
+  if (!venue) return null;
+
   const isAshuraCard = (event.date_label && event.date_label.toLowerCase().includes('ashoor')) || venue.id === 'shia-qabrastan';
   
   const cardClasses = [
