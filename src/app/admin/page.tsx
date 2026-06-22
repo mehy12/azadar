@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { Venue, Event, Day } from '@/types';
+import { supabase } from '@/lib/supabase';
 
 export default function AdminPage() {
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -63,8 +64,11 @@ export default function AdminPage() {
     area: '',
     maps_query: '',
     type: 'azakhana',
-    zone: ''
+    zone: '',
+    photo_url: ''
   });
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const photoInputRef = useRef<HTMLInputElement>(null);
 
   // Form states for Event CRUD
   const [editingEventId, setEditingEventId] = useState<string | null>(null);
@@ -195,7 +199,7 @@ export default function AdminPage() {
         zone: venueForm.zone.trim(),
         lat: null,
         lng: null,
-        photo_url: null
+        photo_url: venueForm.photo_url.trim() || null
       }
     };
 
@@ -256,7 +260,8 @@ export default function AdminPage() {
       area: v.area,
       maps_query: v.maps_query,
       type: v.type,
-      zone: v.zone
+      zone: v.zone,
+      photo_url: v.photo_url || ''
     });
   };
 
@@ -268,8 +273,64 @@ export default function AdminPage() {
       area: '',
       maps_query: '',
       type: 'azakhana',
-      zone: ''
+      zone: '',
+      photo_url: ''
     });
+  };
+
+  // Photo upload handler
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!supabase) {
+      setError('Photo upload requires Supabase. Please configure your environment variables.');
+      return;
+    }
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setError('Please select an image file (JPG, PNG, WebP, etc.).');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image must be smaller than 5MB.');
+      return;
+    }
+
+    setUploadingPhoto(true);
+    setError(null);
+
+    try {
+      const fileExt = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+      const fileName = `${venueForm.id || 'venue'}-${Date.now()}.${fileExt}`;
+      const filePath = `venues/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('venue-photos')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+
+      if (uploadError) {
+        throw new Error(uploadError.message);
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('venue-photos')
+        .getPublicUrl(filePath);
+
+      setVenueForm(prev => ({ ...prev, photo_url: urlData.publicUrl }));
+      setMessage('Photo uploaded successfully!');
+    } catch (err: any) {
+      setError(`Photo upload failed: ${err.message}`);
+    } finally {
+      setUploadingPhoto(false);
+      if (photoInputRef.current) photoInputRef.current.value = '';
+    }
   };
 
   // Event Form Submit (Create / Update)
@@ -931,6 +992,46 @@ export default function AdminPage() {
                     style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }}
                     required
                   />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Venue Photo</label>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <input
+                      type="text"
+                      placeholder="Photo URL (or upload below)"
+                      value={venueForm.photo_url}
+                      onChange={e => setVenueForm({ ...venueForm, photo_url: e.target.value })}
+                      style={{ flex: 1, padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }}
+                    />
+                    <input
+                      ref={photoInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePhotoUpload}
+                      style={{ display: 'none' }}
+                      id="venue-photo-upload"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => photoInputRef.current?.click()}
+                      disabled={uploadingPhoto}
+                      className="btn btn-secondary"
+                      style={{ padding: '10px 16px', fontSize: '12px', whiteSpace: 'nowrap' }}
+                    >
+                      {uploadingPhoto ? 'Uploading...' : '📷 Upload'}
+                    </button>
+                  </div>
+                  {venueForm.photo_url && (
+                    <div style={{ marginTop: '10px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--line)' }}>
+                      <img
+                        src={venueForm.photo_url}
+                        alt="Venue preview"
+                        style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', display: 'block' }}
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>

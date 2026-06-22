@@ -677,16 +677,20 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         {/* Render Event Details Sheet */}
         {activeEvent && activeEventVenue && (
           <>
-            <div className="sheet-banner">
-              <div className="big-icon">
-                <VenueIcon type={activeEventVenue.type} size={30} />
-              </div>
+            <div className="sheet-banner" style={activeEventVenue.photo_url ? { backgroundImage: `url(${activeEventVenue.photo_url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}>
+              {!activeEventVenue.photo_url && (
+                <div className="big-icon">
+                  <VenueIcon type={activeEventVenue.type} size={30} />
+                </div>
+              )}
               <div className="sheet-close" onClick={closeAllSheets}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="m6 6 12 12M18 6 6 18" />
                 </svg>
               </div>
-              <div className="photo-tag">{uiTranslations[locale].photo_soon}</div>
+              {!activeEventVenue.photo_url && (
+                <div className="photo-tag">{uiTranslations[locale].photo_soon}</div>
+              )}
             </div>
             
             <div className="sheet-body">
@@ -764,16 +768,20 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         {/* Render Venue Details Sheet */}
         {activeVenue && (
           <>
-            <div className="sheet-banner">
-              <div className="big-icon">
-                <VenueIcon type={activeVenue.type} size={30} />
-              </div>
+            <div className="sheet-banner" style={activeVenue.photo_url ? { backgroundImage: `url(${activeVenue.photo_url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}>
+              {!activeVenue.photo_url && (
+                <div className="big-icon">
+                  <VenueIcon type={activeVenue.type} size={30} />
+                </div>
+              )}
               <div className="sheet-close" onClick={closeAllSheets}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="m6 6 12 12M18 6 6 18" />
                 </svg>
               </div>
-              <div className="photo-tag">{uiTranslations[locale].photo_soon}</div>
+              {!activeVenue.photo_url && (
+                <div className="photo-tag">{uiTranslations[locale].photo_soon}</div>
+              )}
             </div>
             
             <div className="sheet-body">
