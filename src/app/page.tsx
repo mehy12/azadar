@@ -4,6 +4,8 @@ import { getDays } from '@/services/days';
 import { getConfig } from '@/services/config';
 import { ScheduleApp } from '../components/ScheduleApp';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const [venues, events, days, config] = await Promise.all([
     getVenues(),
