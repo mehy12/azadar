@@ -13,7 +13,8 @@ export function mapRowToVenue(row: any): Venue {
     lat: row.latitude ? parseFloat(row.latitude) : null,
     lng: row.longitude ? parseFloat(row.longitude) : null,
     photo_url: row.image_url || null,
-    zone: row.zone || ''
+    zone: row.zone || '',
+    hidden: !!row.hidden
   };
 }
 
@@ -29,7 +30,8 @@ export function mapVenueToRow(venue: Venue) {
     latitude: venue.lat,
     longitude: venue.lng,
     image_url: venue.photo_url,
-    zone: venue.zone
+    zone: venue.zone,
+    hidden: !!venue.hidden
   };
 }
 

@@ -252,6 +252,36 @@ export default function AdminPage() {
     }
   };
 
+  // Toggle Venue Visibility (Hide/Unhide)
+  const handleToggleVenueVisibility = async (v: Venue) => {
+    setError(null);
+    setMessage(null);
+
+    const updatedVenue = { ...v, hidden: !v.hidden };
+    const payload = {
+      action: 'update',
+      data: updatedVenue
+    };
+
+    try {
+      const res = await fetch('/api/venues', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const resData = await res.json();
+      if (!res.ok) {
+        throw new Error(resData.error || 'Server error toggling venue visibility.');
+      }
+
+      setVenues(resData.venues);
+      setMessage(`Venue "${v.name}" is now ${updatedVenue.hidden ? 'hidden' : 'visible'}.`);
+    } catch (err: any) {
+      setError(err.message || 'Failed to toggle venue visibility.');
+    }
+  };
+
   const handleEditVenue = (v: Venue) => {
     setEditingVenueId(v.id);
     setVenueForm({
@@ -1062,15 +1092,23 @@ export default function AdminPage() {
                   <div className="empty-state" style={{ padding: '30px' }}>No venues match search.</div>
                 ) : (
                   filteredVenues.map(v => (
-                    <div key={v.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', borderBottom: '1px solid var(--line)', background: 'var(--surface-1)' }}>
+                    <div key={v.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', borderBottom: '1px solid var(--line)', background: 'var(--surface-1)', opacity: v.hidden ? 0.5 : 1 }}>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <span style={{ fontSize: '14px', fontWeight: 'bold' }}>{v.name}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '14px', fontWeight: 'bold' }}>{v.name}</span>
+                          {v.hidden && (
+                            <span style={{ fontSize: '10px', padding: '2px 6px', background: '#ff572233', color: '#ff5722', borderRadius: '4px', fontWeight: 'bold' }}>HIDDEN</span>
+                          )}
+                        </div>
                         <span style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'monospace' }}>ID: {v.id}</span>
                         <span style={{ fontSize: '13px', color: 'var(--text-dim)' }}>
                           {v.area} · {v.zone} · Type: <b style={{ textTransform: 'capitalize' }}>{v.type}</b>
                         </span>
                       </div>
                       <div style={{ display: 'flex', gap: '8px' }}>
+                        <button onClick={() => handleToggleVenueVisibility(v)} className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '12px' }}>
+                          {v.hidden ? '👁 Show' : '🙈 Hide'}
+                        </button>
                         <button onClick={() => handleEditVenue(v)} className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '12px' }}>
                           Edit
                         </button>

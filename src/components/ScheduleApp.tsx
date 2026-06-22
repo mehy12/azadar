@@ -35,14 +35,19 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
 
   const dayRailRef = useRef<HTMLDivElement>(null);
 
+  // Filter out hidden venues for public display
+  const visibleVenues = useMemo(() => {
+    return venues.filter(v => !v.hidden);
+  }, [venues]);
+
   // Mappings
   const venuesById = useMemo(() => {
     const map: Record<string, Venue> = {};
-    venues.forEach(v => {
+    visibleVenues.forEach(v => {
       map[v.id] = v;
     });
     return map;
-  }, [venues]);
+  }, [visibleVenues]);
 
   const daysByNum = useMemo(() => {
     const map: Record<number, Day> = {};
@@ -134,11 +139,11 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   // Unique zones
   const zones = useMemo(() => {
     const set = new Set<string>();
-    venues.forEach(v => {
+    visibleVenues.forEach(v => {
       if (v.zone) set.add(v.zone);
     });
     return ['All', ...Array.from(set).sort()];
-  }, [venues]);
+  }, [visibleVenues]);
 
   const venueEventCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -149,9 +154,9 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   }, [events]);
 
   const filteredVenuesList = useMemo(() => {
-    const filtered = zone === 'All' ? venues : venues.filter(v => v.zone === zone);
+    const filtered = zone === 'All' ? visibleVenues : visibleVenues.filter(v => v.zone === zone);
     return [...filtered].sort((a, b) => (venueEventCounts[b.id] || 0) - (venueEventCounts[a.id] || 0));
-  }, [zone, venues, venueEventCounts]);
+  }, [zone, visibleVenues, venueEventCounts]);
 
   // Retrieve current active sheet content objects
   const activeEvent = selectedEventId ? events.find(e => e.id === selectedEventId) : null;

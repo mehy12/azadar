@@ -8,6 +8,7 @@ export interface Venue {
   lng: number | null;
   photo_url: string | null;
   zone: string;
+  hidden?: boolean;
 }
 
 export interface Event {
