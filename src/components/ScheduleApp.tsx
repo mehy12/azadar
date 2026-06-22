@@ -438,7 +438,12 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   };
 
   const getMapsLink = (v: Venue) => {
-    if (v.maps_query) return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.maps_query)}`;
+    if (v.maps_query) {
+      if (v.maps_query.trim().startsWith('http://') || v.maps_query.trim().startsWith('https://')) {
+        return v.maps_query.trim();
+      }
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.maps_query)}`;
+    }
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.name + ', ' + (v.area || 'Bengaluru'))}`;
   };
 
