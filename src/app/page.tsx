@@ -1,15 +1,16 @@
-import { Venue, Event, Day } from '@/types';
-import venuesData from '../data/venues.json';
-import eventsData from '../data/events.json';
-import daysData from '../data/days.json';
-import configData from '../data/config.json';
+import { getVenues } from '@/services/venues';
+import { getEvents } from '@/services/events';
+import { getDays } from '@/services/days';
+import { getConfig } from '@/services/config';
 import { ScheduleApp } from '../components/ScheduleApp';
 
-export default function Home() {
-  const venues = venuesData as Venue[];
-  const events = eventsData as Event[];
-  const days = daysData as Day[];
-  const config = configData as { moharram1: string };
+export default async function Home() {
+  const [venues, events, days, config] = await Promise.all([
+    getVenues(),
+    getEvents(),
+    getDays(),
+    getConfig()
+  ]);
 
   return (
     <ScheduleApp
@@ -20,3 +21,4 @@ export default function Home() {
     />
   );
 }
+
