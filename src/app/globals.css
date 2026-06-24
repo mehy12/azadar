@@ -330,23 +330,17 @@ main {
   border-radius: 99px;
 }
 
-/* ---------- majlis card ---------- */
 .card {
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
+  gap: 14px;
+  align-items: stretch;
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--line);
-  padding: 16px 0;
+  padding: 12px 0;
   margin-bottom: 0;
   cursor: pointer;
   position: relative;
   transition: opacity .15s, transform .1s;
-}
-
-.card:last-child {
-  border-bottom: none;
 }
 
 .card:active {
@@ -381,43 +375,73 @@ main {
 }
 
 .card .spine {
-  width: 2px;
-  align-self: stretch;
-  border-radius: 2px;
-  background: var(--line-strong);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12px;
   flex: 0 0 auto;
-  margin-top: 4px;
-  margin-bottom: 4px;
 }
 
-.card.is-live .spine {
+.card .spine-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  margin-top: 5px; /* Aligns with the first line of text */
+  flex: 0 0 auto;
+  z-index: 2;
+}
+
+.card .spine-line {
+  position: absolute;
+  top: 17px; /* 5px margin-top on dot + 8px dot height + 4px visual gap */
+  bottom: -34px; /* Extends 12px padding + 5px gap + 12px padding + 5px next dot margin */
+  left: 5px; /* Center of the 12px spine container (12/2 - 1) */
+  width: 2px;
+  background: var(--line);
+  z-index: 1;
+}
+
+.card:last-child .spine-line,
+.card.is-last-timeline .spine-line {
+  display: none;
+}
+
+.card.is-live .spine-dot {
   background: var(--gold);
   box-shadow: 0 0 8px var(--gold-soft);
 }
 
-.card.ashura-card .spine {
+.card.ashura-card .spine-dot {
   background: var(--maroon);
 }
 
 .card .time-block {
-  flex: 0 0 56px;
+  flex: 0 0 65px;
+  width: 65px;
   padding-top: 0px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4px;
+  text-align: right;
 }
 
 .card .time-block .t {
   font-family: var(--font-display);
   font-size: var(--text-body);
   font-weight: var(--weight-title);
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
   color: var(--text);
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
 }
 
 .card .time-block .ampm {
   font-size: 11px;
   font-weight: 500;
   color: var(--text-dim);
-  margin-top: 2px;
 }
 
 .card .info {

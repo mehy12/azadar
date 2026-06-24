@@ -45,10 +45,13 @@ export const EventCard: React.FC<EventCardProps> = ({ event, venue, status, onCl
 
   return (
     <div className={cardClasses} onClick={onClick}>
-      <div className="spine"></div>
       <div className="time-block">
-        <div className="t">{translate(timeVal, locale)}</div>
-        <div className="ampm">{translate(ampmVal, locale)}</div>
+        <span className="t">{translate(timeVal, locale)}</span>
+        <span className="ampm">{translate(ampmVal, locale)}</span>
+      </div>
+      <div className="spine">
+        <div className="spine-dot"></div>
+        <div className="spine-line"></div>
       </div>
       <div className="info">
         <div className="venue-name">{translate(venue.name, locale)}</div>

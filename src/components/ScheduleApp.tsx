@@ -202,12 +202,13 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     const activeUpcoming = parsedEvs.filter(x => x.status !== 'past');
     const past = parsedEvs.filter(x => x.status === 'past');
 
-    const renderCard = (x: { event: Event; status: string; dNum: number }) => {
+    const renderCard = (x: { event: Event; status: string; dNum: number }, isLast: boolean) => {
       const dayInfo = daysByNum[x.dNum] || { label: String(x.dNum), day: x.dNum };
       const cardCls = [
         'card',
         x.status === 'live' ? 'is-live' : '',
-        x.status === 'past' ? 'is-past' : ''
+        x.status === 'past' ? 'is-past' : '',
+        isLast ? 'is-last-timeline' : ''
       ].filter(Boolean).join(' ');
 
       const timeStr = x.event.time || '—';
@@ -223,13 +224,15 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         <div
           key={x.event.id}
           className={cardCls}
-          style={{ marginBottom: '7px' }}
           onClick={() => openEventSheet(x.event.id, x.dNum)}
         >
-          <div className="spine"></div>
           <div className="time-block">
-            <div className="t">{translate(timeVal, locale)}</div>
-            <div className="ampm">{translate(ampmVal, locale)}</div>
+            <span className="t">{translate(timeVal, locale)}</span>
+            <span className="ampm">{translate(ampmVal, locale)}</span>
+          </div>
+          <div className="spine">
+            <div className="spine-dot"></div>
+            <div className="spine-line"></div>
           </div>
           <div className="info">
             <div className="venue-name">
@@ -258,7 +261,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
         {/* Active & Upcoming List */}
-        {activeUpcoming.map(x => renderCard(x))}
+        {activeUpcoming.map((x, i) => renderCard(x, i === activeUpcoming.length - 1))}
 
         {activeUpcoming.length === 0 && past.length > 0 && (
           <div className="empty-state">
@@ -294,7 +297,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 paddingTop: sheetPastExpanded ? '8px' : 0
               }}
             >
-              {past.map(x => renderCard(x))}
+              {past.map((x, i) => renderCard(x, i === past.length - 1))}
             </div>
           </div>
         )}
@@ -320,14 +323,15 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
       );
     }
 
-    return sorted.map(e => {
+    return sorted.map((e, idx) => {
       const dNum = e.day_numbers[0];
       const dayInfo = daysByNum[dNum] || { label: String(dNum), day: dNum };
       const status = getStatus(e, daysByNum[dNum]);
       const cardCls = [
         'card',
         status === 'live' ? 'is-live' : '',
-        status === 'past' ? 'is-past' : ''
+        status === 'past' ? 'is-past' : '',
+        idx === sorted.length - 1 ? 'is-last-timeline' : ''
       ].filter(Boolean).join(' ');
 
       const timeStr = e.time || '—';
@@ -343,13 +347,15 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         <div
           key={e.id}
           className={cardCls}
-          style={{ marginBottom: '7px' }}
           onClick={() => openEventSheet(e.id, dNum)}
         >
-          <div className="spine"></div>
           <div className="time-block">
-            <div className="t">{translate(timeVal, locale)}</div>
-            <div className="ampm">{translate(ampmVal, locale)}</div>
+            <span className="t">{translate(timeVal, locale)}</span>
+            <span className="ampm">{translate(ampmVal, locale)}</span>
+          </div>
+          <div className="spine">
+            <div className="spine-dot"></div>
+            <div className="spine-line"></div>
           </div>
           <div className="info">
             <div className="venue-name">
