@@ -232,7 +232,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
             <div className="ampm">{translate(ampmVal, locale)}</div>
           </div>
           <div className="info">
-            <div className="venue-name" style={{ fontSize: '13px' }}>
+            <div className="venue-name">
               {dayDisplay}
             </div>
             {x.event.minjanib && <div className="minjanib">{translate(x.event.minjanib, locale)}</div>}
@@ -261,7 +261,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         {activeUpcoming.map(x => renderCard(x))}
 
         {activeUpcoming.length === 0 && past.length > 0 && (
-          <div className="empty-state" style={{ padding: '10px 0 15px', fontSize: '13px' }}>
+          <div className="empty-state">
             {locale === 'ur' ? 'اس مقام پر دیگر تمام مجالس مکمل ہو چکی ہیں۔' : 'All other majlises at this venue have concluded.'}
           </div>
         )}
@@ -277,8 +277,8 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
               }}
               style={{ padding: '10px 12px' }}
             >
-              <span className="label" style={{ fontSize: '13px' }}>{uiTranslations[locale].concluded_majlises}</span>
-              <span className="past-badge" style={{ fontSize: '11px' }}>
+              <span className="label">{uiTranslations[locale].concluded_majlises}</span>
+              <span className="past-badge">
                 {locale === 'ur' ? toUrduNumbers(past.length) : past.length} {uiTranslations[locale].past_badge}
               </span>
               <span className="past-chevron">
@@ -352,7 +352,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
             <div className="ampm">{translate(ampmVal, locale)}</div>
           </div>
           <div className="info">
-            <div className="venue-name" style={{ fontSize: '13px' }}>
+            <div className="venue-name">
               {dayDisplay}
               {e.location_detail && ` · ${translate(e.location_detail.split(',')[0], locale)}`}
             </div>
@@ -531,17 +531,22 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           </div>
 
           <main id="homeView">
-            {/* Selected Day Banner */}
-            <div className="day-banner" suppressHydrationWarning>
-              {selectedDay === 0 
-                ? uiTranslations[locale].chand_raat 
-                : `${locale === 'ur' ? toUrduNumbers(selectedDay) : selectedDay} ${uiTranslations[locale].moharram_day}`}{' '}
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--text-dim)', fontWeight: 400 }}>
-                · {dateBannerLabel}
-              </span>
-              {selectedDayObj?.tag && (
-                <span className="tag" style={{ marginLeft: '6px' }}>{translateDayTag(selectedDayObj.tag, locale)}</span>
-              )}
+            {/* Editorial Hero Section */}
+            <div className="hero-section" suppressHydrationWarning>
+              <div className="hero-day">
+                {selectedDay === 0 ? (locale === 'ur' ? 'چاند' : 'CR') : (locale === 'ur' ? toUrduNumbers(selectedDay) : selectedDay)}
+              </div>
+              <div className="hero-content">
+                <div className="hero-month">
+                  {selectedDay === 0 ? uiTranslations[locale].chand_raat : uiTranslations[locale].moharram_day}
+                </div>
+                <div className="hero-meta">
+                  {dateBannerLabel}
+                  {selectedDayObj?.tag && (
+                    <span className="hero-tag">{translateDayTag(selectedDayObj.tag, locale)}</span>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* Live Now Section */}
@@ -656,27 +661,43 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           </div>
 
           {/* Venues rows */}
-          {filteredVenuesList.map(v => (
-            <div key={v.id} className="venue-row" onClick={() => openVenueSheet(v.id)}>
-              <div className="venue-icon">
-                <VenueIcon type={v.type} size={18} />
+          {(() => {
+            const grouped = filteredVenuesList.reduce((acc, v) => {
+              const groupKey = zone === 'All Bangalore' ? v.zone : v.area;
+              if (!acc[groupKey]) acc[groupKey] = [];
+              acc[groupKey].push(v);
+              return acc;
+            }, {} as Record<string, Venue[]>);
+
+            return Object.entries(grouped).map(([groupName, groupVenues]) => (
+              <div key={groupName} className="venue-group" style={{ marginBottom: '24px' }}>
+                <h3 className="venue-group-title" style={{ fontSize: 'var(--text-caption)', fontWeight: 'var(--weight-title)', color: 'var(--text-faint)', paddingBottom: '8px', borderBottom: '1px solid var(--line)', marginBottom: '4px' }}>
+                  {translate(groupName, locale)}
+                </h3>
+                {groupVenues.map(v => (
+                  <div key={v.id} className="venue-row" onClick={() => openVenueSheet(v.id)}>
+                    <div className="venue-icon">
+                      <VenueIcon type={v.type} size={18} />
+                    </div>
+                    <div className="info">
+                      <div className="vn">{translate(v.name, locale)}</div>
+                      <div className="va">{translate(v.area, locale)}</div>
+                      <div className="vc">
+                        {locale === 'ur' 
+                          ? `${toUrduNumbers(venueEventCounts[v.id] || 0)} مجالس اس محرم` 
+                          : `${venueEventCounts[v.id] || 0} majlis this Moharram`}
+                      </div>
+                    </div>
+                    <div className="chev">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m9 6 6 6-6 6" />
+                      </svg>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="info">
-                <div className="vn">{translate(v.name, locale)}</div>
-                <div className="va">{translate(v.area, locale)}</div>
-                <div className="vc">
-                  {locale === 'ur' 
-                    ? `${toUrduNumbers(venueEventCounts[v.id] || 0)} مجالس اس محرم` 
-                    : `${venueEventCounts[v.id] || 0} majlis this Moharram`}
-                </div>
-              </div>
-              <div className="chev">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m9 6 6 6-6 6" />
-                </svg>
-              </div>
-            </div>
-          ))}
+            ));
+          })()}
         </main>
       )}
 
@@ -757,13 +778,13 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                   <div className="v">{translate(activeEvent.time, locale)}</div>
                 </div>
                 {activeEvent.minjanib && (
-                  <div className="meta-box meta-full">
+                  <div className="meta-box meta-full organizer">
                     <div className="k">{uiTranslations[locale].minjanib}</div>
                     <div className="v">{translate(activeEvent.minjanib, locale)}</div>
                   </div>
                 )}
                 {activeEvent.bayan_by && (
-                  <div className="meta-box meta-full">
+                  <div className="meta-box meta-full speaker">
                     <div className="k">{uiTranslations[locale].bayan_by}</div>
                     <div className="v">{translate(activeEvent.bayan_by, locale)}</div>
                   </div>
