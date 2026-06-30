@@ -13,7 +13,8 @@ import { BottomSheet } from './BottomSheet';
 import { VenueIcon } from './Icons';
 import { Locale, translate, toUrduNumbers, uiTranslations, translateDayTag } from '../utils/translations';
 import { supabase, getSupabaseClient } from '@/lib/supabase';
-import { requestForToken } from '@/lib/firebase';
+import { requestForToken, getAppMessaging } from '@/lib/firebase';
+import { onMessage } from 'firebase/messaging';
 
 interface ScheduleAppProps {
   venues: Venue[];
@@ -47,6 +48,30 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'Notification' in window) {
       setNotificationStatus(Notification.permission);
+    }
+
+    // Listen for foreground Firebase messages
+    const messaging = getAppMessaging();
+    if (messaging) {
+      const unsubscribe = onMessage(messaging, (payload) => {
+        console.log('[Foreground Message] received: ', payload);
+        const title = payload.notification?.title || 'AzaHub';
+        const options = {
+          body: payload.notification?.body,
+          icon: '/android-chrome-192x192.png',
+        };
+
+        // Try to show a native notification if in the foreground and permitted
+        if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+          new Notification(title, options);
+        } else {
+          // Fallback to alert if native notification fails
+          alert(`${title}\n\n${options.body}`);
+        }
+      });
+      return () => {
+        unsubscribe();
+      };
     }
   }, []);
 

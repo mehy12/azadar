@@ -13,6 +13,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
+export const getAppMessaging = () => {
+  if (typeof window !== 'undefined') {
+    return getMessaging(app);
+  }
+  return null;
+};
+
 export const requestForToken = async (): Promise<{ token: string | null, error?: string }> => {
   try {
     if (!firebaseConfig.projectId) {
