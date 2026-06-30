@@ -10,8 +10,10 @@ export default function AdminPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [days, setDays] = useState<Day[]>([]);
 
-  const [activeTab, setActiveTab] = useState<'events' | 'venues'>('events');
+  const [activeTab, setActiveTab] = useState<'events' | 'venues' | 'broadcasts'>('events');
   const [loading, setLoading] = useState<boolean>(true);
+  const [broadcastForm, setBroadcastForm] = useState({ title: '', body: '', url: '' });
+  const [broadcasting, setBroadcasting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -34,9 +36,10 @@ export default function AdminPage() {
 
   const handleSubmitPin = (e: React.FormEvent) => {
     e.preventDefault();
-    const correctPin = process.env.NEXT_PUBLIC_ADMIN_PIN || '1210';
+    const correctPin = process.env.NEXT_PUBLIC_ADMIN_PIN || '7860';
     if (pin === correctPin) {
       sessionStorage.setItem('admin_authenticated', 'true');
+      sessionStorage.setItem('admin_pin', pin);
       setAuthenticated(true);
       setPinError(false);
       setPin('');
@@ -512,6 +515,33 @@ export default function AdminPage() {
     });
   };
 
+  const handleBroadcastSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setMessage(null);
+    if (!broadcastForm.title || !broadcastForm.body) {
+      setError('Title and Body are required for broadcast.');
+      return;
+    }
+    setBroadcasting(true);
+    try {
+      const savedPin = sessionStorage.getItem('admin_pin') || '';
+      const res = await fetch('/api/admin/broadcast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...broadcastForm, pin: savedPin })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Broadcast failed.');
+      setMessage(data.message || 'Broadcast sent successfully.');
+      setBroadcastForm({ title: '', body: '', url: '' });
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setBroadcasting(false);
+    }
+  };
+
   if (checkingAuth) {
     return (
       <div className="empty-state" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
@@ -681,6 +711,13 @@ export default function AdminPage() {
           style={{ cursor: 'pointer', padding: '8px 16px', fontSize: '14px' }}
         >
           Manage Venues ({venues.length})
+        </button>
+        <button
+          className={`zone-chip ${activeTab === 'broadcasts' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('broadcasts'); setError(null); setMessage(null); }}
+          style={{ cursor: 'pointer', padding: '8px 16px', fontSize: '14px' }}
+        >
+          Broadcasts
         </button>
       </div>
 
@@ -1122,6 +1159,71 @@ export default function AdminPage() {
               </div>
             </div>
           </>
+        )}
+
+        {/* ================= BROADCASTS TAB ================= */}
+        {activeTab === 'broadcasts' && (
+          <div style={{ gridColumn: '1 / -1', background: 'var(--surface-1)', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', maxWidth: '600px', margin: '0 auto', width: '100%' }}>
+            <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '18px', marginTop: 0, marginBottom: '10px' }}>
+              Push Notifications (Broadcast)
+            </h2>
+            <p style={{ color: 'var(--text-dim)', fontSize: '13.5px', marginBottom: '24px', lineHeight: 1.5 }}>
+              Send an instant push notification to all users who have registered a reminder device. Use this for major announcements or urgent schedule changes.
+            </p>
+
+            <form onSubmit={handleBroadcastSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Notification Title *</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Majlis Location Changed"
+                  value={broadcastForm.title}
+                  onChange={e => setBroadcastForm({ ...broadcastForm, title: e.target.value })}
+                  style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }}
+                  required
+                />
+              </div>
+              
+              <div>
+                <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Notification Body *</label>
+                <textarea
+                  placeholder="e.g. Tonight's majlis at Imamia Manzil will now start at 9:00 PM."
+                  value={broadcastForm.body}
+                  onChange={e => setBroadcastForm({ ...broadcastForm, body: e.target.value })}
+                  style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)', minHeight: '80px', resize: 'vertical' }}
+                  required
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Deep Link (Optional)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. /events/ev123"
+                  value={broadcastForm.url}
+                  onChange={e => setBroadcastForm({ ...broadcastForm, url: e.target.value })}
+                  style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={broadcasting}
+                className="btn btn-primary"
+                style={{
+                  width: '100%',
+                  padding: '14px',
+                  fontSize: '15px',
+                  fontWeight: 600,
+                  marginTop: '10px',
+                  background: 'var(--maroon)',
+                  borderColor: 'var(--maroon)'
+                }}
+              >
+                {broadcasting ? 'Sending...' : 'SEND BROADCAST TO ALL DEVICES'}
+              </button>
+            </form>
+          </div>
         )}
 
       </div>

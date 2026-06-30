@@ -6,3 +6,14 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 export const supabase = supabaseUrl && supabaseAnonKey
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
+
+export const getSupabaseClient = (deviceId: string) => {
+  if (!supabaseUrl || !supabaseAnonKey) return null;
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    global: {
+      headers: {
+        'x-device-id': deviceId
+      }
+    }
+  });
+};

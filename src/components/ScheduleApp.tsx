@@ -12,6 +12,8 @@ import { EventCard } from './EventCard';
 import { BottomSheet } from './BottomSheet';
 import { VenueIcon } from './Icons';
 import { Locale, translate, toUrduNumbers, uiTranslations, translateDayTag } from '../utils/translations';
+import { supabase, getSupabaseClient } from '@/lib/supabase';
+import { requestForToken } from '@/lib/firebase';
 
 interface ScheduleAppProps {
   venues: Venue[];
@@ -23,7 +25,7 @@ interface ScheduleAppProps {
 }
 
 export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, config }) => {
-  const [tab, setTab] = useState<'home' | 'venues'>('home');
+  const [tab, setTab] = useState<'home' | 'venues' | 'reminders'>('home');
   const [selectedDay, setSelectedDay] = useState<number>(1);
   const [zone, setZone] = useState<string>('All');
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
@@ -33,6 +35,20 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   const [sheetPastExpanded, setSheetPastExpanded] = useState<boolean>(false);
   const [locale, setLocale] = useState<Locale>('en');
   const [venueSearch, setVenueSearch] = useState<string>('');
+
+  const [deviceId, setDeviceId] = useState<string | null>(null);
+  const [reminders, setReminders] = useState<Record<string, string>>({});
+  const [reminderLoading, setReminderLoading] = useState<string | null>(null);
+  const [showReminderOptions, setShowReminderOptions] = useState<string | null>(null);
+  const [selectedReminderOffset, setSelectedReminderOffset] = useState<number>(30);
+  const [notificationStatus, setNotificationStatus] = useState<string>('default');
+  const [reminderSuccess, setReminderSuccess] = useState<{ id: string, msg: string } | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      setNotificationStatus(Notification.permission);
+    }
+  }, []);
 
   const dayRailRef = useRef<HTMLDivElement>(null);
 
@@ -67,6 +83,48 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   useEffect(() => {
     setSelectedDay(todayDayNum);
   }, [todayDayNum]);
+
+  // Init Device ID and Fetch Reminders
+  useEffect(() => {
+    let id = localStorage.getItem('deviceId');
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem('deviceId', id);
+    }
+    setDeviceId(id);
+
+    const fetchReminders = async () => {
+      if (!id || !supabase) return;
+      const client = getSupabaseClient(id);
+      if (!client) return;
+      const { data } = await client.from('reminders').select('id, event_id').eq('device_id', id).eq('status', 'pending');
+      if (data) {
+        const rm: Record<string, string> = {};
+        data.forEach(r => rm[r.event_id] = r.id);
+        setReminders(rm);
+      }
+    };
+    fetchReminders();
+  }, []);
+
+  // Handle deep linking from notifications
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const pathParts = window.location.pathname.split('/');
+      const params = new URLSearchParams(window.location.search);
+      const eventId = pathParts[1] === 'events' ? pathParts[2] : params.get('event');
+      
+      if (eventId) {
+        const ev = events.find(e => e.id === eventId);
+        if (ev && ev.day_numbers.length > 0) {
+          setSelectedEventId(ev.id);
+          setSelectedEventDayNum(ev.day_numbers[0]);
+          setSelectedDay(ev.day_numbers[0]); // switch main tab to that day
+          console.log('[Analytics] Notification Opened for Event:', ev.id);
+        }
+      }
+    }
+  }, [events]);
 
   // Scroll active day chip into view
   useEffect(() => {
@@ -454,6 +512,80 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     setSelectedEventDayNum(null);
     setSelectedVenueId(null);
     setSheetPastExpanded(false);
+    setShowReminderOptions(null);
+  };
+
+  const handleSetReminder = async (eventId: string, minutes: number) => {
+    if (!deviceId || !activeEventDay || !activeEvent?.time_24h || !supabase) return;
+    setReminderLoading(eventId);
+    try {
+      const token = await requestForToken();
+      if (!token) {
+        alert(locale === 'ur' ? 'اطلاعات کی اجازت درکار ہے۔' : 'Notification permission is required.');
+        setReminderLoading(null);
+        return;
+      }
+
+      const eventTime = new Date(`${activeEventDay.date_iso}T${activeEvent.time_24h}:00+05:30`);
+      const reminderTime = new Date(eventTime.getTime() - minutes * 60000);
+
+      const client = getSupabaseClient(deviceId);
+      if (!client) throw new Error('Supabase client not initialized');
+
+      const { data, error } = await client
+        .from('reminders')
+        .upsert({
+          device_id: deviceId,
+          fcm_token: token,
+          event_id: eventId,
+          venue_name: activeEventVenue?.name || '',
+          starts_in: minutes >= 60 ? `${minutes/60} hour${minutes/60 > 1 ? 's' : ''}` : `${minutes} minutes`,
+          venue_maps_link: activeEventVenue ? getMapsLink(activeEventVenue) : '',
+          event_time: eventTime.toISOString(),
+          reminder_time: reminderTime.toISOString()
+        }, { onConflict: 'device_id, event_id, reminder_time' })
+        .select()
+        .single();
+
+      if (error) throw error;
+      
+      console.log(`[Analytics] Reminder Created for event: ${eventId} (${minutes}m before)`);
+      
+      setReminders(prev => ({ ...prev, [eventId]: data.id }));
+      setShowReminderOptions(null);
+      setReminderSuccess({ id: eventId, msg: locale === 'ur' ? `✓ مجلس سے ${minutes} منٹ پہلے آپ کو مطلع کیا جائے گا` : `✓ Reminder set. We'll notify you ${minutes} minutes before the Majlis.` });
+      
+      setTimeout(() => {
+        setReminderSuccess(null);
+      }, 4000);
+      
+    } catch (e) {
+      console.error(e);
+      alert('Failed to set reminder.');
+    }
+    setReminderLoading(null);
+  };
+
+  const handleCancelReminder = async (eventId: string) => {
+    const reminderId = reminders[eventId];
+    if (!reminderId || !supabase || !deviceId) return;
+    setReminderLoading(eventId);
+    try {
+      const client = getSupabaseClient(deviceId);
+      if (!client) throw new Error('Client error');
+      const { error } = await client.from('reminders').update({ status: 'cancelled' }).eq('id', reminderId);
+      if (error) throw error;
+      console.log(`[Analytics] Reminder Cancelled for event: ${eventId}`);
+      setReminders(prev => {
+        const next = { ...prev };
+        delete next[eventId];
+        return next;
+      });
+      setShowReminderOptions(null);
+    } catch (e) {
+      console.error(e);
+    }
+    setReminderLoading(null);
   };
 
   const getMapsLink = (v: Venue) => {
@@ -731,7 +863,53 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           </svg>
           {uiTranslations[locale].venues}
         </button>
+        <button
+          id="tabRemindersBtn"
+          className={tab === 'reminders' ? 'active' : ''}
+          onClick={() => setTab('reminders')}
+        >
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+          </svg>
+          {locale === 'ur' ? 'یاد دہانیاں' : 'Reminders'}
+        </button>
       </nav>
+
+      {/* Main Tab Views */}
+      {tab === 'reminders' && (
+        <main id="remindersView" style={{ paddingTop: '24px' }}>
+          <h2 style={{ fontSize: 'var(--text-title)', marginBottom: '16px', fontWeight: 'var(--weight-title)' }}>
+            {locale === 'ur' ? 'آنے والی یاد دہانیاں' : 'My Upcoming Reminders'}
+          </h2>
+          {Object.keys(reminders).length === 0 ? (
+            <div className="empty-state">
+              {locale === 'ur' ? 'کوئی یاد دہانی سیٹ نہیں کی گئی۔' : 'No reminders scheduled yet.'}
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {Object.keys(reminders).map(eventId => {
+                const e = events.find(ev => ev.id === eventId);
+                if (!e) return null;
+                const v = venuesById[e.venue_id];
+                const dNum = e.day_numbers[0];
+                const status = getStatus(e, daysByNum[dNum]);
+                if (status === 'past') return null; // hide past reminders from list
+                return (
+                  <EventCard
+                    key={e.id}
+                    event={e}
+                    venue={v}
+                    status={status}
+                    onClick={() => openEventSheet(e.id, dNum)}
+                    locale={locale}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </main>
+      )}
 
       {/* Bottom Sheet Details Modal Container */}
       <BottomSheet isOpen={selectedEventId !== null || selectedVenueId !== null} onClose={closeAllSheets}>
@@ -801,15 +979,38 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 <div className="notes-box">{translate(activeEvent.notes, locale)}</div>
               )}
               
-              <div className="cta-row">
-                <a className="btn btn-primary" href={getMapsLink(activeEventVenue)} target="_blank" rel="noopener noreferrer">
+              <div className="cta-row" style={{ gap: '8px', flexWrap: 'wrap' }}>
+                <a className="btn btn-primary" style={{ flex: '1 1 auto', justifyContent: 'center' }} href={getMapsLink(activeEventVenue)} target="_blank" rel="noopener noreferrer">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="m3 11 18-7-7 18-2.5-7.5L3 11Z" />
                   </svg>
                   {uiTranslations[locale].get_directions}
                 </a>
+                
+                {activeEvent.time_24h && getStatus(activeEvent, activeEventDay || undefined) === 'upcoming' && (
+                  reminderSuccess?.id === activeEvent.id ? (
+                    <div style={{ flex: '1 1 100%', background: 'var(--gold-soft)', color: 'var(--gold)', border: '1px solid var(--gold-line)', borderRadius: '12px', padding: '12px', textAlign: 'center', fontWeight: '500', fontSize: '13.5px', animation: 'fadeIn 0.3s ease-out' }}>
+                      {reminderSuccess.msg}
+                    </div>
+                  ) : reminders[activeEvent.id] ? (
+                    <button className="reminder-inline-btn active" style={{ flex: '1 1 auto' }} onClick={() => setShowReminderOptions(activeEvent.id)} disabled={reminderLoading === activeEvent.id}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1" className="bell-anim">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                      </svg>
+                      {reminderLoading === activeEvent.id ? '...' : (locale === 'ur' ? 'یاد دہانی سیٹ ہے' : 'Reminder Set')}
+                    </button>
+                  ) : (
+                    <button className="reminder-inline-btn" style={{ flex: '1 1 auto' }} onClick={() => setShowReminderOptions(activeEvent.id)} disabled={reminderLoading === activeEvent.id}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                      </svg>
+                      {locale === 'ur' ? 'مجھے یاد دلائیں' : 'Remind Me'}
+                    </button>
+                  )
+                )}
+
                 {activeEvent.youtube_url && (
-                  <a className="btn btn-secondary" href={activeEvent.youtube_url} target="_blank" rel="noopener noreferrer">
+                  <a className="btn btn-secondary" style={{ flex: '1 1 100%', justifyContent: 'center', marginTop: '0px' }} href={activeEvent.youtube_url} target="_blank" rel="noopener noreferrer">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="m10 8 5 4-5 4V8Z" />
                       <rect x="3" y="5" width="18" height="14" rx="3" />
@@ -869,6 +1070,83 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
             </div>
           </>
         )}
+      </BottomSheet>
+      
+      {/* Reminder Bottom Sheet */}
+      <BottomSheet isOpen={showReminderOptions !== null} onClose={() => setShowReminderOptions(null)}>
+        {showReminderOptions && (() => {
+          const isReminderSet = !!reminders[showReminderOptions];
+          
+          return (
+            <div className="reminder-sheet-body">
+              <h2 className="reminder-sheet-title">{locale === 'ur' ? 'یاد دہانی' : 'Remind Me'}</h2>
+              <p className="reminder-sheet-subtitle">
+                {locale === 'ur' 
+                  ? 'مجلس شروع ہونے سے کتنا پہلے آپ کو مطلع کیا جائے؟' 
+                  : 'Choose when you\'d like to be notified before the Majlis begins.'}
+              </p>
+
+              {notificationStatus === 'denied' ? (
+                <div className="permission-card">
+                  <div className="permission-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                      <line x1="2" y1="2" x2="22" y2="22"></line>
+                    </svg>
+                  </div>
+                  <p className="permission-text">
+                    {locale === 'ur' ? 'آزا ہب کو مجلس سے پہلے یاد دلانے کے لیے نوٹیفکیشن کی اجازت درکار ہے۔' : 'AzaHub needs notification permission to remind you before the Majlis.'}
+                  </p>
+                </div>
+              ) : (
+                <div className="reminder-options-list">
+                  {[
+                    { value: 15, label: locale === 'ur' ? '15 منٹ پہلے' : '15 minutes before' },
+                    { value: 30, label: locale === 'ur' ? '30 منٹ پہلے' : '30 minutes before' },
+                    { value: 60, label: locale === 'ur' ? '1 گھنٹہ پہلے' : '1 hour before' },
+                    { value: 120, label: locale === 'ur' ? '2 گھنٹے پہلے' : '2 hours before' },
+                  ].map(opt => (
+                    <div 
+                      key={opt.value} 
+                      className={`reminder-radio ${selectedReminderOffset === opt.value ? 'selected' : ''}`}
+                      onClick={() => setSelectedReminderOffset(opt.value)}
+                    >
+                      <span className="reminder-radio-label">{opt.label}</span>
+                      <div className="radio-circle">
+                        <div className="radio-circle-inner"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {isReminderSet ? (
+                <button 
+                  className="reminder-btn-destructive" 
+                  onClick={() => handleCancelReminder(showReminderOptions)}
+                  disabled={reminderLoading === showReminderOptions}
+                >
+                  {reminderLoading === showReminderOptions ? '...' : (locale === 'ur' ? 'یاد دہانی ہٹائیں' : 'Remove Reminder')}
+                </button>
+              ) : (
+                <button 
+                  className="reminder-btn-primary" 
+                  onClick={() => {
+                    if (notificationStatus === 'denied') {
+                      alert('Please enable notifications in your browser settings.');
+                    } else {
+                      handleSetReminder(showReminderOptions, selectedReminderOffset);
+                    }
+                  }}
+                  disabled={reminderLoading === showReminderOptions}
+                >
+                  {reminderLoading === showReminderOptions ? '...' : (locale === 'ur' ? 'یاد دہانی سیٹ کریں' : 'Set Reminder')}
+                </button>
+              )}
+            </div>
+          );
+        })()}
       </BottomSheet>
     </div>
   );
