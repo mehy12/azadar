@@ -519,9 +519,18 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     if (!deviceId || !activeEventDay || !activeEvent?.time_24h || !supabase) return;
     setReminderLoading(eventId);
     try {
-      const token = await requestForToken();
+      const { token, error: tokenError } = await requestForToken();
+      
       if (!token) {
-        alert(locale === 'ur' ? 'اطلاعات کی اجازت درکار ہے۔' : 'Notification permission is required.');
+        if (tokenError === 'not_supported') {
+          alert(locale === 'ur' 
+            ? 'آئی فون پر اطلاعات موصول کرنے کے لیے، براہ کرم اس ویب سائٹ کو اپنی ہوم اسکرین میں شامل کریں (Share -> Add to Home Screen)۔' 
+            : 'On iPhone, you MUST add this website to your Home Screen to receive notifications (Share -> Add to Home Screen).');
+        } else if (tokenError === 'denied') {
+          alert(locale === 'ur' ? 'اطلاعات کی اجازت درکار ہے۔' : 'Notification permission is required. Please enable it in your browser settings.');
+        } else {
+          alert(locale === 'ur' ? 'اطلاعات کی اجازت درکار ہے۔' : `Failed to get push token: ${tokenError || 'Unknown error'}`);
+        }
         setReminderLoading(null);
         return;
       }

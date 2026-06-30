@@ -13,24 +13,34 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-export const requestForToken = async () => {
+export const requestForToken = async (): Promise<{ token: string | null, error?: string }> => {
   try {
     if (!firebaseConfig.projectId) {
-      console.warn("[AzaHub] Firebase configuration is missing. Please add NEXT_PUBLIC_FIREBASE_* variables to .env.local.");
-      return null;
+      console.warn("[AzaHub] Firebase configuration is missing.");
+      return { token: null, error: 'missing_config' };
     }
 
     const supported = await isSupported();
     if (!supported) {
       console.warn("Firebase Messaging is not supported in this browser.");
-      return null;
+      return { token: null, error: 'not_supported' };
     }
 
-    // Only prompt if we haven't permanently denied it. 
-    // And to prevent spamming, we track if we explicitly asked before.
+    // iOS requires explicit permission prompt triggered directly by user action
+    if (!('Notification' in window)) {
+      return { token: null, error: 'not_supported' };
+    }
+
     if (Notification.permission === 'denied') {
-      console.warn("Notifications are denied by the user.");
-      return null;
+      return { token: null, error: 'denied' };
+    }
+
+    // Explicitly ask for permission BEFORE Firebase does
+    if (Notification.permission === 'default') {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        return { token: null, error: 'denied' };
+      }
     }
 
     const messaging = getMessaging(app);
@@ -40,7 +50,6 @@ export const requestForToken = async () => {
       registration = await navigator.serviceWorker.getRegistration();
       if (!registration) {
         await navigator.serviceWorker.register('/sw.js');
-        // We must wait for the service worker to become fully active before Firebase can subscribe
         registration = await navigator.serviceWorker.ready;
       }
     }
@@ -52,13 +61,12 @@ export const requestForToken = async () => {
 
     if (currentToken) {
       localStorage.setItem('notificationRequested', 'true');
-      return currentToken;
+      return { token: currentToken };
     } else {
-      console.warn("No registration token available. Request permission to generate one.");
-      return null;
+      return { token: null, error: 'no_token' };
     }
-  } catch (err) {
+  } catch (err: any) {
     console.error("An error occurred while retrieving token. ", err);
-    return null;
+    return { token: null, error: err.message };
   }
 };
