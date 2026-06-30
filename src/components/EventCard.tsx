@@ -1,6 +1,7 @@
 import React from 'react';
 import { Event, Venue } from '@/types';
 import { translate, Locale } from '../utils/translations';
+import { generateGoogleCalendarLink } from '../utils/calendarHelpers';
 
 interface EventCardProps {
   event: Event;
@@ -13,6 +14,7 @@ interface EventCardProps {
 export const EventCard: React.FC<EventCardProps> = ({ event, venue, status, onClick, locale = 'en' }) => {
   if (!venue) return null;
 
+  const calendarUrl = generateGoogleCalendarLink(event, venue);
   const isAshuraCard = (event.date_label && event.date_label.toLowerCase().includes('ashoor')) || venue.id === 'shia-qabrastan';
   
   const cardClasses = [
@@ -72,6 +74,17 @@ export const EventCard: React.FC<EventCardProps> = ({ event, venue, status, onCl
               </span>
             )}
           </div>
+        )}
+        {calendarUrl && status !== 'past' && (
+          <a 
+            href={calendarUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="calendar-btn"
+            onClick={(e) => e.stopPropagation()}
+          >
+            📅 {locale === 'ur' ? 'کیلنڈر میں شامل کریں' : 'Add to Calendar'}
+          </a>
         )}
       </div>
       <div className="chev">
