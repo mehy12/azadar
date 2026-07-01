@@ -26,23 +26,16 @@ export default function InstallPrompt() {
     const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
     setIsIOS(isIOSDevice);
 
-    // If it's iOS and not standalone, we show the prompt after a delay
-    if (isIOSDevice) {
-      const hasDismissed = localStorage.getItem('azadar_install_dismissed');
-      if (!hasDismissed) {
-        setTimeout(() => setShowPrompt(true), 3000);
-      }
+    // Show prompt after a delay if not dismissed
+    const hasDismissed = localStorage.getItem('azadar_install_dismissed_v2');
+    if (!hasDismissed) {
+      setTimeout(() => setShowPrompt(true), 3000);
     }
 
-    // For Android/Chrome: listen to beforeinstallprompt
+    // Listen to beforeinstallprompt (saves the native prompt if available)
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      
-      const hasDismissed = localStorage.getItem('azadar_install_dismissed');
-      if (!hasDismissed) {
-        setTimeout(() => setShowPrompt(true), 3000);
-      }
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -60,12 +53,15 @@ export default function InstallPrompt() {
         setShowPrompt(false);
       }
       setDeferredPrompt(null);
+    } else {
+      // Fallback for browsers that don't support beforeinstallprompt or dev mode
+      alert("To install AzaHub, please open your browser menu and select 'Add to Home Screen' or 'Install App'.");
     }
   };
 
   const handleDismiss = () => {
     setShowPrompt(false);
-    localStorage.setItem('azadar_install_dismissed', 'true');
+    localStorage.setItem('azadar_install_dismissed_v2', 'true');
   };
 
   if (!showPrompt) return null;
