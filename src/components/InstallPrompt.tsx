@@ -26,16 +26,24 @@ export default function InstallPrompt() {
     const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
     setIsIOS(isIOSDevice);
 
-    // Show prompt after a delay if not dismissed
-    const hasDismissed = localStorage.getItem('azadar_install_dismissed_v2');
-    if (!hasDismissed) {
-      setTimeout(() => setShowPrompt(true), 3000);
+    // If it's iOS and not standalone, we show the prompt after a delay
+    if (isIOSDevice) {
+      const hasDismissed = localStorage.getItem('azadar_install_dismissed_v2');
+      if (!hasDismissed) {
+        setTimeout(() => setShowPrompt(true), 3000);
+      }
     }
 
-    // Listen to beforeinstallprompt (saves the native prompt if available)
+    // For Android/Chrome: listen to beforeinstallprompt
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
+      
+      const hasDismissed = localStorage.getItem('azadar_install_dismissed_v2');
+      if (!hasDismissed) {
+        // Show immediately since this event means it's ready, or with a slight delay
+        setTimeout(() => setShowPrompt(true), 1500); 
+      }
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
