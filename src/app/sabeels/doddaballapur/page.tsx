@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { RemindMeButton } from './RemindMeButton';
 
 export const metadata = {
   title: "Doddaballapur Sabeel Info",
@@ -98,6 +99,10 @@ export default function Page() {
             textAlign: 'left'
           }}>
             <strong>Please wait:</strong> Azadars are requested to wait patiently. A push notification will be sent to all registered devices the moment the new route map is live.
+          </div>
+          
+          <div style={{ marginTop: '24px' }}>
+            <RemindMeButton />
           </div>
           
           <Link href="/" style={{
