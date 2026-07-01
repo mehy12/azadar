@@ -11,6 +11,7 @@ export default function AdminPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [sabeels, setSabeels] = useState<Sabeel[]>([]);
   const [deviceCount, setDeviceCount] = useState<number | null>(null);
+  const [isDoddaballapurLive, setIsDoddaballapurLive] = useState<boolean>(false);
   const [days, setDays] = useState<Day[]>([]);
 
   const [activeTab, setActiveTab] = useState<'events' | 'venues' | 'sabeels' | 'broadcasts'>('events');
@@ -169,6 +170,19 @@ export default function AdminPage() {
         .catch(err => console.error('Failed to fetch device count', err));
     }
   }, [activeTab, deviceCount]);
+
+  useEffect(() => {
+    if (activeTab === 'sabeels') {
+      fetch('/api/admin/sabeels-config')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.config) {
+            setIsDoddaballapurLive(!!data.config.doddaballapur_live);
+          }
+        })
+        .catch(err => console.error('Failed to fetch config', err));
+    }
+  }, [activeTab]);
 
   // Pre-index venues for easy event table displaying
   const venuesById = useMemo(() => {
@@ -583,16 +597,38 @@ export default function AdminPage() {
       const res = await fetch('/api/sabeels', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'delete', id })
+        body: JSON.stringify({ action: 'delete', id, pin: sessionStorage.getItem('admin_pin') || '' })
       });
 
       const resData = await res.json();
       if (!res.ok) throw new Error(resData.error || 'Server error deleting sabeel.');
 
-      setSabeels(resData.sabeels);
+      setSabeels(sabeels.filter(s => s.id !== id));
       setMessage('Sabeel deleted successfully.');
     } catch (err: any) {
       setError(err.message || 'Failed to delete sabeel.');
+    }
+  };
+
+  const handleToggleRoute = async () => {
+    setError(null);
+    setMessage(null);
+    const newStatus = !isDoddaballapurLive;
+    try {
+      const res = await fetch('/api/admin/sabeels-config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pin: sessionStorage.getItem('admin_pin') || '',
+          config: { doddaballapur_live: newStatus }
+        })
+      });
+      const resData = await res.json();
+      if (!res.ok) throw new Error(resData.error || 'Server error toggling route status.');
+      setIsDoddaballapurLive(newStatus);
+      setMessage(`Doddaballapur Route is now ${newStatus ? 'LIVE' : 'UNDER MAINTENANCE'}.`);
+    } catch (err: any) {
+      setError(err.message || 'Error toggling route.');
     }
   };
 
@@ -1329,6 +1365,31 @@ export default function AdminPage() {
         {/* ================= MANAGE SABEELS TABS ================= */}
         {activeTab === 'sabeels' && (
           <>
+            <div style={{ gridColumn: '1 / -1', background: 'var(--surface-2)', padding: '20px', borderRadius: '8px', border: '1px solid var(--line)', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <h3 style={{ margin: '0 0 4px 0', fontSize: '16px' }}>Doddaballapur Live Route</h3>
+                <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-dim)' }}>
+                  {isDoddaballapurLive ? 'The Sabeel discovery route map is currently LIVE for all users.' : 'The route is currently UNDER MAINTENANCE.'}
+                </p>
+              </div>
+              <button 
+                onClick={handleToggleRoute}
+                className="btn"
+                style={{
+                  background: isDoddaballapurLive ? 'rgba(34, 197, 94, 0.1)' : 'var(--maroon)',
+                  color: isDoddaballapurLive ? '#22c55e' : 'var(--bg)',
+                  border: isDoddaballapurLive ? '1px solid rgba(34, 197, 94, 0.2)' : 'none',
+                  padding: '10px 20px',
+                  borderRadius: '0px',
+                  fontWeight: 600,
+                  fontSize: '14px',
+                  minWidth: '120px'
+                }}
+              >
+                {isDoddaballapurLive ? 'Set Offline' : 'Set Live'}
+              </button>
+            </div>
+
             <div style={{ background: 'var(--surface-1)', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
               <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '18px', marginTop: 0, marginBottom: '20px', borderBottom: '1px solid var(--line)', paddingBottom: '10px' }}>
                 {editingSabeelId ? `Edit Sabeel: ${sabeelForm.sl_num}` : 'Add New Sabeel'}

@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { RemindMeButton } from './RemindMeButton';
+import ClientSabeelPage, { Sabeel } from './ClientSabeelPage';
+import sabeelsData from '@/data/doddaballapur_sabeels.json';
+import { createClient } from '@supabase/supabase-js';
 
 export const metadata = {
   title: "Doddaballapur Sabeel Info",
@@ -8,7 +11,45 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default function Page() {
+export default async function Page() {
+  let isLive = false;
+  let sabeels: Sabeel[] = sabeelsData as any;
+
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+
+      // Check config
+      const { data: configData } = await supabase
+        .from('sabeels')
+        .select('filters')
+        .eq('sabeel_name', 'APP_CONFIG')
+        .maybeSingle();
+
+      if (configData?.filters?.doddaballapur_live) {
+        isLive = true;
+      }
+
+      // If live, fetch sabeels
+      if (isLive) {
+        const { data, error } = await supabase.from('sabeels').select('*').order('sl_num', { ascending: true });
+        // Filter out the config row!
+        if (!error && data && data.length > 0) {
+          sabeels = data.filter(s => s.sabeel_name !== 'APP_CONFIG') as Sabeel[];
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Failed to fetch from Supabase', e);
+  }
+
+  if (isLive) {
+    return <ClientSabeelPage sabeels={sabeels} />;
+  }
+
   return (
     <div style={{
       minHeight: '100vh',
