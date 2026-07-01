@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import InstallPrompt from "@/components/InstallPrompt";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
@@ -68,6 +69,7 @@ export default function RootLayout({
           {children}
           <ThemeToggle />
           <ServiceWorkerRegistration />
+          <InstallPrompt />
           <Analytics />
         </ThemeProvider>
       </body>
