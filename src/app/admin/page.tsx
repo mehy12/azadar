@@ -10,6 +10,7 @@ export default function AdminPage() {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [sabeels, setSabeels] = useState<Sabeel[]>([]);
+  const [deviceCount, setDeviceCount] = useState<number | null>(null);
   const [days, setDays] = useState<Day[]>([]);
 
   const [activeTab, setActiveTab] = useState<'events' | 'venues' | 'sabeels' | 'broadcasts'>('events');
@@ -154,6 +155,20 @@ export default function AdminPage() {
 
     loadData();
   }, []);
+
+  // Fetch device count when tab changes
+  useEffect(() => {
+    if (activeTab === 'broadcasts' && deviceCount === null) {
+      fetch('/api/admin/devices')
+        .then(res => res.json())
+        .then(data => {
+          if (data && typeof data.count === 'number') {
+            setDeviceCount(data.count);
+          }
+        })
+        .catch(err => console.error('Failed to fetch device count', err));
+    }
+  }, [activeTab, deviceCount]);
 
   // Pre-index venues for easy event table displaying
   const venuesById = useMemo(() => {
@@ -1243,6 +1258,18 @@ export default function AdminPage() {
             <p style={{ color: 'var(--text-dim)', fontSize: '13.5px', marginBottom: '24px', lineHeight: 1.5 }}>
               Send an instant push notification to all users who have registered a reminder device. Use this for major announcements or urgent schedule changes.
             </p>
+
+            <div style={{ background: 'var(--surface-2)', padding: '16px', borderRadius: '8px', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid var(--line)' }}>
+              <div>
+                <div style={{ fontSize: '13px', color: 'var(--text-dim)', marginBottom: '4px' }}>Registered Devices</div>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text)' }}>
+                  {deviceCount === null ? '...' : deviceCount}
+                </div>
+              </div>
+              <div style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--gold)', padding: '8px 12px', borderRadius: '99px', fontSize: '12px', fontWeight: 'bold' }}>
+                Web Push Ready
+              </div>
+            </div>
 
             <form onSubmit={handleBroadcastSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
