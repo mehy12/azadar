@@ -740,6 +740,33 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
               </Link>
             )}
 
+            {/* Update Notification (only on 15th Muharram) */}
+            {selectedDay === 15 && (
+              <Link href="/sabeels/doddaballapur" style={{ textDecoration: 'none' }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '12px',
+                  background: 'linear-gradient(145deg, rgba(156, 42, 55, 0.15), rgba(156, 42, 55, 0.05))',
+                  border: '1px solid var(--maroon-line)',
+                  padding: '12px 16px', borderRadius: '12px', marginBottom: '24px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  transition: 'transform 0.15s ease'
+                }}
+                onPointerDown={e => e.currentTarget.style.transform = 'scale(0.98)'}
+                onPointerUp={e => e.currentTarget.style.transform = 'scale(1)'}
+                onPointerLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  <div style={{ fontSize: '20px' }}>📍</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#e8b5bb' }}>Doddaballapur route is updated</div>
+                    <div style={{ fontSize: '11.5px', color: 'var(--text-dim)', marginTop: '2px' }}>Tap to view Sabeel locations now</div>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e8b5bb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8 }}>
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </Link>
+            )}
+
             {/* Live Now Section */}
             {liveEvents.length > 0 && selectedDay === todayDayNum && (
               <div className="section">
