@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import Link from 'next/link';
 import { Venue, Event, Day } from '@/types';
 import {
   todayISO,
@@ -720,6 +721,24 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 </div>
               </div>
             </div>
+
+            {/* Sabeel Promo (only on 16th Muharram) */}
+            {selectedDay === 16 && (
+              <Link href="/sabeels/doddaballapur" style={{ textDecoration: 'none' }}>
+                <div className="sabeel-promo-card">
+                  <div className="icon">🍶</div>
+                  <div className="content">
+                    <h3>Doddaballapur Sabeel Info</h3>
+                    <p>View all Sabeels on the Bangalore → Doddaballapur route, including locations and contact details.</p>
+                  </div>
+                  <div className="chev">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m9 6 6 6-6 6" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            )}
 
             {/* Live Now Section */}
             {liveEvents.length > 0 && selectedDay === todayDayNum && (
