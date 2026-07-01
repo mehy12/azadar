@@ -1,7 +1,12 @@
-:root {
+:root[data-theme='dark'] {
   --bg: #0c0b0d;
   --surface: #17151a;
   --surface-2: #211e24;
+  --header-bg: rgba(12, 11, 13, 0.86);
+  --nav-bg: rgba(12, 11, 13, 0.65);
+  --sheet-bg: #0c0b0d;
+  --overlay-bg: rgba(0, 0, 0, 0.45);
+  --border-light: rgba(255, 255, 255, 0.08);
   --line: rgba(243, 238, 228, 0.09);
   --line-strong: rgba(243, 238, 228, 0.16);
   --text: #f3eee4;
@@ -13,9 +18,33 @@
   --maroon: #9c2a37;
   --maroon-soft: rgba(156, 42, 55, 0.20);
   --maroon-line: rgba(156, 42, 55, 0.55);
-  --radius-lg: 18px;
-  --radius-md: 13px;
-  --radius-sm: 9px;
+}
+
+:root {
+  /* LIGHT MODE (DEFAULT) */
+  --bg: #f5f4ef;
+  --surface: #ffffff;
+  --surface-2: #ebe8de;
+  --header-bg: rgba(245, 244, 239, 0.86);
+  --nav-bg: rgba(245, 244, 239, 0.75);
+  --sheet-bg: #f5f4ef;
+  --overlay-bg: rgba(0, 0, 0, 0.15);
+  --border-light: rgba(0, 0, 0, 0.08);
+  --line: rgba(12, 11, 13, 0.09);
+  --line-strong: rgba(12, 11, 13, 0.16);
+  --text: #1a1815;
+  --text-dim: #5c564f;
+  --text-faint: #8e877e;
+  --gold: #a67a18;
+  --gold-soft: rgba(166, 122, 24, 0.1);
+  --gold-line: rgba(166, 122, 24, 0.3);
+  --maroon: #9c2a37;
+  --maroon-soft: rgba(156, 42, 55, 0.1);
+  --maroon-line: rgba(156, 42, 55, 0.3);
+
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
   --font-display: "SF Pro Display", "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: "SF Pro Text", "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --text-display-large: 48px;
@@ -73,7 +102,7 @@ header.top {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(12, 11, 13, 0.86);
+  background: var(--header-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
   padding: 18px 20px 14px;
@@ -297,7 +326,7 @@ main {
   font-weight: 700;
   line-height: 0.85;
   letter-spacing: -0.04em;
-  color: var(--text);
+  color: #f3eee4; /* Force light text over dark image */
   margin-bottom: 2px;
 }
 
@@ -307,12 +336,12 @@ main {
   font-weight: var(--weight-display-large);
   letter-spacing: -0.02em;
   line-height: 1.1;
-  color: var(--text);
+  color: #f3eee4; /* Force light text over dark image */
 }
 
 .hero-meta {
   font-size: var(--text-caption);
-  color: var(--text-dim);
+  color: #a89f93; /* Force light text-dim over dark image */
   margin-top: 6px;
   display: flex;
   align-items: center;
@@ -602,10 +631,10 @@ nav.bottom {
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  background: rgba(12, 11, 13, 0.65);
+  background: var(--nav-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-top: 0.5px solid var(--border-light);
   display: flex;
   padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
   z-index: 30;
@@ -636,7 +665,7 @@ nav.bottom button.active {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   opacity: 0;
@@ -659,11 +688,11 @@ nav.bottom button.active {
   max-width: 480px;
   max-height: 88vh;
   overflow-y: auto;
-  background: rgba(12, 11, 13, 0.85); /* Slightly transparent for blur */
+  background: var(--sheet-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 24px 24px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--border-light);
   transition: transform .3s cubic-bezier(0.32, 0.72, 0, 1);
   z-index: 41;
   -webkit-overflow-scrolling: touch;
@@ -1172,15 +1201,15 @@ nav.bottom button.active {
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .reminder-radio:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--surface-2);
 }
 
 .reminder-radio.selected {

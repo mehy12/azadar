@@ -3,14 +3,16 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { Venue, Event, Day } from '@/types';
+import { Sabeel } from '../sabeels/doddaballapur/ClientSabeelPage';
 import { supabase } from '@/lib/supabase';
 
 export default function AdminPage() {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
+  const [sabeels, setSabeels] = useState<Sabeel[]>([]);
   const [days, setDays] = useState<Day[]>([]);
 
-  const [activeTab, setActiveTab] = useState<'events' | 'venues' | 'broadcasts'>('events');
+  const [activeTab, setActiveTab] = useState<'events' | 'venues' | 'sabeels' | 'broadcasts'>('events');
   const [loading, setLoading] = useState<boolean>(true);
   const [broadcastForm, setBroadcastForm] = useState({ title: '', body: '', url: '' });
   const [broadcasting, setBroadcasting] = useState(false);
@@ -58,6 +60,12 @@ export default function AdminPage() {
   // Search filter states
   const [eventSearch, setEventSearch] = useState<string>('');
   const [venueSearch, setVenueSearch] = useState<string>('');
+  const [sabeelSearch, setSabeelSearch] = useState<string>('');
+
+  const [editingSabeelId, setEditingSabeelId] = useState<string | number | null>(null);
+  const [sabeelForm, setSabeelForm] = useState<Sabeel>({
+    sl_num: 0, sabeel_name: '', location: '', contact_person: '', contact_num: '', maps_link: '', lat: 0, lng: 0, filters: []
+  });
 
   // Form states for Venue CRUD
   const [editingVenueId, setEditingVenueId] = useState<string | null>(null);
@@ -97,20 +105,23 @@ export default function AdminPage() {
     async function loadData() {
       try {
         setLoading(true);
-        const [venuesRes, eventsRes] = await Promise.all([
+        const [venuesRes, eventsRes, sabeelsRes] = await Promise.all([
           fetch('/api/venues'),
-          fetch('/api/events')
+          fetch('/api/events'),
+          fetch('/api/sabeels')
         ]);
 
-        if (!venuesRes.ok || !eventsRes.ok) {
+        if (!venuesRes.ok || !eventsRes.ok || !sabeelsRes.ok) {
           throw new Error('Failed to load data from server.');
         }
 
         const venuesData = await venuesRes.json();
         const eventsData = await eventsRes.json();
+        const sabeelsData = await sabeelsRes.json();
 
         setVenues(venuesData);
         setEvents(eventsData);
+        setSabeels(sabeelsData);
 
         // Fetch days for validation dropdowns or calculations (mocked/static days matches config)
         // Since days don't change often, we can hardcode or load them from local state
@@ -515,6 +526,61 @@ export default function AdminPage() {
     });
   };
 
+  const resetSabeelForm = () => {
+    setEditingSabeelId(null);
+    setSabeelForm({
+      sl_num: sabeels.length ? Math.max(...sabeels.map(s => s.sl_num)) + 1 : 1, 
+      sabeel_name: '', location: '', contact_person: '', contact_num: '', maps_link: '', lat: 0, lng: 0, filters: []
+    });
+    setError(null);
+    setMessage(null);
+  };
+
+  const handleSaveSabeel = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setMessage(null);
+
+    try {
+      const res = await fetch('/api/sabeels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: editingSabeelId ? 'update' : 'create', data: sabeelForm })
+      });
+
+      const resData = await res.json();
+      if (!res.ok) throw new Error(resData.error || 'Server error saving sabeel.');
+
+      setSabeels(resData.sabeels);
+      setMessage(editingSabeelId ? 'Sabeel updated successfully.' : 'Sabeel created successfully.');
+      resetSabeelForm();
+    } catch (err: any) {
+      setError(err.message || 'Failed to save sabeel.');
+    }
+  };
+
+  const handleDeleteSabeel = async (id: string | number) => {
+    if (!confirm('Are you sure you want to delete this sabeel?')) return;
+    setError(null);
+    setMessage(null);
+
+    try {
+      const res = await fetch('/api/sabeels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id })
+      });
+
+      const resData = await res.json();
+      if (!res.ok) throw new Error(resData.error || 'Server error deleting sabeel.');
+
+      setSabeels(resData.sabeels);
+      setMessage('Sabeel deleted successfully.');
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete sabeel.');
+    }
+  };
+
   const handleBroadcastSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -718,6 +784,13 @@ export default function AdminPage() {
           style={{ cursor: 'pointer', padding: '8px 16px', fontSize: '14px' }}
         >
           Broadcasts
+        </button>
+        <button
+          className={`zone-chip ${activeTab === 'sabeels' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('sabeels'); setError(null); setMessage(null); }}
+          style={{ cursor: 'pointer', padding: '8px 16px', fontSize: '14px' }}
+        >
+          Manage Sabeels ({sabeels.length})
         </button>
       </div>
 
@@ -1224,6 +1297,106 @@ export default function AdminPage() {
               </button>
             </form>
           </div>
+        )}
+
+        {/* ================= MANAGE SABEELS TABS ================= */}
+        {activeTab === 'sabeels' && (
+          <>
+            <div style={{ background: 'var(--surface-1)', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+              <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '18px', marginTop: 0, marginBottom: '20px', borderBottom: '1px solid var(--line)', paddingBottom: '10px' }}>
+                {editingSabeelId ? `Edit Sabeel: ${sabeelForm.sl_num}` : 'Add New Sabeel'}
+              </h2>
+              <form onSubmit={handleSaveSabeel} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '10px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>S.No *</label>
+                    <input type="number" required value={sabeelForm.sl_num} onChange={e => setSabeelForm({ ...sabeelForm, sl_num: parseInt(e.target.value) || 0 })} style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Name *</label>
+                    <input type="text" required value={sabeelForm.sabeel_name} onChange={e => setSabeelForm({ ...sabeelForm, sabeel_name: e.target.value })} style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Location Text *</label>
+                  <input type="text" required value={sabeelForm.location} onChange={e => setSabeelForm({ ...sabeelForm, location: e.target.value })} style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Contact Person</label>
+                    <input type="text" value={sabeelForm.contact_person} onChange={e => setSabeelForm({ ...sabeelForm, contact_person: e.target.value })} style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Contact Num</label>
+                    <input type="text" value={sabeelForm.contact_num} onChange={e => setSabeelForm({ ...sabeelForm, contact_num: e.target.value })} style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Google Maps Link (Used for Location button)</label>
+                  <input type="text" value={sabeelForm.maps_link || ''} onChange={e => setSabeelForm({ ...sabeelForm, maps_link: e.target.value })} placeholder="https://maps.app.goo.gl/..." style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Latitude</label>
+                    <input type="number" step="any" value={sabeelForm.lat || ''} onChange={e => setSabeelForm({ ...sabeelForm, lat: parseFloat(e.target.value) || 0 })} style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Longitude</label>
+                    <input type="number" step="any" value={sabeelForm.lng || ''} onChange={e => setSabeelForm({ ...sabeelForm, lng: parseFloat(e.target.value) || 0 })} style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '5px' }}>Filters (Comma Separated) e.g. Washroom, Water</label>
+                  <input type="text" value={(sabeelForm.filters || []).join(', ')} onChange={e => setSabeelForm({ ...sabeelForm, filters: e.target.value.split(',').map(s=>s.trim()).filter(Boolean) })} placeholder="Washrooms, Water, Rest Area" style={{ width: '100%', padding: '10px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '12px' }}>
+                    {editingSabeelId ? 'Update Sabeel' : 'Add Sabeel'}
+                  </button>
+                  {editingSabeelId && (
+                    <button type="button" onClick={resetSabeelForm} className="btn btn-secondary" style={{ padding: '12px' }}>Cancel</button>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            <div style={{ background: 'var(--surface-1)', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px', height: '80vh', display: 'flex', flexDirection: 'column' }}>
+              <h2 style={{ fontFamily: 'var(--font-title)', fontSize: '18px', marginTop: 0, marginBottom: '20px', borderBottom: '1px solid var(--line)', paddingBottom: '10px' }}>
+                Existing Sabeels ({sabeels.length})
+              </h2>
+              <input type="text" placeholder="Search sabeels..." value={sabeelSearch} onChange={e => setSabeelSearch(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '20px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
+              <div style={{ overflowY: 'auto', flex: 1, paddingRight: '10px' }}>
+                {sabeels.filter(s => s.sabeel_name.toLowerCase().includes(sabeelSearch.toLowerCase()) || s.location.toLowerCase().includes(sabeelSearch.toLowerCase())).map(s => (
+                  <div key={s.id || s.sl_num} style={{ background: 'var(--surface-2)', border: '1px solid var(--line)', padding: '15px', borderRadius: '8px', marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 600, color: 'var(--text)', marginBottom: '4px', fontSize: '14px' }}>
+                          <span style={{ color: 'var(--gold)', marginRight: '8px' }}>#{s.sl_num}</span>
+                          {s.sabeel_name}
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-dim)', marginBottom: '8px' }}>{s.location}</div>
+                        {(s.filters && s.filters.length > 0) && (
+                           <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                             {s.filters.map((f,i) => <span key={i} style={{ background: 'var(--background)', fontSize: '10px', padding: '2px 6px', borderRadius: '4px', border: '1px solid var(--line)', color: 'var(--text)' }}>{f}</span>)}
+                           </div>
+                        )}
+                      </div>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <button onClick={() => { setEditingSabeelId(s.id || s.sl_num); setSabeelForm({ ...s, filters: s.filters || [] }); }} style={{ background: 'transparent', border: '1px solid var(--gold)', color: 'var(--gold)', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}>Edit</button>
+                        <button onClick={() => handleDeleteSabeel(s.id || s.sl_num)} style={{ background: 'transparent', border: '1px solid #f44336', color: '#f44336', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}>Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
         )}
 
       </div>

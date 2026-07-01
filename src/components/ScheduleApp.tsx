@@ -757,7 +757,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 >
                   <div style={{ fontSize: '20px' }}>📍</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#e8b5bb' }}>Doddaballapur route is updated</div>
+                    <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#940011ff' }}>Doddaballapur route is updated</div>
                     <div style={{ fontSize: '11.5px', color: 'var(--text-dim)', marginTop: '2px' }}>Tap to view Sabeel information now</div>
                   </div>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e8b5bb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8 }}>

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,10 +42,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <body>
-        {children}
-        <ServiceWorkerRegistration />
+        <ThemeProvider>
+          {children}
+          <ThemeToggle />
+          <ServiceWorkerRegistration />
+        </ThemeProvider>
       </body>
     </html>
   );
