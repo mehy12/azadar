@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { requestForToken } from '@/lib/firebase';
-import { supabase } from '@/lib/supabase';
+import { getSupabaseClient, supabase } from '@/lib/supabase';
 
 export function RemindMeButton() {
   const [loading, setLoading] = useState(false);
@@ -38,8 +38,13 @@ export function RemindMeButton() {
         localStorage.setItem('azadar_device_id', deviceId);
       }
 
+      const client = getSupabaseClient(deviceId);
+      if (!client) {
+        throw new Error('Supabase client not initialized');
+      }
+
       // Upsert into reminders for the special "doddaballapur_route" event
-      const { error } = await supabase
+      const { error } = await client
         .from('reminders')
         .upsert({
           device_id: deviceId,
