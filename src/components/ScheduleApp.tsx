@@ -139,7 +139,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
       const pathParts = window.location.pathname.split('/');
       const params = new URLSearchParams(window.location.search);
       const eventId = pathParts[1] === 'events' ? pathParts[2] : params.get('event');
-      
+
       if (eventId) {
         const ev = events.find(e => e.id === eventId);
         if (ev && ev.day_numbers.length > 0) {
@@ -179,7 +179,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   // Partition events into live, active, and past
   const partitionEvents = useMemo(() => {
     const selectedDayObj = daysByNum[selectedDay];
-    
+
     // Sort events by time
     const sorted = [...dayEvents].sort((a, b) => {
       if (a.time_24h && b.time_24h) return a.time_24h.localeCompare(b.time_24h);
@@ -216,7 +216,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   const liveCountToday = useMemo(() => {
     const todayDayObj = daysByNum[todayDayNum];
     if (!todayDayObj) return 0;
-    
+
     const todayEvents = events.filter(e => e.day_numbers.includes(todayDayNum) && !!venuesById[e.venue_id]);
     return todayEvents.filter(e => getStatus(e, todayDayObj) === 'live').length;
   }, [events, todayDayNum, daysByNum, venuesById]);
@@ -254,7 +254,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   const activeEvent = selectedEventId ? events.find(e => e.id === selectedEventId) : null;
   const activeEventVenue = activeEvent ? venuesById[activeEvent.venue_id] : null;
   const activeEventDay = selectedEventDayNum !== null ? daysByNum[selectedEventDayNum] : null;
-  
+
   const activeVenue = selectedVenueId ? venuesById[selectedVenueId] : null;
 
   // Render lists helper for other events in same venue
@@ -267,7 +267,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         </div>
       );
     }
-    
+
     // Sort chronologically by day number, then time
     const sortedEvs = [...otherEvs].sort((a, b) => {
       const dayA = a.day_numbers[0] ?? 0;
@@ -300,8 +300,8 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
       const timeVal = parts[0] || '—';
       const ampmVal = parts[1] || '';
 
-      const dayDisplay = dayInfo.day === 0 
-        ? uiTranslations[locale].chand_raat 
+      const dayDisplay = dayInfo.day === 0
+        ? uiTranslations[locale].chand_raat
         : `${locale === 'ur' ? toUrduNumbers(dayInfo.label) : dayInfo.label} ${uiTranslations[locale].moharram_day}`;
 
       return (
@@ -423,8 +423,8 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
       const timeVal = parts[0] || '—';
       const ampmVal = parts[1] || '';
 
-      const dayDisplay = dayInfo.day === 0 
-        ? uiTranslations[locale].chand_raat 
+      const dayDisplay = dayInfo.day === 0
+        ? uiTranslations[locale].chand_raat
         : `${locale === 'ur' ? toUrduNumbers(dayInfo.label) : dayInfo.label} ${uiTranslations[locale].moharram_day}`;
 
       return (
@@ -469,7 +469,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
 
   // Determine section titles
   const selectedDayObj = daysByNum[selectedDay];
-  
+
   const dateBannerLabel = useMemo(() => {
     if (!selectedDayObj) return '';
     try {
@@ -482,9 +482,9 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
       return selectedDayObj.date_iso;
     }
   }, [selectedDayObj, locale]);
-  
-  let activeSectionTitle = selectedDay === todayDayNum 
-    ? uiTranslations[locale].todays_majlis 
+
+  let activeSectionTitle = selectedDay === todayDayNum
+    ? uiTranslations[locale].todays_majlis
     : uiTranslations[locale].upcoming_majlis;
   if (selectedDayObj && isDateInPast(selectedDayObj.date_iso)) {
     activeSectionTitle = locale === 'ur' ? 'شیڈول' : 'Schedule';
@@ -503,7 +503,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   }, [pastEvents, selectedDayObj, locale]);
 
   const todayDayObj = daysByNum[todayDayNum];
-  const todayTitle = todayDayObj 
+  const todayTitle = todayDayObj
     ? (todayDayObj.day === 0 ? uiTranslations[locale].chand_raat : `${locale === 'ur' ? toUrduNumbers(todayDayObj.day) : todayDayObj.day} ${uiTranslations[locale].moharram_day}`)
     : '';
 
@@ -546,11 +546,11 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     setReminderLoading(eventId);
     try {
       const { token, error: tokenError } = await requestForToken();
-      
+
       if (!token) {
         if (tokenError === 'not_supported') {
-          alert(locale === 'ur' 
-            ? 'آئی فون پر اطلاعات موصول کرنے کے لیے، براہ کرم اس ویب سائٹ کو اپنی ہوم اسکرین میں شامل کریں (Share -> Add to Home Screen)۔' 
+          alert(locale === 'ur'
+            ? 'آئی فون پر اطلاعات موصول کرنے کے لیے، براہ کرم اس ویب سائٹ کو اپنی ہوم اسکرین میں شامل کریں (Share -> Add to Home Screen)۔'
             : 'On iPhone, you MUST add this website to your Home Screen to receive notifications (Share -> Add to Home Screen).');
         } else if (tokenError === 'denied') {
           alert(locale === 'ur' ? 'اطلاعات کی اجازت درکار ہے۔' : 'Notification permission is required. Please enable it in your browser settings.');
@@ -574,7 +574,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           fcm_token: token,
           event_id: eventId,
           venue_name: activeEventVenue?.name || '',
-          starts_in: minutes >= 60 ? `${minutes/60} hour${minutes/60 > 1 ? 's' : ''}` : `${minutes} minutes`,
+          starts_in: minutes >= 60 ? `${minutes / 60} hour${minutes / 60 > 1 ? 's' : ''}` : `${minutes} minutes`,
           venue_maps_link: activeEventVenue ? getMapsLink(activeEventVenue) : '',
           event_time: eventTime.toISOString(),
           reminder_time: reminderTime.toISOString()
@@ -583,17 +583,17 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         .single();
 
       if (error) throw error;
-      
+
       console.log(`[Analytics] Reminder Created for event: ${eventId} (${minutes}m before)`);
-      
+
       setReminders(prev => ({ ...prev, [eventId]: data.id }));
       setShowReminderOptions(null);
       setReminderSuccess({ id: eventId, msg: locale === 'ur' ? `✓ مجلس سے ${minutes} منٹ پہلے آپ کو مطلع کیا جائے گا` : `✓ Reminder set. We'll notify you ${minutes} minutes before the Majlis.` });
-      
+
       setTimeout(() => {
         setReminderSuccess(null);
       }, 4000);
-      
+
     } catch (e) {
       console.error(e);
       alert('Failed to set reminder.');
@@ -639,16 +639,16 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
       <header className="top">
         {/* Language Switcher Pill */}
         <div className="lang-switcher">
-          <button 
+          <button
             type="button"
-            className={locale === 'en' ? 'active' : ''} 
+            className={locale === 'en' ? 'active' : ''}
             onClick={() => setLocale('en')}
           >
             EN
           </button>
-          <button 
+          <button
             type="button"
-            className={locale === 'ur' ? 'active' : ''} 
+            className={locale === 'ur' ? 'active' : ''}
             onClick={() => setLocale('ur')}
           >
             اردو
@@ -682,12 +682,12 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 d.date_iso === todayISO() ? 'today-marker' : ''
               ].filter(Boolean).join(' ');
 
-              const label = d.day === 0 
-                ? (locale === 'ur' ? 'چاند' : 'CR') 
+              const label = d.day === 0
+                ? (locale === 'ur' ? 'چاند' : 'CR')
                 : (locale === 'ur' ? toUrduNumbers(d.day) : d.label);
-              
-              const subLabel = d.tag 
-                ? translateDayTag(d.tag, locale) 
+
+              const subLabel = d.tag
+                ? translateDayTag(d.tag, locale)
                 : translate(d.weekday, locale);
 
               return (
@@ -751,14 +751,14 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                   transition: 'transform 0.15s ease'
                 }}
-                onPointerDown={e => e.currentTarget.style.transform = 'scale(0.98)'}
-                onPointerUp={e => e.currentTarget.style.transform = 'scale(1)'}
-                onPointerLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                  onPointerDown={e => e.currentTarget.style.transform = 'scale(0.98)'}
+                  onPointerUp={e => e.currentTarget.style.transform = 'scale(1)'}
+                  onPointerLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                 >
                   <div style={{ fontSize: '20px' }}>📍</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#e8b5bb' }}>Doddaballapur route is updated</div>
-                    <div style={{ fontSize: '11.5px', color: 'var(--text-dim)', marginTop: '2px' }}>Tap to view Sabeel locations now</div>
+                    <div style={{ fontSize: '11.5px', color: 'var(--text-dim)', marginTop: '2px' }}>Tap to view Sabeel information now</div>
                   </div>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e8b5bb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8 }}>
                     <path d="m9 18 6-6-6-6" />
@@ -793,7 +793,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 <span className="label">{activeSectionTitle}</span>
                 <span className="rule"></span>
               </div>
-              
+
               {activeUpcomingEvents.length > 0 ? (
                 activeUpcomingEvents.map(x => (
                   <EventCard
@@ -901,8 +901,8 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                       <div className="vn">{translate(v.name, locale)}</div>
                       <div className="va">{translate(v.area, locale)}</div>
                       <div className="vc">
-                        {locale === 'ur' 
-                          ? `${toUrduNumbers(venueEventCounts[v.id] || 0)} مجالس اس محرم` 
+                        {locale === 'ur'
+                          ? `${toUrduNumbers(venueEventCounts[v.id] || 0)} مجالس اس محرم`
                           : `${venueEventCounts[v.id] || 0} majlis this Moharram`}
                       </div>
                     </div>
@@ -1011,15 +1011,15 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 <div className="photo-tag">{uiTranslations[locale].photo_soon}</div>
               )}
             </div>
-            
+
             <div className="sheet-body">
               <p className="sheet-eyebrow">
                 {activeEventDay ? (
-                  getStatus(activeEvent, activeEventDay) === 'live' 
-                    ? `● ${uiTranslations[locale].live_now}` 
-                    : (activeEventDay.day === 0 
-                        ? uiTranslations[locale].chand_raat 
-                        : `${locale === 'ur' ? toUrduNumbers(activeEventDay.day) : activeEventDay.day} ${uiTranslations[locale].moharram_day}`)
+                  getStatus(activeEvent, activeEventDay) === 'live'
+                    ? `● ${uiTranslations[locale].live_now}`
+                    : (activeEventDay.day === 0
+                      ? uiTranslations[locale].chand_raat
+                      : `${locale === 'ur' ? toUrduNumbers(activeEventDay.day) : activeEventDay.day} ${uiTranslations[locale].moharram_day}`)
                 ) : ''}
               </p>
               <h2>{translate(activeEventVenue.name, locale)}</h2>
@@ -1027,13 +1027,13 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 {translate(activeEventVenue.area, locale)}
                 {activeEvent.location_detail && ` · ${translate(activeEvent.location_detail, locale)}`}
               </p>
-              
+
               <div className="meta-grid">
                 <div className="meta-box">
                   <div className="k">{uiTranslations[locale].date}</div>
                   <div className="v">
-                    {activeEventDay 
-                      ? new Date(activeEventDay.date_iso + 'T00:00:00').toLocaleDateString(locale === 'ur' ? 'ur-IN' : 'en-IN', { weekday: 'long', day: 'numeric', month: 'long' }) 
+                    {activeEventDay
+                      ? new Date(activeEventDay.date_iso + 'T00:00:00').toLocaleDateString(locale === 'ur' ? 'ur-IN' : 'en-IN', { weekday: 'long', day: 'numeric', month: 'long' })
                       : ''}
                   </div>
                 </div>
@@ -1054,11 +1054,11 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                   </div>
                 )}
               </div>
-              
+
               {activeEvent.notes && (
                 <div className="notes-box">{translate(activeEvent.notes, locale)}</div>
               )}
-              
+
               <div className="cta-row" style={{ gap: '8px', flexWrap: 'wrap' }}>
                 <a className="btn btn-primary" style={{ flex: '1 1 auto', justifyContent: 'center' }} href={getMapsLink(activeEventVenue)} target="_blank" rel="noopener noreferrer">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1066,7 +1066,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                   </svg>
                   {uiTranslations[locale].get_directions}
                 </a>
-                
+
                 {activeEvent.time_24h && getStatus(activeEvent, activeEventDay || undefined) === 'upcoming' && (
                   reminderSuccess?.id === activeEvent.id ? (
                     <div style={{ flex: '1 1 100%', background: 'var(--gold-soft)', color: 'var(--gold)', border: '1px solid var(--gold-line)', borderRadius: '12px', padding: '12px', textAlign: 'center', fontWeight: '500', fontSize: '13.5px', animation: 'fadeIn 0.3s ease-out' }}>
@@ -1099,7 +1099,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                   </a>
                 )}
               </div>
-              
+
               <hr className="div" />
               <p className="mini-label">{uiTranslations[locale].other_majlis}</p>
               {renderVenueMiniList(activeEventVenue.id, activeEvent.id)}
@@ -1125,12 +1125,12 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                 <div className="photo-tag">{uiTranslations[locale].photo_soon}</div>
               )}
             </div>
-            
+
             <div className="sheet-body">
               <p className="sheet-eyebrow">{translate(activeVenue.zone, locale)}</p>
               <h2>{translate(activeVenue.name, locale)}</h2>
               <p className="loc">{translate(activeVenue.area, locale)}</p>
-              
+
               <div className="cta-row">
                 <a className="btn btn-primary" href={getMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1139,7 +1139,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                   {uiTranslations[locale].get_directions}
                 </a>
               </div>
-              
+
               <hr className="div" />
               <p className="mini-label">
                 {locale === 'ur'
@@ -1151,18 +1151,18 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           </>
         )}
       </BottomSheet>
-      
+
       {/* Reminder Bottom Sheet */}
       <BottomSheet isOpen={showReminderOptions !== null} onClose={() => setShowReminderOptions(null)}>
         {showReminderOptions && (() => {
           const isReminderSet = !!reminders[showReminderOptions];
-          
+
           return (
             <div className="reminder-sheet-body">
               <h2 className="reminder-sheet-title">{locale === 'ur' ? 'یاد دہانی' : 'Remind Me'}</h2>
               <p className="reminder-sheet-subtitle">
-                {locale === 'ur' 
-                  ? 'مجلس شروع ہونے سے کتنا پہلے آپ کو مطلع کیا جائے؟' 
+                {locale === 'ur'
+                  ? 'مجلس شروع ہونے سے کتنا پہلے آپ کو مطلع کیا جائے؟'
                   : 'Choose when you\'d like to be notified before the Majlis begins.'}
               </p>
 
@@ -1187,8 +1187,8 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
                     { value: 60, label: locale === 'ur' ? '1 گھنٹہ پہلے' : '1 hour before' },
                     { value: 120, label: locale === 'ur' ? '2 گھنٹے پہلے' : '2 hours before' },
                   ].map(opt => (
-                    <div 
-                      key={opt.value} 
+                    <div
+                      key={opt.value}
                       className={`reminder-radio ${selectedReminderOffset === opt.value ? 'selected' : ''}`}
                       onClick={() => setSelectedReminderOffset(opt.value)}
                     >
@@ -1202,16 +1202,16 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
               )}
 
               {isReminderSet ? (
-                <button 
-                  className="reminder-btn-destructive" 
+                <button
+                  className="reminder-btn-destructive"
                   onClick={() => handleCancelReminder(showReminderOptions)}
                   disabled={reminderLoading === showReminderOptions}
                 >
                   {reminderLoading === showReminderOptions ? '...' : (locale === 'ur' ? 'یاد دہانی ہٹائیں' : 'Remove Reminder')}
                 </button>
               ) : (
-                <button 
-                  className="reminder-btn-primary" 
+                <button
+                  className="reminder-btn-primary"
                   onClick={() => {
                     if (notificationStatus === 'denied') {
                       alert('Please enable notifications in your browser settings.');
