@@ -25,23 +25,16 @@ export default function InstallPrompt() {
     const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
     setIsIOS(isIOSDevice);
 
-    // If it's iOS and not standalone, we show the prompt after a delay
-    if (isIOSDevice) {
-      const hasDismissed = localStorage.getItem('azadar_install_dismissed');
-      if (!hasDismissed) {
-        setTimeout(() => setShowPrompt(true), 3000);
-      }
+    // Unconditionally show the prompt after a delay (if not dismissed)
+    const hasDismissed = localStorage.getItem('azadar_install_dismissed');
+    if (!hasDismissed) {
+      setTimeout(() => setShowPrompt(true), 3000);
     }
 
-    // For Android/Chrome: listen to beforeinstallprompt
+    // For Android/Chrome: listen to beforeinstallprompt just to catch the event
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      
-      const hasDismissed = localStorage.getItem('azadar_install_dismissed');
-      if (!hasDismissed) {
-        setTimeout(() => setShowPrompt(true), 3000);
-      }
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -59,6 +52,9 @@ export default function InstallPrompt() {
         setShowPrompt(false);
       }
       setDeferredPrompt(null);
+    } else {
+      // Fallback if browser didn't fire beforeinstallprompt yet
+      alert("To install, tap your browser's menu (⋮) and select 'Add to Home Screen' or 'Install App'.");
     }
   };
 
