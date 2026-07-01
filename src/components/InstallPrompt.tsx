@@ -77,7 +77,7 @@ export default function InstallPrompt() {
       right: '20px',
       maxWidth: '400px',
       margin: '0 auto',
-      background: 'var(--surface-1)',
+      background: 'var(--surface)',
       border: '1px solid var(--line)',
       padding: '16px',
       zIndex: 9999,
