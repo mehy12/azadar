@@ -272,8 +272,45 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
         <h1 className="title" style={{ fontSize: '28px' }}>Doddaballapur Route</h1>
         <p className="subtitle">Sabeels and facilities on the Bangalore to Doddaballapur route. Grant location access to find nearby Sabeels.</p>
 
+        {/* Emergency / Progress Cards */}
+        <div style={{ display: 'flex', gap: '12px', marginTop: '24px', overflowX: 'auto', paddingBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          
+          {/* Ambulance */}
+          <a href="tel:9845824169" style={{ textDecoration: 'none', flexShrink: 0, width: '150px', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.1)', borderRadius: '12px', padding: '12px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ fontWeight: 700, color: '#ef4444', fontSize: '14px', marginBottom: '4px' }}>Ambulance</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>Imran / Vaseem</div>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="rgba(239, 68, 68, 0.15)" stroke="none" style={{ position: 'absolute', right: '4px', bottom: '8px' }}><path d="M12 2v20M2 12h20" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="6" strokeLinecap="round" /></svg>
+          </a>
+
+          {/* Medical Camp */}
+          <a href="tel:9686334568" style={{ textDecoration: 'none', flexShrink: 0, width: '150px', background: 'rgba(34, 197, 94, 0.05)', border: '1px solid rgba(34, 197, 94, 0.1)', borderRadius: '12px', padding: '12px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ fontWeight: 700, color: '#22c55e', fontSize: '14px', marginBottom: '4px' }}>Medical Camp</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>Navachethana Hosp.</div>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(34, 197, 94, 0.2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', right: '4px', bottom: '12px' }}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>
+          </a>
+
+          {/* Final Destination Progress */}
+          <div style={{ flexShrink: 0, width: '150px', background: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.1)', borderRadius: '12px', padding: '12px', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            {userLocation ? (
+              <>
+                <div style={{ fontWeight: 700, color: '#3b82f6', fontSize: '16px', marginBottom: '2px' }}>
+                  {getDistanceFromLatLonInKm(userLocation.lat, userLocation.lng, 13.2929, 77.5385).toFixed(1)} KM
+                </div>
+                <div style={{ fontSize: '12px', color: 'var(--text-dim)', fontWeight: 600 }}>To Ashurkhana</div>
+              </>
+            ) : (
+              <>
+                <div style={{ fontWeight: 700, color: '#3b82f6', fontSize: '14px', marginBottom: '2px' }}>Enable Location</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>To see distance</div>
+              </>
+            )}
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="rgba(59, 130, 246, 0.15)" stroke="none" style={{ position: 'absolute', right: '-4px', bottom: '2px' }}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z" /></svg>
+          </div>
+          
+        </div>
+
         {/* Filters */}
-        <div style={{ marginTop: '20px' }}>
+        <div style={{ marginTop: '24px' }}>
           <div className="venue-search" style={{ margin: 0, width: '100%' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8" />
