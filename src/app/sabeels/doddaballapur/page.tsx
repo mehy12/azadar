@@ -37,10 +37,10 @@ export default async function Page(props: { searchParams?: Promise<{ [key: strin
 
       // If live, fetch sabeels
       if (isLive) {
-        const { data, error } = await supabase.from('sabeels').select('*').order('sl_num', { ascending: true });
-        // Filter out the config row!
+        const { data, error } = await supabase.from('sabeels').select('*').gte('sl_num', 0).order('sl_num', { ascending: true });
+        // Config rows are filtered out by gte('sl_num', 0)
         if (!error && data && data.length > 0) {
-          sabeels = data.filter(s => s.sabeel_name !== 'APP_CONFIG') as Sabeel[];
+          sabeels = data as Sabeel[];
         }
       }
     }
