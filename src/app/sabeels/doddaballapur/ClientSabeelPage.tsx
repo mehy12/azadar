@@ -114,7 +114,7 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
       // Find the next Sabeel that actually has coordinates
       const nextWithCoords = sortedByRoute.slice(closestIdx + 1).find(s => s.lat && s.lng);
       
-      if (nextWithCoords && closest.lat && closest.lng) {
+      if (nextWithCoords && typeof closest.lat === 'number' && typeof closest.lng === 'number' && typeof nextWithCoords.lat === 'number' && typeof nextWithCoords.lng === 'number') {
         const distUserToNext = nextWithCoords.distance;
         const distClosestToNext = getDistanceFromLatLonInKm(closest.lat, closest.lng, nextWithCoords.lat, nextWithCoords.lng);
         
