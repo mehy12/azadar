@@ -33,9 +33,23 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
   const [search, setSearch] = useState('');
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [showAllUpcoming, setShowAllUpcoming] = useState(false);
 
   // Get User's Location
   useEffect(() => {
+    // Developer Override for testing specific coordinates
+    const urlParams = new URLSearchParams(window.location.search);
+    const testLat = urlParams.get('testLat');
+    const testLng = urlParams.get('testLng');
+
+    if (testLat && testLng) {
+      setUserLocation({
+        lat: parseFloat(testLat),
+        lng: parseFloat(testLng)
+      });
+      return;
+    }
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -73,14 +87,46 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
     });
   }, [sabeels, userLocation]);
 
-  // Sabeels Nearby (top 3 closest, under 50km)
-  const nearbySabeels = useMemo(() => {
-    if (!userLocation) return [];
-    return [...sabeelsWithDistance]
-      .filter(s => s.distance < 50)
-      .sort((a, b) => a.distance - b.distance)
-      .slice(0, 3);
-  }, [sabeelsWithDistance, userLocation]);
+  // Next and Upcoming Sabeels (only if location is available and no filters applied)
+  const { nextSabeel, upcomingSabeels } = useMemo(() => {
+    if (!userLocation || search || selectedFilters.length > 0) {
+      return { nextSabeel: null, upcomingSabeels: [] };
+    }
+    const sortedByDistance = [...sabeelsWithDistance].sort((a, b) => a.distance - b.distance);
+    const closest = sortedByDistance[0];
+    if (!closest) return { nextSabeel: null, upcomingSabeels: [] };
+    
+    // Upcoming are those after the closest in route order
+    const upcoming = sabeelsWithDistance
+      .filter(s => s.sl_num > closest.sl_num)
+      .sort((a, b) => a.sl_num - b.sl_num);
+      
+    return { nextSabeel: closest, upcomingSabeels: upcoming };
+  }, [sabeelsWithDistance, userLocation, search, selectedFilters]);
+
+  const formatETA = (distKm: number) => {
+    if (distKm === Infinity) return '';
+    if (distKm < 1) {
+      const mins = Math.max(1, Math.round((distKm * 1000) / 80)); // ~80m per min walk
+      return `${mins} mins walk`;
+    } else {
+      const mins = Math.max(1, Math.round((distKm * 60) / 30)); // 30km/h
+      if (mins < 60) return `${mins} mins`;
+      const hrs = Math.floor(mins / 60);
+      const m = mins % 60;
+      return `${hrs} hr ${m} mins`;
+    }
+  };
+
+  const getFilterIcon = (f: string) => {
+    const fw = f.toLowerCase();
+    if (fw.includes('water')) return <span style={{color: '#60a5fa'}}>💧</span>;
+    if (fw.includes('tea') || fw.includes('chai')) return <span style={{color: '#fbbf24'}}>☕</span>;
+    if (fw.includes('food') || fw.includes('tabarruk') || fw.includes('biryani')) return <span style={{color: '#f87171'}}>🍛</span>;
+    if (fw.includes('rest') || fw.includes('washroom') || fw.includes('toilet')) return <span style={{color: '#a78bfa'}}>🛏️</span>;
+    if (fw.includes('ors') || fw.includes('medical')) return <span style={{color: '#f97316'}}>✚</span>;
+    return null;
+  };
 
   // Filtered List for main view
   const filtered = useMemo(() => {
@@ -243,35 +289,129 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
 
       <main style={{ padding: '0 20px 40px 20px' }}>
         
-        {/* Nearby Sabeels Section */}
-        {nearbySabeels.length > 0 && !search && selectedFilters.length === 0 && (
-          <div style={{ marginBottom: '40px' }}>
-            <div className="section-head" style={{ marginBottom: '16px' }}>
+        {nextSabeel ? (
+          <>
+            {/* NEXT SABEEL FEATURED CARD */}
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 600, margin: '0 0 12px 0', color: 'var(--text)' }}>Next Sabeel</h2>
+              <div style={{ background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '0', padding: '16px' }}>
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <div style={{ width: '64px', height: '64px', flexShrink: 0, borderRadius: '0', border: '2px solid var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--gold)', fontSize: '24px', fontWeight: 700 }}>
+                    {nextSabeel.sl_num}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 4px 0', color: 'var(--text)' }}>
+                      {cleanStr(nextSabeel.sabeel_name)}
+                    </h3>
+                    <div style={{ color: 'var(--gold)', fontWeight: 600, fontSize: '14px', marginBottom: '4px' }}>
+                      {nextSabeel.distance < 1 ? `${(nextSabeel.distance * 1000).toFixed(0)} m` : `${nextSabeel.distance.toFixed(1)} km`} away
+                    </div>
+                    <div style={{ color: 'var(--text-dim)', fontSize: '13px', marginBottom: '12px' }}>
+                      ETA: {formatETA(nextSabeel.distance)}
+                    </div>
+                    {/* Tags */}
+                    {nextSabeel.filters && nextSabeel.filters.length > 0 && (
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        {nextSabeel.filters.map((f, i) => (
+                          <span key={i} style={{ background: 'var(--bg)', border: '1px solid var(--line)', color: 'var(--text-dim)', fontSize: '11px', padding: '4px 8px', borderRadius: '0', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
+                            {getFilterIcon(f)} {f}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <button 
+                  onClick={() => openMap(nextSabeel)}
+                  style={{ width: '100%', padding: '12px', background: 'var(--gold)', color: '#000', borderRadius: '0', border: 'none', fontWeight: 700, marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px' }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                  Directions
+                </button>
+              </div>
+            </div>
+
+            {/* UPCOMING SABEELS TIMELINE */}
+            <div style={{ marginBottom: '40px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 600, margin: 0, color: 'var(--text)' }}>Upcoming Sabeels</h2>
+                <span style={{ color: 'var(--gold)', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }} onClick={() => setSearch(' ')}>View all</span>
+              </div>
+              
+              <div className="sabeel-timeline" style={{ position: 'relative', paddingLeft: '8px' }}>
+                <div style={{ position: 'absolute', left: '23px', top: '24px', bottom: '24px', width: '2px', borderLeft: '2px dashed var(--gold-line)' }}></div>
+                
+                {(showAllUpcoming ? upcomingSabeels : upcomingSabeels.slice(0, 5)).map((s, idx) => (
+                  <div key={s.id || idx} style={{ display: 'flex', gap: '16px', marginBottom: '24px', position: 'relative', cursor: 'pointer' }} onClick={() => openMap(s)}>
+                    <div style={{ flexShrink: 0, width: '32px', height: '32px', borderRadius: '0', background: 'var(--bg)', border: '2px solid var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gold)', fontSize: '13px', fontWeight: 700, zIndex: 2, marginTop: '0px' }}>
+                      {s.sl_num}
+                    </div>
+                    <div style={{ flex: 1, paddingBottom: '20px', borderBottom: idx === upcomingSabeels.length - 1 ? 'none' : '1px solid var(--line)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <h3 style={{ fontSize: '16px', fontWeight: 600, margin: '0 0 6px 0', color: 'var(--text)', paddingRight: '12px' }}>
+                          {cleanStr(s.sabeel_name)}
+                        </h3>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '2px' }}><path d="M9 18l6-6-6-6"/></svg>
+                      </div>
+                      
+                      {s.distance !== Infinity && (
+                        <div style={{ color: 'var(--text-dim)', fontSize: '13.5px', marginBottom: '12px' }}>
+                          {s.distance < 1 ? `${(s.distance * 1000).toFixed(0)} m` : `${s.distance.toFixed(1)} km`} away &nbsp;•&nbsp; ETA: {formatETA(s.distance)}
+                        </div>
+                      )}
+
+                      {/* Tags */}
+                      {s.filters && s.filters.length > 0 && (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                          {s.filters.map((f, i) => (
+                            <span key={i} style={{ background: 'var(--surface)', border: '1px solid var(--line)', color: 'var(--text-dim)', fontSize: '11.5px', padding: '4px 8px', borderRadius: '0', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
+                              {getFilterIcon(f)} {f}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                
+                {!showAllUpcoming && upcomingSabeels.length > 5 && (
+                  <button 
+                    onClick={() => setShowAllUpcoming(true)}
+                    style={{ width: '100%', padding: '12px', background: 'transparent', color: 'var(--gold)', border: '1px solid var(--gold)', borderRadius: '0', fontWeight: 600, marginTop: '8px', cursor: 'pointer', fontSize: '14px' }}
+                  >
+                    Show More ({upcomingSabeels.length - 5})
+                  </button>
+                )}
+
+                {upcomingSabeels.length === 0 && (
+                  <div style={{ color: 'var(--text-dim)', paddingLeft: '40px', fontStyle: 'italic', fontSize: '14px' }}>
+                    You have passed all registered sabeels.
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* STANDARD SEARCH / ALL VIEW */}
+            <div className="section-head" style={{ marginBottom: '8px' }}>
               <span className="label" style={{ fontWeight: 700, fontSize: '15px', color: 'var(--text)' }}>
-                📍 Sabeels Nearby
+                {search || selectedFilters.length > 0 ? 'Search Results' : 'All Sabeels'} <span style={{ color: 'var(--gold)', fontWeight: 600 }}>(Bengaluru → Doddaballapur)</span>
               </span>
             </div>
-            <div>
-              {nearbySabeels.map((s, idx) => renderSabeelCard(s, idx, true))}
+
+            <div className="sabeel-timeline" style={{ position: 'relative', marginTop: '24px' }}>
+              <div style={{ position: 'absolute', left: '15px', top: '14px', bottom: '14px', width: '1px', background: 'rgba(212, 175, 55, 0.3)' }}></div>
+
+              {filtered.length === 0 ? (
+                <div className="empty-state" style={{ paddingLeft: '40px' }}>No Sabeels found matching your criteria.</div>
+              ) : (
+                filtered.map((s, idx) => renderSabeelCard(s, idx, false))
+              )}
             </div>
-          </div>
+          </>
         )}
-
-        <div className="section-head" style={{ marginBottom: '8px' }}>
-          <span className="label" style={{ fontWeight: 700, fontSize: '15px', color: 'var(--text)' }}>
-            All Sabeels <span style={{ color: 'var(--gold)', fontWeight: 600 }}>(Bengaluru → Doddaballapur)</span>
-          </span>
-        </div>
-
-        <div className="sabeel-timeline" style={{ position: 'relative', marginTop: '24px' }}>
-          <div style={{ position: 'absolute', left: '15px', top: '14px', bottom: '14px', width: '1px', background: 'rgba(212, 175, 55, 0.3)' }}></div>
-
-          {filtered.length === 0 ? (
-            <div className="empty-state" style={{ paddingLeft: '40px' }}>No Sabeels found matching your criteria.</div>
-          ) : (
-            filtered.map((s, idx) => renderSabeelCard(s, idx, false))
-          )}
-        </div>
+        
       </main>
     </div>
   );

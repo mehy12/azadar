@@ -11,7 +11,7 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function Page() {
+export default async function Page(props: { searchParams?: Promise<{ [key: string]: string | string[] | undefined }> }) {
   let isLive = false;
   let sabeels: Sabeel[] = sabeelsData as any;
 
@@ -29,7 +29,9 @@ export default async function Page() {
         .eq('sabeel_name', 'APP_CONFIG')
         .maybeSingle();
 
-      if (configData?.filters?.doddaballapur_live) {
+      const searchParams = props.searchParams ? await props.searchParams : {};
+      
+      if (configData?.filters?.doddaballapur_live || searchParams?.preview === 'true') {
         isLive = true;
       }
 
