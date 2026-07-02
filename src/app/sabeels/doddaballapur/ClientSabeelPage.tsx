@@ -37,7 +37,13 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
 
   // Get User's Location
   useEffect(() => {
-    // Developer Override for testing specific coordinates
+    // Developer Override via Console
+    (window as any).setMockLocation = (lat: number, lng: number) => {
+      setUserLocation({ lat, lng });
+      console.log(`%c[AzaHub Debug]%c Mock location updated to: ${lat}, ${lng}`, 'color: #D4AF37; font-weight: bold;', 'color: inherit;');
+    };
+
+    // Developer Override for testing specific coordinates via URL
     const urlParams = new URLSearchParams(window.location.search);
     const testLat = urlParams.get('testLat');
     const testLng = urlParams.get('testLng');
@@ -63,6 +69,10 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
         }
       );
     }
+    
+    return () => {
+      delete (window as any).setMockLocation;
+    };
   }, []);
 
   // Compute all available unique filters across all sabeels
@@ -95,27 +105,41 @@ export default function ClientSabeelPage({ sabeels }: { sabeels: Sabeel[] }) {
     const sortedByDistance = [...sabeelsWithDistance].sort((a, b) => a.distance - b.distance);
     const closest = sortedByDistance[0];
     if (!closest) return { nextSabeel: null, upcomingSabeels: [] };
-    
-    // Upcoming are those after the closest in route order
-    const upcoming = sabeelsWithDistance
-      .filter(s => s.sl_num > closest.sl_num)
-      .sort((a, b) => a.sl_num - b.sl_num);
+
+    let actualNext = closest;
+    const sortedByRoute = [...sabeelsWithDistance].sort((a, b) => a.sl_num - b.sl_num);
+    const closestIdx = sortedByRoute.findIndex(s => s.id === closest.id);
+
+    if (closestIdx !== -1 && closestIdx < sortedByRoute.length - 1) {
+      // Find the next Sabeel that actually has coordinates
+      const nextWithCoords = sortedByRoute.slice(closestIdx + 1).find(s => s.lat && s.lng);
       
-    return { nextSabeel: closest, upcomingSabeels: upcoming };
+      if (nextWithCoords && closest.lat && closest.lng) {
+        const distUserToNext = nextWithCoords.distance;
+        const distClosestToNext = getDistanceFromLatLonInKm(closest.lat, closest.lng, nextWithCoords.lat, nextWithCoords.lng);
+        
+        // Geometric check: If the user is closer to the upcoming waypoint than the current waypoint is to the upcoming waypoint,
+        // it means the user has driven past the current waypoint!
+        if (distUserToNext < distClosestToNext) {
+          actualNext = sortedByRoute[closestIdx + 1]; // Advance to the next one in the route
+        }
+      }
+    }
+    
+    // Upcoming are strictly those after actualNext in route order
+    const upcoming = sortedByRoute.filter(s => s.sl_num > actualNext.sl_num);
+      
+    return { nextSabeel: actualNext, upcomingSabeels: upcoming };
   }, [sabeelsWithDistance, userLocation, search, selectedFilters]);
 
   const formatETA = (distKm: number) => {
     if (distKm === Infinity) return '';
-    if (distKm < 1) {
-      const mins = Math.max(1, Math.round((distKm * 1000) / 80)); // ~80m per min walk
-      return `${mins} mins walk`;
-    } else {
-      const mins = Math.max(1, Math.round((distKm * 60) / 30)); // 30km/h
-      if (mins < 60) return `${mins} mins`;
-      const hrs = Math.floor(mins / 60);
-      const m = mins % 60;
-      return `${hrs} hr ${m} mins`;
-    }
+    const mins = Math.max(1, Math.round((distKm * 60) / 5)); // 5km/h walk for all
+    if (mins < 60) return `${mins} mins walk`;
+    
+    const hrs = Math.floor(mins / 60);
+    const m = mins % 60;
+    return `${hrs} hr${hrs > 1 ? 's' : ''} ${m > 0 ? `${m} mins ` : ''}walk`;
   };
 
   const getFilterIcon = (f: string) => {
