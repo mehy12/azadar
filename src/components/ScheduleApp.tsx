@@ -596,8 +596,9 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           venue_name: 'System Broadcasts',
           starts_in: '0',
           venue_maps_link: '',
-          scheduled_for: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365).toISOString()
-        }, { onConflict: 'device_id,event_id' });
+          event_time: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365).toISOString(),
+          reminder_time: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365).toISOString()
+        }, { onConflict: 'device_id, event_id, reminder_time' });
 
       if (error) throw error;
       alert(locale === 'ur' ? "براڈکاسٹ الرٹس کے لیے کامیابی کے ساتھ سبسکرائب ہو گئے!" : "Successfully subscribed to important broadcast alerts!");
