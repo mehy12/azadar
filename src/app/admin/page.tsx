@@ -1334,7 +1334,7 @@ export default function AdminPage() {
               </h2>
               <input type="text" placeholder="Search sabeels..." value={sabeelSearch} onChange={e => setSabeelSearch(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '20px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '8px', color: 'var(--text)' }} />
               <div style={{ overflowY: 'auto', flex: 1, paddingRight: '10px' }}>
-                {sabeels.filter(s => s.sabeel_name.toLowerCase().includes(sabeelSearch.toLowerCase()) || s.location.toLowerCase().includes(sabeelSearch.toLowerCase())).map(s => (
+                {sabeels.filter(s => s.sabeel_name.toLowerCase().includes(sabeelSearch.toLowerCase()) || (s.location && s.location.toLowerCase().includes(sabeelSearch.toLowerCase()))).map(s => (
                   <div key={s.id || s.sl_num} style={{ background: 'var(--surface-2)', border: '1px solid var(--line)', padding: '15px', borderRadius: '8px', marginBottom: '10px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <div style={{ flex: 1 }}>

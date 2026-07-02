@@ -11,6 +11,7 @@ export async function getSabeels(): Promise<Sabeel[]> {
     const { data, error } = await supabase
       .from('sabeels')
       .select('*')
+      .gte('sl_num', 0)
       .order('sl_num', { ascending: true });
 
     if (error) {
