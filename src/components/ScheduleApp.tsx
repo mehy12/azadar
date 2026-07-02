@@ -48,6 +48,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
 
   const [notices, setNotices] = useState<any[]>([]);
   const [showNoticesModal, setShowNoticesModal] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'Notification' in window) {
@@ -95,7 +96,7 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
       .then(data => {
         if (data && data.notices) setNotices(data.notices);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const dayRailRef = useRef<HTMLDivElement>(null);
@@ -563,6 +564,50 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     setShowReminderOptions(null);
   };
 
+  const handleSubscribeToBroadcasts = async () => {
+    if (!deviceId || !supabase) return;
+    setSubscribing(true);
+    try {
+      const { token, error: tokenError } = await requestForToken();
+
+      if (!token) {
+        if (tokenError === 'not_supported') {
+          alert(locale === 'ur'
+            ? 'آئی فون پر اطلاعات موصول کرنے کے لیے، براہ کرم اس ویب سائٹ کو اپنی ہوم اسکرین میں شامل کریں (Share -> Add to Home Screen)۔'
+            : 'On iPhone, you MUST add this website to your Home Screen to receive notifications (Share -> Add to Home Screen).');
+        } else if (tokenError === 'denied') {
+          alert(locale === 'ur' ? 'اطلاعات کی اجازت درکار ہے۔' : 'Notification permission is required. Please enable it in your browser settings.');
+        } else {
+          alert(locale === 'ur' ? 'اطلاعات کی اجازت درکار ہے۔' : `Failed to get push token: ${tokenError || 'Unknown error'}`);
+        }
+        setSubscribing(false);
+        return;
+      }
+
+      const client = getSupabaseClient(deviceId);
+      if (!client) throw new Error('Supabase client not initialized');
+
+      const { error } = await client
+        .from('reminders')
+        .upsert({
+          device_id: deviceId,
+          fcm_token: token,
+          event_id: 'BROADCAST_SUB',
+          venue_name: 'System Broadcasts',
+          starts_in: '0',
+          venue_maps_link: '',
+          scheduled_for: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365).toISOString()
+        }, { onConflict: 'device_id,event_id' });
+
+      if (error) throw error;
+      alert(locale === 'ur' ? "براڈکاسٹ الرٹس کے لیے کامیابی کے ساتھ سبسکرائب ہو گئے!" : "Successfully subscribed to important broadcast alerts!");
+    } catch (e: any) {
+      alert("Error subscribing: " + e.message);
+    } finally {
+      setSubscribing(false);
+    }
+  };
+
   const handleSetReminder = async (eventId: string, minutes: number) => {
     if (!deviceId || !activeEventDay || !activeEvent?.time_24h || !supabase) return;
     setReminderLoading(eventId);
@@ -662,39 +707,39 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {/* Language Switcher Pill */}
           <div className="lang-switcher" style={{ margin: 0, position: 'static', transform: 'none' }}>
-          <button
-            type="button"
-            className={locale === 'en' ? 'active' : ''}
-            onClick={() => setLocale('en')}
-          >
-            EN
-          </button>
-          <button
-            type="button"
-            className={locale === 'ur' ? 'active' : ''}
-            onClick={() => setLocale('ur')}
-          >
-            اردو
-          </button>
-        </div>
+            <button
+              type="button"
+              className={locale === 'en' ? 'active' : ''}
+              onClick={() => setLocale('en')}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              className={locale === 'ur' ? 'active' : ''}
+              onClick={() => setLocale('ur')}
+            >
+              اردو
+            </button>
+          </div>
 
-        {/* Bell Icon for Notices */}
-        <button 
-          onClick={() => setShowNoticesModal(true)}
-          style={{ 
-            background: 'var(--surface-2)', border: '1px solid var(--line)', padding: '8px', 
-            borderRadius: '50%', color: notices.length > 0 ? 'var(--gold)' : 'var(--text-dim)', 
-            cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' 
-          }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-          </svg>
-          {notices.length > 0 && (
-            <span style={{ position: 'absolute', top: '-2px', right: '-2px', background: 'var(--maroon)', width: '10px', height: '10px', borderRadius: '50%', border: '2px solid var(--bg)' }}></span>
-          )}
-        </button>
+          {/* Bell Icon for Notices */}
+          <button
+            onClick={() => setShowNoticesModal(true)}
+            style={{
+              background: 'var(--surface-2)', border: '1px solid var(--line)', padding: '8px',
+              borderRadius: '50%', color: notices.length > 0 ? 'var(--gold)' : 'var(--text-dim)',
+              cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            {notices.length > 0 && (
+              <span style={{ position: 'absolute', top: '-2px', right: '-2px', background: 'var(--maroon)', width: '10px', height: '10px', borderRadius: '50%', border: '2px solid var(--bg)' }}></span>
+            )}
+          </button>
         </div>
 
         <p className="eyebrow">{uiTranslations[locale].eyebrow}</p>
@@ -718,9 +763,25 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
             <div style={{ padding: '20px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>Broadcast Notices</h3>
               <button onClick={() => setShowNoticesModal(false)} style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
               </button>
             </div>
+
+            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--line)', background: 'var(--surface-2)' }}>
+              <button
+                onClick={handleSubscribeToBroadcasts}
+                disabled={subscribing}
+                style={{
+                  width: '100%', padding: '12px', background: 'var(--maroon)', color: 'var(--bg)',
+                  border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: 'pointer',
+                  opacity: subscribing ? 0.7 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
+                {subscribing ? (locale === 'ur' ? 'سبسکرائب ہو رہا ہے...' : 'Subscribing...') : (locale === 'ur' ? 'پش الرٹس حاصل کریں' : 'Subscribe')}
+              </button>
+            </div>
+
             <div style={{ padding: '20px', overflowY: 'auto', flex: 1 }}>
               {notices.length === 0 ? (
                 <div style={{ textAlign: 'center', color: 'var(--text-dim)', padding: '40px 0' }}>
