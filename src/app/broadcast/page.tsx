@@ -16,8 +16,11 @@ export default function BroadcastPage() {
   const [broadcastForm, setBroadcastForm] = useState({
     title: '',
     body: '',
-    url: ''
+    url: '',
+    saveToNotices: true
   });
+  
+  const [notices, setNotices] = useState<any[]>([]);
 
   useEffect(() => {
     const savedPin = sessionStorage.getItem('admin_pin');
@@ -39,8 +42,37 @@ export default function BroadcastPage() {
           }
         })
         .catch(err => console.error('Failed to fetch device count', err));
+        
+      fetchNotices();
     }
   }, [isAuthorized]);
+
+  const fetchNotices = async () => {
+    try {
+      const res = await fetch('/api/admin/notices');
+      if (!res.ok) throw new Error('Not OK');
+      const ct = res.headers.get('content-type');
+      if (ct && ct.includes('application/json')) {
+        const data = await res.json();
+        if (data && data.notices) {
+          setNotices(data.notices);
+        }
+      }
+    } catch (e) {}
+  };
+
+  const handleDeleteNotice = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this notice?')) return;
+    try {
+      const savedPin = sessionStorage.getItem('admin_pin') || '';
+      await fetch('/api/admin/notices', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, pin: savedPin })
+      });
+      fetchNotices();
+    } catch (e) {}
+  };
 
   const handleSubmitPin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +115,8 @@ export default function BroadcastPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Broadcast failed.');
       setMessage(data.message || 'Broadcast sent successfully.');
-      setBroadcastForm({ title: '', body: '', url: '' });
+      setBroadcastForm({ title: '', body: '', url: '', saveToNotices: true });
+      if (broadcastForm.saveToNotices) fetchNotices();
     } catch (err: any) {
       setError(err.message || 'Error sending broadcast.');
     } finally {
@@ -268,6 +301,16 @@ export default function BroadcastPage() {
               />
             </div>
 
+            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={broadcastForm.saveToNotices}
+                onChange={e => setBroadcastForm({ ...broadcastForm, saveToNotices: e.target.checked })}
+                style={{ width: '18px', height: '18px', accentColor: 'var(--gold)' }}
+              />
+              Also save this message to everyone&apos;s <strong>Notices (Bell Icon)</strong>
+            </label>
+
             <button
               type="submit"
               disabled={broadcasting}
@@ -287,6 +330,34 @@ export default function BroadcastPage() {
               {broadcasting ? 'Sending...' : 'SEND BROADCAST TO ALL DEVICES'}
             </button>
           </form>
+          
+          <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--line)' }}>
+            <h3 style={{ fontSize: '18px', margin: '0 0 16px 0' }}>Current Active Notices</h3>
+            {notices.length === 0 ? (
+              <p style={{ color: 'var(--text-dim)', fontSize: '14px' }}>No active notices at the moment.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {notices.map(n => (
+                  <div key={n.id} style={{ background: 'var(--bg)', padding: '16px', border: '1px solid var(--line)', borderRadius: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <h4 style={{ margin: '0 0 8px 0', fontSize: '15px' }}>{n.title}</h4>
+                      <button 
+                        onClick={() => handleDeleteNotice(n.id)}
+                        style={{ background: 'none', border: 'none', color: 'var(--maroon)', cursor: 'pointer', fontSize: '13px', padding: '4px' }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-dim)' }}>{n.body}</p>
+                    <div style={{ fontSize: '11px', color: 'var(--line)', marginTop: '8px' }}>
+                      {new Date(n.created_at).toLocaleString()}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          
         </div>
       </main>
     </div>

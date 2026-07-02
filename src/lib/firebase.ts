@@ -13,9 +13,16 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-export const getAppMessaging = () => {
+export const getAppMessaging = async () => {
   if (typeof window !== 'undefined') {
-    return getMessaging(app);
+    try {
+      const supported = await isSupported();
+      if (supported) {
+        return getMessaging(app);
+      }
+    } catch (e) {
+      console.warn("Firebase Messaging is not supported or failed to initialize", e);
+    }
   }
   return null;
 };

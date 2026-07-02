@@ -46,34 +46,56 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
   const [notificationStatus, setNotificationStatus] = useState<string>('default');
   const [reminderSuccess, setReminderSuccess] = useState<{ id: string, msg: string } | null>(null);
 
+  const [notices, setNotices] = useState<any[]>([]);
+  const [showNoticesModal, setShowNoticesModal] = useState(false);
+
   useEffect(() => {
     if (typeof window !== 'undefined' && 'Notification' in window) {
       setNotificationStatus(Notification.permission);
     }
 
     // Listen for foreground Firebase messages
-    const messaging = getAppMessaging();
-    if (messaging) {
-      const unsubscribe = onMessage(messaging, (payload) => {
-        console.log('[Foreground Message] received: ', payload);
-        const title = payload.notification?.title || 'AzaHub';
-        const options = {
-          body: payload.notification?.body,
-          icon: '/android-chrome-192x192.png',
-        };
+    let unsubscribe: any = null;
+    getAppMessaging().then(messaging => {
+      if (messaging) {
+        unsubscribe = onMessage(messaging, (payload) => {
+          console.log('[Foreground Message] received: ', payload);
+          const title = payload.notification?.title || 'AzaHub';
+          const options = {
+            body: payload.notification?.body,
+            icon: '/android-chrome-192x192.png',
+          };
 
-        // Try to show a native notification if in the foreground and permitted
-        if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-          new Notification(title, options);
-        } else {
-          // Fallback to alert if native notification fails
-          alert(`${title}\n\n${options.body}`);
+          // Try to show a native notification if in the foreground and permitted
+          if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+            new Notification(title, options);
+          } else {
+            // Fallback to alert if native notification fails
+            alert(`${title}\n\n${options.body}`);
+          }
+        });
+      }
+    });
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/notices')
+      .then(res => {
+        if (!res.ok) throw new Error('Not OK');
+        const ct = res.headers.get('content-type');
+        if (ct && ct.includes('application/json')) {
+          return res.json();
         }
-      });
-      return () => {
-        unsubscribe();
-      };
-    }
+        throw new Error('Not JSON');
+      })
+      .then(data => {
+        if (data && data.notices) setNotices(data.notices);
+      })
+      .catch(() => {});
   }, []);
 
   const dayRailRef = useRef<HTMLDivElement>(null);
@@ -637,8 +659,9 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
     <div className={`app ${locale === 'ur' ? 'rtl' : ''}`} id="app" dir={locale === 'ur' ? 'rtl' : 'ltr'}>
       {/* Page Header */}
       <header className="top">
-        {/* Language Switcher Pill */}
-        <div className="lang-switcher">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {/* Language Switcher Pill */}
+          <div className="lang-switcher" style={{ margin: 0, position: 'static', transform: 'none' }}>
           <button
             type="button"
             className={locale === 'en' ? 'active' : ''}
@@ -655,6 +678,25 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           </button>
         </div>
 
+        {/* Bell Icon for Notices */}
+        <button 
+          onClick={() => setShowNoticesModal(true)}
+          style={{ 
+            background: 'var(--surface-2)', border: '1px solid var(--line)', padding: '8px', 
+            borderRadius: '50%', color: notices.length > 0 ? 'var(--gold)' : 'var(--text-dim)', 
+            cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' 
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          {notices.length > 0 && (
+            <span style={{ position: 'absolute', top: '-2px', right: '-2px', background: 'var(--maroon)', width: '10px', height: '10px', borderRadius: '50%', border: '2px solid var(--bg)' }}></span>
+          )}
+        </button>
+        </div>
+
         <p className="eyebrow">{uiTranslations[locale].eyebrow}</p>
         <h1 className="title">{uiTranslations[locale].title}</h1>
         <p className="subtitle">{uiTranslations[locale].subtitle}</p>
@@ -668,6 +710,41 @@ export const ScheduleApp: React.FC<ScheduleAppProps> = ({ venues, events, days, 
           </div>
         </div>
       </header>
+
+      {/* Notices Modal Overlay */}
+      {showNoticesModal && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }} onClick={() => setShowNoticesModal(false)}>
+          <div style={{ background: 'var(--surface)', width: '100%', maxWidth: '400px', borderRadius: '16px', border: '1px solid var(--line)', maxHeight: '80vh', display: 'flex', flexDirection: 'column' }} onClick={e => e.stopPropagation()}>
+            <div style={{ padding: '20px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>Broadcast Notices</h3>
+              <button onClick={() => setShowNoticesModal(false)} style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer' }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
+            <div style={{ padding: '20px', overflowY: 'auto', flex: 1 }}>
+              {notices.length === 0 ? (
+                <div style={{ textAlign: 'center', color: 'var(--text-dim)', padding: '40px 0' }}>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 16px', opacity: 0.5 }}>
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                  </svg>
+                  <p>No new notices at this time.</p>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {notices.map(n => (
+                    <div key={n.id} style={{ background: 'var(--bg)', border: '1px solid var(--line)', padding: '16px', borderRadius: '12px' }}>
+                      <h4 style={{ margin: '0 0 8px 0', fontSize: '16px' }}>{n.title}</h4>
+                      <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-dim)', lineHeight: 1.5 }}>{n.body}</p>
+                      <div style={{ fontSize: '12px', color: 'var(--line)', marginTop: '12px' }}>{new Date(n.created_at).toLocaleString()}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Tab Views */}
       {tab === 'home' && (

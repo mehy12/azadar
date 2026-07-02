@@ -39,7 +39,7 @@ function initFirebaseAdmin() {
 
 export async function POST(req: Request) {
   try {
-    const { title, body, url, pin } = await req.json();
+    const { title, body, url, pin, saveToNotices } = await req.json();
 
     // Verify Admin PIN
     const correctPin = process.env.NEXT_PUBLIC_ADMIN_PIN || '7860';
@@ -114,6 +114,40 @@ export async function POST(req: Request) {
           if (!resp.success) {
             failedTokens.push(chunk[idx]);
           }
+        });
+      }
+    }
+
+    // Save to notices if requested
+    if (saveToNotices) {
+      const { data: configData } = await supabase
+        .from('sabeels')
+        .select('filters')
+        .eq('sabeel_name', 'APP_NOTICES')
+        .maybeSingle();
+
+      let notices = [];
+      if (configData && Array.isArray(configData.filters)) {
+        notices = configData.filters;
+      }
+      
+      const newNotice = {
+        id: Date.now().toString(),
+        title,
+        body,
+        url,
+        created_at: Date.now()
+      };
+      
+      notices.unshift(newNotice);
+
+      if (configData) {
+        await supabase.from('sabeels').update({ filters: notices as any }).eq('sabeel_name', 'APP_NOTICES');
+      } else {
+        await supabase.from('sabeels').insert({ 
+          sl_num: -1, 
+          sabeel_name: 'APP_NOTICES', 
+          filters: notices as any 
         });
       }
     }
